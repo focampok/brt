@@ -9,14 +9,14 @@ if($_POST) {
 	$codAdicion = $_POST['brandName'];
         $nombreAdicion = $_POST['brandStatus']; 
 
-	$sql = "INSERT INTO adicion (codigo_adicion,nombre_adicion) VALUES ('$codAdicion','$nombreAdicion')";
+	$sql = "INSERT INTO contenedor (codigo_contenedor,nombre_contenedor) VALUES ('$codAdicion','$nombreAdicion')";
 
 	if($connect->query($sql) === TRUE) {
 	 	$valid['success'] = true;
-		$valid['messages'] = "Adición creada exitosamente.";	
+		$valid['messages'] = "Contenedor creado exitosamente.";	
 	} else {
 	 	$valid['success'] = false;
-	 	$valid['messages'] = "Error no se ha podido crear la adición.";
+	 	$valid['messages'] = "Error no se ha podido crear el contenedor.";
 	}
 	 
 

@@ -59,14 +59,14 @@
 
                         <li id="navCategories"><a href="activos.php"> <i class="glyphicon glyphicon-pushpin"></i> Productos </a></li>        
 
-                        <li id="navCertificacion"><a href="certificaciones.php"> <i class="glyphicon glyphicon-briefcase"></i> Proyectos </a></li>     
+                        <li id="navCertificacion"><a href="proyectos.php"> <i class="glyphicon glyphicon-briefcase"></i> Proyectos </a></li>     
 
 
                         <li class="dropdown" id="navOrder">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="glyphicon glyphicon-list-alt"></i> Reportes <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li id="topNavAddOrder"><a href="resumenAdiciones.php"> <i class="glyphicon glyphicon-th-list"></i> Resumen de Contenedores </a></li> 
-                                <li id="topNavAddOrder"><a href="exportarExcel.php"> <i class="glyphicon glyphicon-export"></i> Libro </a></li>                                                     
+                                <li id="topNavAddOrder"><a href="exportarExcel.php"> <i class="glyphicon glyphicon-export"></i> Inventario </a></li>                                                     
                             </ul>
                         </li> 
 

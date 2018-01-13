@@ -6,25 +6,25 @@
 
 		<ol class="breadcrumb">
 		  <li><a href="dashboard.php">Inicio</a></li>		  
-		  <li class="active">Certificaciones</li>
+		  <li class="active">Proyectos</li>
 		</ol>
 
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<div class="page-heading"> <i class="glyphicon glyphicon-edit"></i> Listado de Certificaciones</div>
+				<div class="page-heading"> <i class="glyphicon glyphicon-edit"></i> Listado de Proyectos</div>
 			</div> <!-- /panel-heading -->
 			<div class="panel-body">
 
 				<div class="remove-messages"></div>
 
 				<div class="div-action pull pull-right" style="padding-bottom:20px;">
-					<button class="btn btn-default button1" data-toggle="modal" data-target="#addCertificacionModal" id="addCertificacionModalBtn"> <i class="glyphicon glyphicon-plus-sign"></i> Nueva Certificación </button>
+					<button class="btn btn-default button1" data-toggle="modal" data-target="#addCertificacionModal" id="addCertificacionModalBtn"> <i class="glyphicon glyphicon-plus-sign"></i> Nuevo Proyecto </button>
 				</div> <!-- /div-action -->				
 				
 				<table class="table" id="manageCertificacionesTable">
 					<thead>
 						<tr>							
-							<th>Código Certificación</th>
+							<th>Código Proyecto</th>
 							<th>Fecha</th>
                                                         <th>Estado</th>
                                                         <th>Activos</th>

@@ -2,15 +2,15 @@
 
 <?php 
 
-$consultaActivos = "SELECT * FROM activo;";
+$consultaActivos = "SELECT * FROM producto;";
 $query = $connect->query($consultaActivos);
 $totalActivos = $query->num_rows;
 
-$consultaAdiciones = "SELECT * FROM adicion";
+$consultaAdiciones = "SELECT * FROM contenedor";
 $query2 = $connect->query($consultaAdiciones);
-$totalAdiciones = $query2->num_rows;
+$totalAdiciones = ($query2->num_rows) - 1;
 
-$consultaActas = "SELECT * FROM acta";
+$consultaActas = "SELECT * FROM proyecto";
 $query3 = $connect->query($consultaActas);
 $totalActas = ($query3->num_rows) - 1;
 

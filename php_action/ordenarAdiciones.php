@@ -2,7 +2,7 @@
 
 require_once 'core.php';
 
-$sql = "SELECT codigo_adicion, nombre_adicion FROM adicion";
+$sql = "SELECT codigo_contenedor, nombre_contenedor FROM contenedor WHERE codigo_contenedor != '-1';";
 $result = $connect->query($sql);
 
 $output = array('data' => array());
@@ -14,7 +14,7 @@ if ($result->num_rows > 0) {
         $brandId = $row[0];
 
         //calcular los totales por cada adición
-        $consultaAdicion = "call obtenerTotalAdicion('$brandId',@total)";
+        $consultaAdicion = "call obtenerTotalContenedor('$brandId',@total)";
         $connect->query($consultaAdicion);
         $c = "select @total as salida";
         $query4 = $connect->query($c);

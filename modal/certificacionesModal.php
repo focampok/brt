@@ -6,14 +6,14 @@
             <form class="form-horizontal" id="submitCertificacionForm" action="php_action/createCertificacion.php" method="POST">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title"><i class="fa fa-plus"></i> Nueva Certificación</h4>
+                    <h4 class="modal-title"><i class="fa fa-plus"></i> Nuevo Proyecto</h4>
                 </div>
                 <div class="modal-body">
 
                     <div id="add-certificaciones-messages"></div>
 
                     <div class="form-group">
-                        <label for="codCertificacion" class="col-sm-3 control-label">Código Certificación </label>
+                        <label for="codCertificacion" class="col-sm-3 control-label">Código Proyecto </label>
                         <label class="col-sm-1 control-label">: </label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control" id="codCertificacion" placeholder="Código" name="codCertificacion" required="">
@@ -48,10 +48,10 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title"><i class="glyphicon glyphicon-trash"></i> Anular certificación</h4>
+                <h4 class="modal-title"><i class="glyphicon glyphicon-trash"></i> Anular Proyecto</h4>
             </div>
             <div class="modal-body">
-                <p> ¿Realmente desea anular la certificación seleccionada ?</p>
+                <p> ¿Realmente desea anular el proyecto seleccionado ?</p>
             </div>
             <div class="modal-footer removeBrandFooter">
                 <button type="button" class="btn btn-default" data-dismiss="modal"> <i class="glyphicon glyphicon-remove-sign"></i> Cerrar</button>

@@ -2,7 +2,7 @@
 
 require_once 'core.php';
 
-$sql = "SELECT codigo_certificacion,fecha,estado FROM certificacion WHERE codigo_certificacion != '-1';";
+$sql = "SELECT codigo_proyecto,fecha,estado FROM proyecto WHERE codigo_proyecto != '-1';";
 $result = $connect->query($sql);
 
 $output = array('data' => array());
@@ -37,7 +37,7 @@ if ($result->num_rows > 0) {
         }
         //calcular total de certificaciones
         //calcular los totales por cada adición
-        $consultaAdicion = "call obtenerTotalCertificacion('$id',@total)";
+        $consultaAdicion = "call obtenerTotalProyecto('$id',@total)";
         $connect->query($consultaAdicion);
         $c = "select @total as salida";
         $query4 = $connect->query($c);
