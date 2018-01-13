@@ -27,7 +27,7 @@
 							<th>Código Proyecto</th>
 							<th>Fecha</th>
                                                         <th>Estado</th>
-                                                        <th>Activos</th>
+                                                        <th>Productos</th>
                                                         <th>Total</th>
 							<th style="width:15%;">Opciones</th>
 						</tr>

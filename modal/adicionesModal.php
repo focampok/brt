@@ -68,14 +68,14 @@
 		        	<label for="editBrandName" class="col-sm-3 control-label">Código: </label>
 		        	<label class="col-sm-1 control-label">: </label>
 					    <div class="col-sm-8">
-                                                <input type="text" class="form-control" id="editBrandName" placeholder="Código Adición" name="editBrandName" readonly="">
+                                                <input type="text" class="form-control" id="editBrandName" placeholder="Código contenedor" name="editBrandName" readonly="">
 					    </div>
 		        </div> <!-- /form-group-->	         	        
 		        <div class="form-group">
 		        	<label for="editBrandStatus" class="col-sm-3 control-label">Nombre: </label>
 		        	<label class="col-sm-1 control-label">: </label>
 					    <div class="col-sm-8">
-					      <input type="text" class="form-control" id="editBrandStatus" placeholder="Nombre Adición" name="editBrandStatus" autocomplete="off">
+					      <input type="text" class="form-control" id="editBrandStatus" placeholder="Nombre Contenedor" name="editBrandStatus" autocomplete="off">
 					    </div>
 		        </div> <!-- /form-group-->	
 		      </div>         	        

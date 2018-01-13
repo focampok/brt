@@ -118,11 +118,11 @@ function editarAdicion(brandId) {
 				$('.editBrandFooter').removeClass('div-hide');
 
 				// setting the brand name value 
-				$('#editBrandName').val(response.codigo_adicion);
+				$('#editBrandName').val(response.codigo_contenedor);
 				// setting the brand status value
-				$('#editBrandStatus').val(response.nombre_adicion);
-				// brand id 
-				$(".editBrandFooter").after('<input type="hidden" name="brandId" id="brandId" value="'+response.codigo_adicion+'" />');
+				$('#editBrandStatus').val(response.nombre_contenedor);
+				// brand id                                 
+				$(".editBrandFooter").after('<input type="hidden" name="brandId" id="brandId" value="'+response.codigo_contenedor+'" />');
 
 				// update brand form 
 				$('#editBrandForm').unbind('submit').bind('submit', function() {

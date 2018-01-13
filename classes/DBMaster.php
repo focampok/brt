@@ -155,13 +155,13 @@ class DBMaster {
         // si la conexion no tiene errorres, hago la consulta
         if (!$this->db_connection->connect_errno) {
             // realizo la consulta para obtener codigo y nombre del producto.
-            $sql = "SELECT * FROM adicion;";
+            $sql = "SELECT * FROM contenedor;";
             $resultado = $this->db_connection->query($sql);
             // si existen productos
             if ($resultado->num_rows > 0) {
                 $lista = "";
                 while ($add = $resultado->fetch_array()) {
-                    $lista .=" <option value='" . $add['codigo_adicion'] . "'>" . $add['codigo_adicion'] . ' - ' . $add['nombre_adicion'] . "</option>";
+                    $lista .=" <option value='" . $add['codigo_contenedor'] . "'>" . $add['codigo_contenedor'] . ' - ' . $add['nombre_contenedor'] . "</option>";
                 }
                 $this->adiciones = $lista;
             }
@@ -181,13 +181,13 @@ class DBMaster {
         // si la conexion no tiene errorres, hago la consulta
         if (!$this->db_connection->connect_errno) {
             // realizo la consulta para obtener certificaciones disponibles
-            $sql = "SELECT * FROM certificacion WHERE estado != 0;";
+            $sql = "SELECT * FROM proyecto WHERE estado != 0;";
             $resultado = $this->db_connection->query($sql);
             // si existen productos
             if ($resultado->num_rows > 0) {
                 $lista = "";
                 while ($cerf = $resultado->fetch_array()) {
-                    $lista .=" <option value='" . $cerf['codigo_certificacion'] . "'>" . $cerf['codigo_certificacion'] . "</option>";
+                    $lista .=" <option value='" . $cerf['codigo_proyecto'] . "'>" . $cerf['codigo_proyecto'] . "</option>";
                 }
                 $this->certificaciones = $lista;
             }

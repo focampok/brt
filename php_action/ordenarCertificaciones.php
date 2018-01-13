@@ -51,7 +51,7 @@ if ($result->num_rows > 0) {
         }
 
         //busco los activos de esa cerf.
-        $ac = "SELECT codigo_inventario FROM activo WHERE CERTIFICACION_codigo_certificacion = '$id'";
+        $ac = "SELECT codigo_producto FROM producto WHERE PROYECTO_codigo_proyecto = '$id'";
         $rsac = $connect->query($ac);
         if ($rsac->num_rows > 0) {
             $activos = "";

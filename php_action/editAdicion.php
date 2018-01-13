@@ -8,7 +8,7 @@ if($_POST) {
         $nombreAdicion = $_POST['editBrandStatus']; 
         $id = $_POST['brandId'];
 
-	$sql = "UPDATE adicion SET nombre_adicion = '$nombreAdicion' WHERE codigo_adicion = '$id'";
+	$sql = "UPDATE contenedor SET nombre_contenedor = '$nombreAdicion' WHERE codigo_contenedor = '$id'";
 
 	if($connect->query($sql) === TRUE) {
 	 	$valid['success'] = true;

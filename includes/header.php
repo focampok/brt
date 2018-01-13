@@ -57,7 +57,7 @@
 
                         <li id="navBrand"><a href="contenedores.php"><i class="glyphicon glyphicon-compressed"></i> Contenedores </a></li>        
 
-                        <li id="navCategories"><a href="activos.php"> <i class="glyphicon glyphicon-pushpin"></i> Productos </a></li>        
+                        <li id="navCategories"><a href="productos.php"> <i class="glyphicon glyphicon-pushpin"></i> Productos </a></li>        
 
                         <li id="navCertificacion"><a href="proyectos.php"> <i class="glyphicon glyphicon-briefcase"></i> Proyectos </a></li>     
 

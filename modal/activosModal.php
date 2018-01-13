@@ -7,11 +7,6 @@ require_once("config/db.php");
 require_once("classes/DBMaster.php");
 //instancio el objeto de la clase sql
 $conexion = new DBMaster();
-$conexion->llenarComboCuentas();
-$cadenaCuentas = $conexion->cuentas;
-
-//instancio el objeto de la clase sql
-$conexion = new DBMaster();
 $conexion->llenarComboDepartamentos();
 $cadenaDepartamentos = $conexion->departamentos;
 
@@ -26,10 +21,6 @@ $conexion = new DBMaster();
 $conexion->llenarComboCertificaciones();
 $cadenaCertificaciones = $conexion->certificaciones;
 
-//instancio el objeto de la clase sql
-$conexion = new DBMaster();
-$conexion->llenarComboActas();
-$cadenaActas = $conexion->actas;
 ?>
 
 

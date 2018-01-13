@@ -23,7 +23,8 @@
 				
 				<table class="table" id="manageBrandTable">
 					<thead>
-						<tr>							
+						<tr>
+                                                        
 							<th>Código</th>
 							<th>Nombre</th>
                                                         <th>Total</th>

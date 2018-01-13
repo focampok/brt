@@ -10,14 +10,14 @@ if($_POST) {
         $fechaCertificacion = $_POST['fechaCertificacion']; 
         $estado = 1;
 
-	$sql = "INSERT INTO certificacion (codigo_certificacion,fecha,estado) VALUES ('$codCertificacion','$fechaCertificacion',$estado)";
+	$sql = "INSERT INTO proyecto (codigo_proyecto,fecha,estado) VALUES ('$codCertificacion','$fechaCertificacion',$estado)";
 
 	if($connect->query($sql) === TRUE) {
 	 	$valid['success'] = true;
-		$valid['messages'] = "Certificación creada exitosamente.";	
+		$valid['messages'] = "Proyecto creado exitosamente.";	
 	} else {
 	 	$valid['success'] = false;
-	 	$valid['messages'] = "Error no se ha podido crear la certificación.";
+	 	$valid['messages'] = "Error no se ha podido crear el proyecto.";
 	}
 	$connect->close();
 	echo json_encode($valid); 
