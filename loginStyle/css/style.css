@@ -117,7 +117,7 @@ input[type="submit"] {
     margin: 3em 0; 
 }
 input[type="submit"]:hover { 
-    background: #6b0f24;
+    background: #aa792c;
     -webkit-transform: translateY(8px);
     -ms-transform: translateY(8px);
 	-o-transform: translateY(8px);
