@@ -16,7 +16,7 @@ $conexion = new DBMaster();
 $conversor = new NumberToLetterConverter();
 
 
-$consulta = "SELECT * FROM adicion;";
+$consulta = "SELECT * FROM contenedor where codigo_contenedor != '-1';";
 $resultado = $connect->query($consulta);
 
 //obtengo la fecha actual.
@@ -36,12 +36,12 @@ if ($resultado->num_rows > 0) {
             ->setLastModifiedBy("Ocampo") //Ultimo usuario que lo modificó
             ->setTitle("Reporte Excel")
             ->setSubject("Reporte Excel")
-            ->setDescription("Reporte de activos y adiciones")
-            ->setKeywords("reporte adicion activos")
+            ->setDescription("Reporte de productos y contenedores")
+            ->setKeywords("reporte productos contenedores")
             ->setCategory("Reporte excel");
 
 
-    $titulosColumnas = array('FECHA', 'CUENTA', 'SUBCUENTA', 'NoInventario', 'CANT', 'DESCRIPCION', 'SUBTOTAL', 'TOTAL','ESTADO','PRECIO UNITARIO','FOLIO');
+    $titulosColumnas = array('FECHA', 'MARCA', 'MODELO', 'CODIGO', 'CANT', 'DESCRIPCION', 'SUBTOTAL', 'TOTAL', 'ESTADO', 'PRECIO UNITARIO', 'PROYECTO');
 
 
     // Se agregan los encabezados de la tabla
@@ -54,24 +54,24 @@ if ($resultado->num_rows > 0) {
             ->setCellValue('F1', $titulosColumnas[5])
             ->setCellValue('G1', $titulosColumnas[6])
             ->setCellValue('H1', $titulosColumnas[7]);
-            
+
 
     //letra roja y negrita para el folio...
     $hoja->getStyle('I2')->getFont()->setBold(true);
     $hoja->getStyle('I2')->getFont()->getColor()->setRGB('8A0808');
     // Se agrega info del mem
     $hoja
-            ->setCellValue('F2', 'MINISTERIO DE ENERGÍA Y MINAS')
-            ->setCellValue('F3', 'DIRECCION GENERAL ADMINISTRATIVA')
-            ->setCellValue('F4', 'DEPARTAMENTO FINANCIERO')
+            ->setCellValue('F2', 'GUATE GAS')
+            ->setCellValue('F3', 'SOCIEDAD ANONIMA')
+            ->setCellValue('F4', 'COORDINADORA DE LOGISTICA')
             ->setCellValue('F5', obtenerMes($hoy['mon']) . ' ' . $hoy['year']);
 
 
     //Se agregan los datos de las adiciones
     $i = 6;
     while ($fila = $resultado->fetch_array()) {
-        $codigoAdicion = $fila['codigo_adicion'];
-        $consultaAdicion = "call obtenerTotalAdicion($codigoAdicion,@total)";
+        $codigoAdicion = $fila['codigo_contenedor'];
+        $consultaAdicion = "call obtenerTotalContenedor('$codigoAdicion',@total)";
         $connect->query($consultaAdicion);
         $c = "select @total as salida";
         $query4 = $connect->query($c);
@@ -85,7 +85,7 @@ if ($resultado->num_rows > 0) {
         }
 
         //escribo las adiciones
-        $hoja->setCellValue('F' . $i, $fila['nombre_adicion']);
+        $hoja->setCellValue('F' . $i, $fila['nombre_contenedor']);
         //seteo la celda tipo numerico.
         $hoja->getStyle('G' . $i)->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
         $hoja->setCellValue('G' . $i, $total);
@@ -103,7 +103,7 @@ if ($resultado->num_rows > 0) {
         ),
         'fill' => array(
             'type' => PHPExcel_Style_Fill::FILL_SOLID,
-            'color' => array('rgb' => 'b8c0ef')
+            'color' => array('rgb' => 'bbbc5e')
         ),
         'borders' => array(
             'allborders' => array(
@@ -162,6 +162,8 @@ if ($resultado->num_rows > 0) {
     $objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(110);
     $objPHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(10);
     $objPHPExcel->getActiveSheet()->getColumnDimension('H')->setWidth(10);
+    $objPHPExcel->getActiveSheet()->getColumnDimension('I')->setWidth(10);
+    $objPHPExcel->getActiveSheet()->getColumnDimension('J')->setWidth(10);
 
 
     //aplico los estilos...
@@ -174,7 +176,7 @@ if ($resultado->num_rows > 0) {
     //seteo el valor y pinto la celda.
     $hoja->setCellValue('F' . ($i + 2), $totalInventario);
     $hoja->getStyle('F' . ($i + 2))->getFont()->setBold(TRUE);
-    $hoja->getStyle('F' . ($i + 2))->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('9fb1b7');
+    $hoja->getStyle('F' . ($i + 2))->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('e5e362');
 
     $consultaTotal = "call obtenerTotalIngresos(@total)";
     $connect->query($consultaTotal);
@@ -187,11 +189,11 @@ if ($resultado->num_rows > 0) {
     //seteo el valor y pinto la celda.
     $hoja->setCellValue('F' . ($i + 3), $cadenaTotal);
     $hoja->getStyle('F' . ($i + 3))->getFont()->setBold(TRUE);
-    $hoja->getStyle('F' . ($i + 3))->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('9fb1b7');
+    $hoja->getStyle('F' . ($i + 3))->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('e5e362');
 
     //seteo el valor y le doy formato.
     $hoja->getStyle('H' . ($i + 3))->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
-    $hoja->setCellValue('H' . ($i + 3), '=SUM(G6:G'.($i-1).')');
+    $hoja->setCellValue('H' . ($i + 3), '=SUM(G6:G' . ($i - 1) . ')');
 
     //escribo los nombres y firmas...
     $hoja->setCellValue('F48', "FRANCISCO JOSE OCAMPO GONZALEZ                                                                                                             ANA LETICIA ARAGON CASTILLO");
@@ -206,7 +208,7 @@ if ($resultado->num_rows > 0) {
     $hoja->getStyle('F49')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
     $hoja->getStyle('F50')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
     //busco todas las adiciones...
-    $consulta = "SELECT * FROM adicion;";
+    $consulta = "SELECT * FROM contenedor WHERE codigo_contenedor != '-1';";
     $resultado = $connect->query($consulta);
 
     $x = 53;
@@ -215,9 +217,9 @@ if ($resultado->num_rows > 0) {
         while ($adiciones[] = $resultado->fetch_array());
         //recorro las adiciones...
         foreach ($adiciones as $adicion) {
-            $codAdicion = $adicion['codigo_adicion'];
+            $codAdicion = $adicion['codigo_contenedor'];
             //obtengo el total de cada adicion...
-            $consultaAdicion = "call obtenerTotalAdicion('$codAdicion',@total)";
+            $consultaAdicion = "call obtenerTotalContenedor('$codAdicion',@total)";
             $connect->query($consultaAdicion);
             $c = "select @total as salida";
             $query4 = $connect->query($c);
@@ -227,9 +229,9 @@ if ($resultado->num_rows > 0) {
             //contador registros...           
 
             if ($totalAdicion != null) {
-                $hoja->setCellValue('F' . ($x + $contador), "ADICION No. " . $codAdicion . ' - ' . $adicion['nombre_adicion']);
+                $hoja->setCellValue('F' . ($x + $contador), "CONTADOR " . $codAdicion . ' - ' . $adicion['nombre_contenedor']);
                 $hoja->getStyle('F' . ($x + $contador))->getFont()->setBold(TRUE);
-                $hoja->getStyle('F' . ($x + $contador))->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('9fb1b7');
+                $hoja->getStyle('F' . ($x + $contador))->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('e5e362');
                 $hoja->getStyle('F' . ($x + $contador))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
                 $contador++;
 
@@ -241,13 +243,13 @@ if ($resultado->num_rows > 0) {
                     $hoja->setCellValue('A' . ($x + $contador), $activo['fecha']);
                     $hoja->getStyle('A' . ($x + $contador))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
                     //cuenta
-                    $hoja->setCellValue('B' . ($x + $contador), $activo['CUENTA_codigo_cuenta']);
+                    $hoja->setCellValue('B' . ($x + $contador), $activo['marca']);
                     $hoja->getStyle('B' . ($x + $contador))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
                     //subcuenta
-                    $hoja->setCellValue('C' . ($x + $contador), $activo['codigo_subcuenta']);
+                    $hoja->setCellValue('C' . ($x + $contador), $activo['modelo']);
                     $hoja->getStyle('C' . ($x + $contador))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
                     //cod.inventario
-                    $hoja->setCellValue('D' . ($x + $contador), $activo['codigo_inventario']);
+                    $hoja->setCellValue('D' . ($x + $contador), $activo['codigo_producto']);
                     $hoja->getStyle('D' . ($x + $contador))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
                     //cantidad
                     $hoja->setCellValue('E' . ($x + $contador), $activo['cantidad']);
@@ -258,17 +260,28 @@ if ($resultado->num_rows > 0) {
                     $hoja->getStyle('F' . ($x + $contador))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
                     //estado
                     $hoja->setCellValue('G' . ($x + $contador), obtenerEstado($activo['estado']));
-                    $hoja->getStyle('G' . ($x + $contador))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);                    
+                    $hoja->getStyle('G' . ($x + $contador))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
                     //precio unitario
                     $hoja->setCellValue('H' . ($x + $contador), $activo['precio_unitario']);
                     $hoja->getStyle('H' . ($x + $contador))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
                     $hoja->getStyle('H' . $i)->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
                     //total
-                    $hoja->setCellValue('I' . ($x + $contador),'='.'E' . ($x + $contador).'*'.'H' . ($x + $contador));
-                    $hoja->getStyle('I' . ($x + $contador))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);                    
+                    $hoja->setCellValue('I' . ($x + $contador), '=' . 'E' . ($x + $contador) . '*' . 'H' . ($x + $contador));
+                    $hoja->getStyle('I' . ($x + $contador))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
                     $hoja->getStyle('I' . $i)->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
-                    //folio
-                    $hoja->setCellValue('J' . ($x + $contador), $activo['folio']);
+                    //proyecto
+                    $codP = $activo['PROYECTO_codigo_proyecto'];
+                    $s = "SELECT codigo_proyecto FROM proyecto WHERE codigo_proyecto = '$codP'";
+                    $rs = $connect->query($s);
+                    $us = $rs->fetch_array();
+
+                    if ($us[0] == '-1') {
+                        $nombre = "";
+                    } else {
+                        $nombre = $us[0];
+                    }
+                    
+                    $hoja->setCellValue('J' . ($x + $contador), $nombre);
                     $hoja->getStyle('J' . ($x + $contador))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
                     $hoja->getStyle('J' . ($x + $contador))->getFont()->setBold(true);
                     $hoja->getStyle('J' . ($x + $contador))->getFont()->getColor()->setRGB('8A0808');
@@ -279,8 +292,8 @@ if ($resultado->num_rows > 0) {
             }
         }
     }
-    
-    $inicio= 53;
+
+    $inicio = 53;
 
     $hoja
             ->setCellValue('A' . ($inicio), $titulosColumnas[0])
@@ -292,7 +305,7 @@ if ($resultado->num_rows > 0) {
             ->setCellValue('G' . ($inicio), 'ESTADO')
             ->setCellValue('H' . ($inicio), 'VALOR UNITARIO')
             ->setCellValue('I' . ($inicio), 'TOTAL')
-            ->setCellValue('J' . ($inicio), 'FOLIO');
+            ->setCellValue('J' . ($inicio), 'PROYECTO');
 
 
 
@@ -307,16 +320,16 @@ if ($resultado->num_rows > 0) {
             ->setCellValue('G' . ($x + $contador + 1), 'ESTADO')
             ->setCellValue('H' . ($x + $contador + 1), 'VALOR UNITARIO')
             ->setCellValue('I' . ($x + $contador + 1), 'TOTAL')
-            ->setCellValue('J' . ($x + $contador + 1), 'FOLIO');
+            ->setCellValue('J' . ($x + $contador + 1), 'PROYECTO');
 
     //aplico los estilos...
-    $hoja->getStyle('A'.$inicio.':J'.$inicio)->applyFromArray($estiloEncabezado);
+    $hoja->getStyle('A' . $inicio . ':J' . $inicio)->applyFromArray($estiloEncabezado);
     $hoja->getStyle('A' . ($x + $contador + 1) . ':J' . ($x + $contador + 1))->applyFromArray($estiloEncabezado);
 
-    $objPHPExcel->getActiveSheet()->setTitle("ACTIVOS");
+    $objPHPExcel->getActiveSheet()->setTitle("PRODUCTOS");
 
     //Setting the header type
-    $nombreArchivo = "LIBRO_" . $hoy['mday'] . "." . $hoy['mon'] . "." . $hoy["year"] . "_" . $hoy['hours'] . "." . $hoy['minutes'] . "." . $hoy['seconds'] . ".xlsx";
+    $nombreArchivo = "INVENTARIO_" . $hoy['mday'] . "." . $hoy['mon'] . "." . $hoy["year"] . "_" . $hoy['hours'] . "." . $hoy['minutes'] . "." . $hoy['seconds'] . ".xlsx";
     header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
     header('Content-Disposition: attachment;filename="' . $nombreArchivo . '"');
     header('Cache-Control: max-age=0');
@@ -361,11 +374,11 @@ function obtenerEstado($numeroEstado) {
         case 1:
             return "Disponible";
         case 2:
-            return "Certificado";
+            return "Proyecto";
         case 3:
             return "Pendiente";
         case 0:
-            return "De baja";
+            return "No disponible";
     }
 }
 

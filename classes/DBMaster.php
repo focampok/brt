@@ -320,6 +320,10 @@ class DBMaster {
         $this->db_connection->close();
     }
     
+    
+    
+    
+    
     public function obtenerActivosAdicion($codigoAdicion) {
         // verifico la codificacion
         if (!$this->db_connection->set_charset("utf8")) {
@@ -329,7 +333,7 @@ class DBMaster {
         // si la conexion no tiene errorres, hago la consulta
         if (!$this->db_connection->connect_errno) {
             // realizo la consulta para obtener codigo y nombre del producto.
-            $sql = "SELECT * FROM activo WHERE ADICION_codigo_adicion = '$codigoAdicion';";
+            $sql = "SELECT * FROM producto WHERE CONTENEDOR_codigo_contenedor = '$codigoAdicion';";
             $resultado = $this->db_connection->query($sql);
             // si existen activos
             if ($resultado->num_rows > 0) {
