@@ -155,7 +155,7 @@ class DBMaster {
         // si la conexion no tiene errorres, hago la consulta
         if (!$this->db_connection->connect_errno) {
             // realizo la consulta para obtener codigo y nombre del producto.
-            $sql = "SELECT * FROM contenedor;";
+            $sql = "SELECT * FROM contenedor where codigo_contenedor != -1;";
             $resultado = $this->db_connection->query($sql);
             // si existen productos
             if ($resultado->num_rows > 0) {

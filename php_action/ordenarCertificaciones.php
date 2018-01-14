@@ -26,7 +26,7 @@ if ($result->num_rows > 0) {
 
         if ($row[2] == 0) {
             // si esta anulada, no tiene opciones
-            $estado = "<label class='label label-danger'> Anulada </label>";
+            $estado = "<label class='label label-danger'> Anulado </label>";
             $button .= '</ul></div>';
         } else if ($row[2] == 1) {
             // disponible, tiene ambas opciones...

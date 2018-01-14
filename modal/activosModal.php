@@ -33,7 +33,7 @@ $cadenaCertificaciones = $conexion->certificaciones;
             <form class="form-horizontal" id="submitCategoriesForm" action="php_action/createActivo.php" method="POST">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title"><i class="fa fa-plus"></i> Nuevo activo</h4>
+                    <h4 class="modal-title"><i class="fa fa-plus"></i> Nuevo producto</h4>
                 </div>
                 <div class="modal-body">
 
@@ -43,19 +43,13 @@ $cadenaCertificaciones = $conexion->certificaciones;
                         <center><label for="info" class="col-sm-4 control-label"><font color="red">  Obligatorio * </font></label></center>                       
                     </div> <!-- /form-group-->
                     <div class="form-group">
-                        <label for="codigoInventario" class="col-sm-4 control-label">Código Inventario * </label>
+                        <label for="codigoInventario" class="col-sm-4 control-label">Código producto * </label>
                         <label class="col-sm-1 control-label">: </label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" id="codigoInventario" placeholder="Código Inventario" name="codigoInventario" required="">
+                            <input type="text" class="form-control" id="codigoInventario" placeholder="Código producto" name="codigoInventario" required="">
                         </div>
                     </div> <!-- /form-group-->
-                    <div class="form-group">
-                        <label for="folio" class="col-sm-4 control-label">Folio * </label>
-                        <label class="col-sm-1 control-label">: </label>
-                        <div class="col-sm-7">
-                            <input type="text" class="form-control" id="folio" placeholder="Folio" name="folio" required="">
-                        </div>
-                    </div> <!-- /form-group-->
+                     <!-- /form-group-->
                     <div class="form-group">
                         <label for="fecha" class="col-sm-4 control-label">Fecha * </label>
                         <label class="col-sm-1 control-label">: </label>
@@ -63,62 +57,7 @@ $cadenaCertificaciones = $conexion->certificaciones;
                             <input type="date" class="form-control" id="fecha" placeholder="Fecha" name="fecha" required="">
                         </div>
                     </div> <!-- /form-group-->
-                    <div class="form-group">
-                        <label for="codigoCuenta" class="col-sm-4 control-label">Cuenta * </label>
-                        <label class="col-sm-1 control-label">: </label>
-                        <div class="col-sm-7">
-                            <select class="form-control" id="codigoCuenta" name="codigoCuenta" onchange="obtenerSubCuentas()">
-                                <option value="">-- Seleccionar --</option>  
-                                <?php echo $cadenaCuentas ?>
-                            </select>
-                        </div>
-                    </div>
-                    <!-- /form-group-->
-                    <div class="form-group">
-                        <label for="codigoSubCuenta" class="col-sm-4 control-label">Subcuenta * </label>
-                        <label class="col-sm-1 control-label">: </label>
-                        <div class="col-sm-7">
-                            <select class="form-control" id="codigoSubCuenta" name="codigoSubCuenta" >
-                                <option value="">-- Seleccionar --</option>                                
-                            </select>
-                        </div>                        
-                    </div> <!-- /form-group--> 
-                    <!-- llamada ajax -->
-                    <script>
-                        function obtenerSubCuentas() {
-                            //obtengo el formulario
-                            oFormObject = document.forms['submitCategoriesForm'];
-                            //obtengo el codigo del producto...    
-                            var cod = document.getElementById("codigoCuenta").value;
-                            $.ajax({
-                                url: 'php_action/obtenerSubcuentas.php?codigoCuenta=' + cod,
-                                complete: function (response) {
-                                    //obtengo el combo
-                                    var z = document.getElementById("codigoSubCuenta");
-
-                                    //limpio el combo antes de agregar las opciones
-                                    z.options.length = 0;
-
-                                    //obtengo las opciones
-                                    var info = response.responseText;
-                                    //hago un split por cada opcion
-                                    var arr = info.split(";");
-                                    for (x = 0; x < arr.length - 1; x++) {
-                                        //otro split para opcion y nombre
-                                        var arr2 = arr[x].split("-");
-                                        var option = document.createElement("option");
-                                        option.value = arr2[0];
-                                        option.text = arr2[0] + " - " + arr2[1];
-                                        //las agrego...
-                                        z.add(option);
-                                    }
-                                },
-                                error: function () {
-                                    $('#output').html('Imposible obtener datos');
-                                },
-                            });
-                        }
-                    </script>
+                    
                     <div class="form-group">
                         <label for="cantidad" class="col-sm-4 control-label">Cantidad * </label>
                         <label class="col-sm-1 control-label">: </label>
@@ -160,64 +99,9 @@ $cadenaCertificaciones = $conexion->certificaciones;
                         <div class="col-sm-7">
                             <input type="text" class="form-control" id="precio_unitario" placeholder="Precio" name="precio_unitario" required="">
                         </div>
-                    </div> <!-- /form-group-->
+                    </div> <!-- /form-group-->                    
                     <div class="form-group">
-                        <label for="codigoDepartamento" class="col-sm-4 control-label">Departamento </label>
-                        <label class="col-sm-1 control-label">: </label>
-                        <div class="col-sm-7">
-                            <select class="form-control" id="codigoDepartamento" name="codigoDepartamento" onchange="obtenerUsuarios()">
-                                <?php echo $cadenaDepartamentos ?>
-                            </select>
-                        </div>
-                    </div> <!-- /form-group-->
-                    <div class="form-group">
-                        <label for="codigoNit" class="col-sm-4 control-label">N.I.T </label>
-                        <label class="col-sm-1 control-label">: </label>
-                        <div class="col-sm-7">
-                            <select class="form-control" id="codigoNit" name="codigoNit">
-                                <option value="">-- Seleccionar --</option>                                
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- llamada ajax -->
-                    <script>
-                        function obtenerUsuarios() {
-                            //obtengo el formulario
-                            oFormObject = document.forms['submitCategoriesForm'];
-                            //obtengo el codigo del producto...    
-                            var cod = document.getElementById("codigoDepartamento").value;
-                            $.ajax({
-                                url: 'php_action/obtenerUsuarios.php?codigoDepartamento=' + cod,
-                                complete: function (response) {
-                                    //obtengo el combo
-                                    var z = document.getElementById("codigoNit");
-
-                                    //limpio el combo antes de agregar las opciones
-                                    z.options.length = 0;
-
-                                    //obtengo las opciones
-                                    var info = response.responseText;
-                                    //hago un split por cada opcion
-                                    var arr = info.split(";");
-                                    for (x = 0; x < arr.length - 1; x++) {
-                                        //otro split para opcion y nombre
-                                        var arr2 = arr[x].split("*");
-                                        var option = document.createElement("option");
-                                        option.value = arr2[0];
-                                        option.text = arr2[0] + " / " + arr2[1];
-                                        //las agrego...
-                                        z.add(option);
-                                    }
-                                },
-                                error: function () {
-                                    $('#output').html('Imposible obtener datos');
-                                },
-                            });
-                        }
-                    </script>
-                    <div class="form-group">
-                        <label for="codigoAdicion" class="col-sm-4 control-label">Adición * </label>
+                        <label for="codigoAdicion" class="col-sm-4 control-label">Contenedor * </label>
                         <label class="col-sm-1 control-label">: </label>
                         <div class="col-sm-7">
                             <select class="form-control" id="codigoAdicion" name="codigoAdicion">
@@ -243,7 +127,7 @@ $cadenaCertificaciones = $conexion->certificaciones;
             <form class="form-horizontal" id="verActivoForm" method="POST">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title"><i class="glyphicon glyphicon-eye-open"></i> Detalle Activo</h4>
+                    <h4 class="modal-title"><i class="glyphicon glyphicon-eye-open"></i> Detalle producto</h4>
                 </div>
                 <div class="modal-body">
 
@@ -276,46 +160,6 @@ $cadenaCertificaciones = $conexion->certificaciones;
                                 <input type="text" class="form-control" id="verSerie" placeholder="Serie" name="verSerie" readonly="">
                             </div>
                         </div> <!-- /form-group--> 
-
-                        <div class="form-group">
-                            <label for="verDepartamento" class="col-sm-4 control-label"> Departamento: </label>
-                            <label class="col-sm-1 control-label">: </label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" id="verDepartamento" placeholder="Departamento" name="verDepartamento" readonly="">
-                            </div>
-                        </div> <!-- /form-group--> 
-
-                        <div class="form-group">
-                            <label for="verNit" class="col-sm-4 control-label">N.I.T.: </label>
-                            <label class="col-sm-1 control-label">: </label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" id="verNit" placeholder="Nit" name="verNit" readonly="">
-                            </div>
-                        </div> <!-- /form-group--> 
-
-                        <div class="form-group">
-                            <label for="verNombre" class="col-sm-4 control-label">Nombre: </label>
-                            <label class="col-sm-1 control-label">: </label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" id="verNombre" placeholder="Nombre" name="verNombre" readonly="">
-                            </div>
-                        </div> <!-- /form-group-->
-
-                        <div class="form-group">
-                            <label for="verActa" class="col-sm-4 control-label"> Acta: </label>
-                            <label class="col-sm-1 control-label">: </label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" id="verActa" placeholder="Acta" name="verActa" readonly="">
-                            </div>
-                        </div> <!-- /form-group-->
-
-                        <div class="form-group">
-                            <label for="verCertificacion" class="col-sm-4 control-label">Certificación: </label>
-                            <label class="col-sm-1 control-label">: </label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" id="verCertificacion" placeholder="Certificación" name="verCertificacion" readonly="">
-                            </div>
-                        </div> <!-- /form-group-->
 
                     </div>         	        
                     <!-- /edit brand result -->
@@ -428,7 +272,7 @@ $cadenaCertificaciones = $conexion->certificaciones;
             <form class="form-horizontal" id="certificarActivoForm" action="php_action/certificarActivo.php" method="POST">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title"><i class="glyphicon glyphicon-pencil"></i> Certificar Activo</h4>
+                    <h4 class="modal-title"><i class="glyphicon glyphicon-pencil"></i> Asignar proyecto</h4>
                 </div>
                 <div class="modal-body">
 
@@ -441,7 +285,7 @@ $cadenaCertificaciones = $conexion->certificaciones;
 
                     <div class="certificar-activo-result">
                         <div class="form-group">
-                            <label for="codigoCertificacion" class="col-sm-4 control-label"> Certificación </label>
+                            <label for="codigoCertificacion" class="col-sm-4 control-label"> Proyecto </label>
                             <label class="col-sm-1 control-label">: </label>
                             <div class="col-sm-7">
                                 <select class="form-control" id="codigoCertificacion" name="codigoCertificacion">

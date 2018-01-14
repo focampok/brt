@@ -12,30 +12,56 @@ if ($_POST) {
 
 
     //obtengo la cantidad de dicho activo
-    $sql = "SELECT cantidad FROM activo WHERE codigo_inventario = '$id';";
+    $sql = "SELECT cantidad FROM producto WHERE codigo_producto = '$id';";
     $result = $connect->query($sql);
 
     $rs = $result->fetch_array();
     $cantidad = $rs["cantidad"];
+    
+    //obtengo precio
+    $sl = "SELECT precio_unitario FROM producto WHERE codigo_producto = '$id';";
+    $rst = $connect->query($sl);
+
+    $rpr = $rst->fetch_array();
+    $precio_unitario = $rpr["precio_unitario"];
 
     if ($cant <= $cantidad) {
 
         //cambio el estado
-        $s = "UPDATE activo SET estado = 3 WHERE codigo_inventario = '$id'";
+        $s = "UPDATE producto SET estado = 2 WHERE codigo_producto = '$id'";
         $connect->query($s);
 
         //cambio cantidad cert
 
-        $x = "UPDATE activo SET cantidad_cert = $cant WHERE codigo_inventario = '$id'";
+        $x = "UPDATE producto SET cantidad_cert = $cant WHERE codigo_producto = '$id'";
         $connect->query($x);
 
-        $sql = "UPDATE activo SET CERTIFICACION_codigo_certificacion = '$codCertificacion' WHERE codigo_inventario = '$id'";
+        $z = $cantidad - $cant;
+
+        //se acabaron existencias, por lo tanto producto no disponible
+        if ($z == 0) {
+            $n= "UPDATE producto SET estado = 0 WHERE codigo_producto = '$id'";
+            $connect->query($n);
+        }
+
+        //resto cantidades
+        $y = "UPDATE producto SET cantidad = $z WHERE codigo_producto = '$id'";
+        $connect->query($y);
+        
+        //nuevo subtotal
+        $nst = $z * $precio_unitario;
+        $zz = "UPDATE producto SET subtotal = $nst WHERE codigo_producto = '$id'";
+        $connect->query($zz);
+
+        //enlazo producto con proyecto
+
+        $sql = "UPDATE producto SET PROYECTO_codigo_proyecto = '$codCertificacion' WHERE codigo_producto = '$id'";
         if ($connect->query($sql) === TRUE) {
             $valid['success'] = true;
-            $valid['messages'] = "Activo agregado a la certifación correctamente";
+            $valid['messages'] = "Producto agregado al producto correctamente";
         } else {
             $valid['success'] = false;
-            $valid['messages'] = "Error no se ha podido certificar el activo.";
+            $valid['messages'] = "Error no se ha podido asignar el producto.";
         }
     } else {
         $valid['success'] = false;

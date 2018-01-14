@@ -80,11 +80,6 @@ function verActivo(id)
                 $("#verMarca").val(response.marca);
                 $("#verModelo").val(response.modelo);
                 $("#verSerie").val(response.serie);
-                $("#verDepartamento").val(response.DEPARTAMENTO_codigo_departamento);
-                $("#verNit").val(response.nit);
-                $("#verNombre").val(response.nombre);
-                $("#verActa").val(response.ACTA_codigo_acta);
-                $("#verCertificacion").val(response.CERTIFICACION_codigo_certificacion);
             } // /success
         }); // /fetch the selected categories data
 

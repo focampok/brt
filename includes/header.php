@@ -63,10 +63,10 @@
 
 
                         <li class="dropdown" id="navOrder">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="glyphicon glyphicon-list-alt"></i> Reportes <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="glyphicon glyphicon-download-alt"></i> Reportes <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li id="topNavAddOrder"><a href="resumenAdiciones.php"> <i class="glyphicon glyphicon-th-list"></i> Resumen de Contenedores </a></li> 
-                                <li id="topNavAddOrder"><a href="exportarExcel.php"> <i class="glyphicon glyphicon-export"></i> Inventario </a></li>                                                     
+                                <li id="topNavAddOrder"><a href="resumenAdiciones.php"> <i class="glyphicon glyphicon-stats"></i> Resumen de Contenedores </a></li> 
+                                <li id="topNavAddOrder"><a href="exportarExcel.php"> <i class="glyphicon glyphicon-dashboard"></i> Inventario </a></li>                                                     
                             </ul>
                         </li> 
 
