@@ -285,7 +285,7 @@ class DBMaster {
         // si la conexion no tiene errorres, hago la consulta
         if (!$this->db_connection->connect_errno) {
             // realizo la consulta para obtener codigo y nombre del producto.
-            $sql = "SELECT * FROM activo WHERE CERTIFICACION_codigo_certificacion = '$codigoCertificacion';";
+            $sql = "SELECT * FROM producto WHERE PROYECTO_codigo_proyecto = '$codigoCertificacion';";
             $resultado = $this->db_connection->query($sql);
             // si existen activos
             if ($resultado->num_rows > 0) {

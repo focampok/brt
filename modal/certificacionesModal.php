@@ -109,7 +109,7 @@
                         <label for="encabezadoPDF" class="col-sm-3 control-label"> Encabezado: </label>
                         <label class="col-sm-1 control-label">: </label>
                         <div class="col-sm-8">
-                            <textarea name="encabezadoPDF" id="encabezadoPDF" rows="6" cols="50" required="">EL  INFRASCRITO ENCARGADO DE INVENTARIOS DEL  DEPARTAMENTO FINANCIERO DE LA DIRECCIÓN  SUPERIOR, DEL  MINISTERIO  DE  ENERGIA Y  MINAS,  CERTIFICA:     Haber  tenido  a  la vista el libro de Inventario. </textarea>
+                            <textarea name="encabezadoPDF" id="encabezadoPDF" rows="6" cols="50" required=""></textarea>
                         </div>
                     </div> <!-- /form-group-->
                 </div> <!-- /modal-body -->

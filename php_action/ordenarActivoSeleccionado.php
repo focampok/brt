@@ -1,7 +1,7 @@
 <?php 	
 require_once 'core.php';
 $id = $_POST['activoID'];
-$sql = "SELECT * FROM activo WHERE codigo_inventario = 'GATO';";
+$sql = "SELECT * FROM producto WHERE codigo_producto = '$id';";
 $result = $connect->query($sql);
 if($result->num_rows > 0) { 
  $row = $result->fetch_array();

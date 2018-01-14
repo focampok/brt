@@ -23,7 +23,7 @@ if ($_POST) {
     //genero el pdf con html...
     $rs = $conexion->obtenerActivosCertificacion($codigoCertificacion);
     while ($activos[] = $rs->fetch_array());
-    $banner = "../assests/images/banner/" . 'logo_mem.png';
+    $banner = "../assests/images/banner/" . 'logo_guategas.png';
 
     //cadena html de la cotizacion
     $contenidoHTML = '<html lang="en">
@@ -39,7 +39,8 @@ if ($_POST) {
                     </div>
                     <h1></h1>
                     <div id="company" class="clearfix">
-                      <div><font size="5"><b>' . $codigoCertificacion . '</b></font></div>
+                      <div><font size="5"><b>' . 'PROYECTO ' . $codigoCertificacion . '</b></font></div>
+                      <div><font size="5"><b>' . $fechaPDF . '</b></font></div>
                     </div>
                     <div id="project">
                     <br>
@@ -51,7 +52,7 @@ if ($_POST) {
                     <table>
                       <thead>
                         <tr>
-                          <th class="service">COD. INVENTARIO </th>
+                          <th class="service">COD. Producto </th>
                           <th class="desc"> DESCRIPCION </th>
                           <th> CANTIDAD </th>
                           <th> PRECIO UNITARIO</th>
@@ -64,7 +65,7 @@ if ($_POST) {
     $contador = 1;
     foreach ($activos as $activo) {
         $contenidoHTML.= '<tr>
-                                      <td class = "service">' . $activo['codigo_inventario'] . '</td>
+                                      <td class = "service">' . $activo['codigo_producto'] . '</td>
                                       <td class = "desc">' . $activo['descripcion'] . '</td>
                                       <td>' . $activo['cantidad_cert'] . '</td>
                                       <td>' . 'Q ' . number_format($activo['precio_unitario'], 2) . '</td>                                      
@@ -77,7 +78,7 @@ if ($_POST) {
     }
 
     //calculo el total de la certifacion...
-    $totalCert = "call obtenerTotalCertificacion('$codigoCertificacion',@total)";
+    $totalCert = "call obtenerTotalProyecto('$codigoCertificacion',@total)";
     $connect->query($totalCert);
     $c = "select @total as salida";
     $query4 = $connect->query($c);
@@ -91,11 +92,11 @@ if ($_POST) {
                                     </tbody>
                                     </table>
                                     <div id = "pie">
-                                    <font size = "5"><b>Y para remitir a donde corresponde, se extiende sella y firma la presente certificación, debidamente confrontada con el libro antes mencionado en una hoja de papel membretado de este Ministerio, en la ciudad de Guatemala ' . $fechaPDF . '<b></font>.
+                                    <font size = "5"><b>TEXTO TEXTO TEXTO ' . $fechaPDF . '<b></font>.
                                     </div>
                                     </main>
                                     <footer>
-                                    <center><font size = "4">Ministerio de Energía y Minas / Diagonal 17, 29-78, zona 11 las Charcas / PBX:(502)24196464 / www.mem.gob.gt</font></center>
+                                    <center><font size = "4">GuateGas Sociedad Anonima PBX:12345678 / pagina / correo</font></center>
                                     </footer>
                                     </body>
                                     </html>';
@@ -106,13 +107,13 @@ if ($_POST) {
     //escribo la cadena html en el pdf
     $myPDF->WriteHTML($contenidoHTML);
     //genero el pdf, le agrego el email del dueño y el total.
-    $nombre = "CERTIFICACION_" . $codigoCertificacion . ".pdf";
-    $salida = "certificaciones/" . $nombre . "";
+    $nombre = "PROYECTO_" . $codigoCertificacion . ".pdf";
+    $salida = "proyectos/" . $nombre . "";
     $myPDF->Output("../" . $salida);
 
     //el banner se subio correctamente...                
     $valid['success'] = true;
-    $valid['messages'] = 'Certificación creada exitosamente <a href = "verPDF.php?ruta=' . $salida . '"> <b> VISUALIZAR </b> </a>';
+    $valid['messages'] = 'PDF generado exitosamente <a href = "verPDF.php?ruta=' . $salida . '"> <b> VISUALIZAR </b> </a>';
 
     $connect->close();
     echo json_encode($valid);

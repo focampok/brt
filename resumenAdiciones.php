@@ -16,7 +16,7 @@ $conexion = new DBMaster();
 $conversor = new NumberToLetterConverter();
 
 
-$consulta = "SELECT * FROM adicion;";
+$consulta = "SELECT * FROM contenedor WHERE codigo_contenedor != '-1';";
 $resultado = $connect->query($consulta);
 
 //obtengo la fecha actual.
@@ -36,12 +36,12 @@ if ($resultado->num_rows > 0) {
             ->setLastModifiedBy("Ocampo") //Ultimo usuario que lo modificó
             ->setTitle("Reporte Excel")
             ->setSubject("Reporte Excel")
-            ->setDescription("Reporte de activos y adiciones")
-            ->setKeywords("reporte adicion activos")
+            ->setDescription("Reporte de contenedores y adiciones")
+            ->setKeywords("reporte de contenedores")
             ->setCategory("Reporte excel");
 
 
-    $titulosColumnas = array('FECHA', 'CUENTA', 'SUBCUENTA', 'NoInventario', 'CANT', 'DESCRIPCION', 'SUBTOTAL', 'TOTAL');
+    $titulosColumnas = array('FECHA', 'MARCA', 'MODELO', 'CODIG', 'CANT', 'DESCRIPCION', 'SUBTOTAL', 'TOTAL');
 
 
     // Se agregan los encabezados de la tabla
@@ -53,25 +53,24 @@ if ($resultado->num_rows > 0) {
             ->setCellValue('E1', $titulosColumnas[4])
             ->setCellValue('F1', $titulosColumnas[5])
             ->setCellValue('G1', $titulosColumnas[6])
-            ->setCellValue('H1', $titulosColumnas[7])
-            ->setCellValue('I2', '777');
+            ->setCellValue('H1', $titulosColumnas[7]);            
 
     //letra roja y negrita para el folio...
     $hoja->getStyle('I2')->getFont()->setBold(true);
     $hoja->getStyle('I2')->getFont()->getColor()->setRGB('8A0808');
     // Se agrega info del mem
     $hoja
-            ->setCellValue('F2', 'MINISTERIO DE ENERGÍA Y MINAS')
-            ->setCellValue('F3', 'DIRECCION GENERAL ADMINISTRATIVA')
-            ->setCellValue('F4', 'DEPARTAMENTO FINANCIERO')
+            ->setCellValue('F2', 'GUATE GAS')
+            ->setCellValue('F3', 'SOCIEDAD ANONIMA')
+            ->setCellValue('F4', 'COORDINADORA DE LOGISTICA')
             ->setCellValue('F5', obtenerMes($hoy['mon']) .' '. $hoy['year']);
 
 
     //Se agregan los datos de las adiciones
     $i = 6;
     while ($fila = $resultado->fetch_array()) {
-        $codigoAdicion = $fila['codigo_adicion'];
-        $consultaAdicion = "call obtenerTotalAdicion($codigoAdicion,@total)";
+        $codigoAdicion = $fila['codigo_contenedor'];
+        $consultaAdicion = "call obtenerTotalContenedor('$codigoAdicion',@total)";
         $connect->query($consultaAdicion);
         $c = "select @total as salida";
         $query4 = $connect->query($c);
@@ -85,7 +84,7 @@ if ($resultado->num_rows > 0) {
         }
 
         //escribo las adiciones
-        $hoja->setCellValue('F' . $i, $fila['nombre_adicion']);
+        $hoja->setCellValue('F' . $i, $fila['nombre_contenedor']);
         //seteo la celda tipo numerico.
         $hoja->getStyle('G' . $i)->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
         $hoja->setCellValue('G' . $i, $total);
@@ -103,7 +102,7 @@ if ($resultado->num_rows > 0) {
         ),
         'fill' => array(
             'type' => PHPExcel_Style_Fill::FILL_SOLID,
-            'color' => array('rgb' => 'b8c0ef')
+            'color' => array('rgb' => 'bbbc5e')
         ),
         'borders' => array(
             'allborders' => array(
@@ -174,7 +173,7 @@ if ($resultado->num_rows > 0) {
     //seteo el valor y pinto la celda.
     $hoja->setCellValue('F' . ($i + 2), $totalInventario);
     $hoja->getStyle('F' . ($i + 2))->getFont()->setBold(TRUE);
-    $hoja->getStyle('F' . ($i + 2))->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('9fb1b7');
+    $hoja->getStyle('F' . ($i + 2))->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('e5e362');
 
     $consultaTotal = "call obtenerTotalIngresos(@total)";
     $connect->query($consultaTotal);
@@ -187,7 +186,7 @@ if ($resultado->num_rows > 0) {
     //seteo el valor y pinto la celda.
     $hoja->setCellValue('F' . ($i + 3), $cadenaTotal);
     $hoja->getStyle('F' . ($i + 3))->getFont()->setBold(TRUE);
-    $hoja->getStyle('F' . ($i + 3))->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('9fb1b7');
+    $hoja->getStyle('F' . ($i + 3))->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('e5e362');
 
     //seteo el valor y le doy formato.
     $hoja->getStyle('H' . ($i + 3))->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
@@ -198,13 +197,13 @@ if ($resultado->num_rows > 0) {
     $hoja->getStyle('F49')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
     $hoja->getStyle('F50')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
     //busco todas las adiciones...
-    $consulta = "SELECT * FROM adicion;";
+    $consulta = "SELECT * FROM contenedor WHERE codigo_contenedor != '-1';";
     $resultado = $connect->query($consulta);
-    $objPHPExcel->getActiveSheet()->setTitle("ACTIVOS");
+    $objPHPExcel->getActiveSheet()->setTitle("CONTENEDORES");
 
 
     //Setting the header type
-    $nombreArchivo = "ADICIONES_" . $hoy['mday'] . "." . $hoy['mon'] . "." . $hoy["year"] . "_" . $hoy['hours'] . "." . $hoy['minutes'] . "." . $hoy['seconds'] . ".xlsx";
+    $nombreArchivo = "CONTENEDORES_" . $hoy['mday'] . "." . $hoy['mon'] . "." . $hoy["year"] . "_" . $hoy['hours'] . "." . $hoy['minutes'] . "." . $hoy['seconds'] . ".xlsx";
     header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
     header('Content-Disposition: attachment;filename="' . $nombreArchivo . '"');
     header('Cache-Control: max-age=0');

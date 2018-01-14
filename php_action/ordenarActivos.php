@@ -34,13 +34,15 @@ if ($result->num_rows > 0) {
         } else if ($row[2] == 1) {
             //disponible
             $estado = "<label class='label label-success'>Disponible</label>";
-            $button.= '<li><a type="button" data-toggle="modal" id="verActivoModalBtn" data-target="#verActivoModal" onclick="verActivo(\'' . $id . '\')"> <i class="glyphicon glyphicon-eye-open"></i> Detalle </a></li>';            
+            $button.= '<li><a type="button" data-toggle="modal" id="verActivoModalBtn" data-target="#verActivoModal" onclick="verActivo(\'' . $id . '\')"> <i class="glyphicon glyphicon-eye-open"></i> Detalle </a></li>';   
+            $button.= '<li><a type="button" data-toggle="modal" id="editarActivoModalBtn" data-target="#editActivoModal" onclick="editarActivo(\'' . $id . '\')"> <i class="glyphicon glyphicon-pencil"></i> Editar </a></li>';
             $button.= '<li><a type="button" data-toggle="modal" id="certificarModalBtn" data-target="#certificarActivoModal" onclick="certificarActivo(\'' . $id . '\')"> <i class="glyphicon glyphicon-briefcase"></i> Asignar a proyecto </a></li>';            
             $button .= '</ul></div>';
         } else if ($row[2] == 2) {
             //asignado a un proyecto
             $estado = "<label class='label label-info'> Asignado a proyecto </label>";
-            $button.= '<li><a type="button" data-toggle="modal" id="verActivoModalBtn" data-target="#verActivoModal" onclick="verActivo(\'' . $id . '\')"> <i class="glyphicon glyphicon-eye-open"></i> Detalle </a></li>';            
+            $button.= '<li><a type="button" data-toggle="modal" id="verActivoModalBtn" data-target="#verActivoModal" onclick="verActivo(\'' . $id . '\')"> <i class="glyphicon glyphicon-eye-open"></i> Detalle </a></li>';
+            $button.= '<li><a type="button" data-toggle="modal" id="editarActivoModalBtn" data-target="#editActivoModal" onclick="editarActivo(\'' . $id . '\')"> <i class="glyphicon glyphicon-pencil"></i> Editar </a></li>';
             $button.= '<li><a type="button" data-toggle="modal" id="certificarModalBtn" data-target="#certificarActivoModal" onclick="certificarActivo(\'' . $id . '\')"> <i class="glyphicon glyphicon-briefcase"></i> Asignar a proyecto </a></li>';            
             $button .= '</ul></div>';
         }

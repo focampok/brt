@@ -184,7 +184,7 @@ $cadenaCertificaciones = $conexion->certificaciones;
             <form class="form-horizontal" id="editActivoForm" action="php_action/editActivo.php" method="POST">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title"><i class="glyphicon glyphicon-edit"></i> Editar Activo</h4>
+                    <h4 class="modal-title"><i class="glyphicon glyphicon-edit"></i> Editar Producto</h4>
                 </div>
                 <div class="modal-body">
 
@@ -196,59 +196,15 @@ $cadenaCertificaciones = $conexion->certificaciones;
                     </div>
 
                     <div class="edit-activo-result">
-                        <div class="form-group">
-                            <label for="editCodigoDepartamento" class="col-sm-4 control-label">Departamento </label>
-                            <label class="col-sm-1 control-label">: </label>
-                            <div class="col-sm-7">
-                                <select class="form-control" id="editCodigoDepartamento" name="editCodigoDepartamento" onchange="obtenerEditUsuarios()">
-                                    <?php echo $cadenaDepartamentos ?>
-                                </select>
-                            </div>
-                        </div> <!-- /form-group-->
-
-                        <script>
-                            function obtenerEditUsuarios() {
-                                //obtengo el formulario
-                                oFormObject = document.forms['editarActivoForm'];
-                                //obtengo el codigo del producto...    
-                                var cod = document.getElementById("editCodigoDepartamento").value;
-                                $.ajax({
-                                    url: 'php_action/obtenerUsuarios.php?codigoDepartamento=' + cod,
-                                    complete: function (response) {
-                                        //obtengo el combo
-                                        var z = document.getElementById("editCodigoNit");
-                                        //limpio el combo antes de agregar las opciones
-                                        z.options.length = 0;
-                                        //obtengo las opciones
-                                        var info = response.responseText;
-                                        //hago un split por cada opcion
-                                        var arr = info.split(";");
-                                        for (x = 0; x < arr.length - 1; x++) {
-                                            //otro split para opcion y nombre
-                                            var arr2 = arr[x].split("*");
-                                            var option = document.createElement("option");
-                                            option.value = arr2[0];
-                                            option.text = arr2[0] + " / " + arr2[1];
-                                            //las agrego...
-                                            z.add(option);
-                                        }
-                                    },
-                                    error: function () {
-                                        $('#output').html('Imposible obtener datos');
-                                    },
-                                });
-                            }
-                        </script>                      
-
-                        <div class="form-group">
-                            <label for="editCodigoNit" class="col-sm-4 control-label">N.I.T </label>
-                            <label class="col-sm-1 control-label">: </label>
-                            <div class="col-sm-7">
-                                <select class="form-control" id="editCodigoNit" name="editCodigoNit">
-                                    <option value="">-- Seleccionar --</option>                                
-                                </select>
-                            </div>
+                        
+                     <div class="form-group">
+                        <label for="cantidad" class="col-sm-4 control-label">Cantidad * </label>
+                        <label class="col-sm-1 control-label">: </label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="cantidad" placeholder="Cantidad" name="cantidad" required="">
                         </div>
+                    </div>
+                        
                     </div>         	        
                     <!-- /edit brand result -->
                 </div> <!-- /modal-body -->

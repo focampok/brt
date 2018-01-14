@@ -49,9 +49,9 @@ if ($_POST) {
         $connect->query($y);
         
         //nuevo subtotal
-        $nst = $z * $precio_unitario;
-        $zz = "UPDATE producto SET subtotal = $nst WHERE codigo_producto = '$id'";
-        $connect->query($zz);
+       // $nst = $z * $precio_unitario;
+       // $zz = "UPDATE producto SET subtotal = $nst WHERE codigo_producto = '$id'";
+       // $connect->query($zz);
 
         //enlazo producto con proyecto
 
