@@ -5,11 +5,10 @@ require_once 'core.php';
 if($_POST) {
 
 	$valid['success'] = array('success' => false, 'messages' => array());
-
 	$currentPassword = $_POST['password'];
 	$newPassword = $_POST['npassword'];
 	$conformPassword = $_POST['cpassword'];
-	$nit = $_POST['nit'];
+	$nit = $_SESSION['nit'];
 
 	$sql ="SELECT * FROM usuario WHERE nit = $nit";
 	$query = $connect->query($sql);
@@ -19,7 +18,7 @@ if($_POST) {
 
 		if($newPassword == $conformPassword) {
 
-			$updateSql = "UPDATE usuario SET password = '$newPassword' WHERE nit = $nit";
+			$updateSql = "UPDATE usuario SET password = '$newPassword' WHERE nit = '$nit'";
 			if($connect->query($updateSql) === TRUE) {
 				$valid['success'] = true;
 				$valid['messages'] = "Contraseña actualizada exitosamente";		

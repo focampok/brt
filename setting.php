@@ -73,7 +73,7 @@ $connect->close();
 
 					  <div class="form-group">
 					    <div class="col-sm-offset-2 col-sm-10">
-					    	<input type="hidden" name="nit" id="nit" value="<?php echo $result['nit'] ?>" /> 
+					    	<input type="hidden" name="nit" id="nit" value="<?php echo $_SESSION['nit'] ?>" /> 
 					      <button type="submit" class="btn btn-primary"> <i class="glyphicon glyphicon-ok-sign"></i> Guardar cambios </button>
 					      
 					    </div>

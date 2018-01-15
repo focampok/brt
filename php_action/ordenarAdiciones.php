@@ -25,7 +25,7 @@ if ($result->num_rows > 0) {
             $total = "<label class='label label-danger'>" . "Q " . number_format($totalAdicion, 2) . "</label>";
         } else {
             $total = "<label class='label label-success'>" . "Q " . number_format($totalAdicion, 2) . "</label>";
-        }        
+        }
         $button = '<!-- Single button -->
 	<div class="btn-group">
 	  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -33,6 +33,7 @@ if ($result->num_rows > 0) {
 	  </button>
 	  <ul class="dropdown-menu">
 	    <li><a type="button" data-toggle="modal" data-target="#editBrandModel" onclick="editarAdicion(\'' . $brandId . '\')"> <i class="glyphicon glyphicon-edit"></i> Editar </a></li>                           
+                <li><a type="button" data-toggle="modal" data-target="#generarContenedorPDFModal" onclick="generarPDF(\'' . $brandId . '\')"> <i class="glyphicon glyphicon-list-alt"></i> Generar PDF </a></li> 
 	  </ul>
 	</div>';
 

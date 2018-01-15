@@ -22,7 +22,7 @@
 
                 <table class="table" id="manageCategoriesTable">
                     <thead>
-                        <tr>
+                        <tr>                            
                             <th><font size="1">Código</font></th>
                             <th><font size="1">Fecha</font></th>
                             <th><font size="1">Estado</font></th>

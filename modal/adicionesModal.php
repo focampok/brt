@@ -97,3 +97,43 @@
 </div>
 <!-- / add modal -->
 <!-- /edit brand -->
+
+<!-- GENERAR PDF -->
+<div class="modal fade" id="generarContenedorPDFModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form class="form-horizontal" id="generarCertificacionForm" action="php_action/createContPDF.php" method="POST" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title"><i class="glyphicon glyphicon-print"></i> Generar PDF </h4>
+                </div>
+
+                <div class="modal-body" style="max-height:450px; overflow:auto;">
+
+                    <div id="generar-certificacion-messages"></div>
+
+                    <div class="form-group">
+                        <label for="fechaPDF" class="col-sm-3 control-label"> Fecha: </label>
+                        <label class="col-sm-1 control-label">: </label>
+                        <div class="col-sm-8">
+                            <input type="date" class="form-control" id="fechaPDF" name="fechaPDF" required="">
+                        </div>
+                    </div> <!-- /form-group-->
+
+                    <div class="form-group">
+                        <label for="encabezadoPDF" class="col-sm-3 control-label"> Encabezado: </label>
+                        <label class="col-sm-1 control-label">: </label>
+                        <div class="col-sm-8">
+                            <textarea name="encabezadoPDF" id="encabezadoPDF" rows="6" cols="50" required=""></textarea>
+                        </div>
+                    </div> <!-- /form-group-->
+                </div> <!-- /modal-body -->
+
+                <div class="modal-footer generarCertificacionFooter">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"> <i class="glyphicon glyphicon-remove-sign"></i> Cerrar</button>	        
+                    <button type="submit" class="btn btn-primary" id="createCertificacionPDFBtn" data-loading-text="Loading..." autocomplete="off"> <i class="glyphicon glyphicon-ok-sign"></i> Guardar cambios</button>
+                </div> <!-- /modal-footer -->	      
+            </form> <!-- /.form -->	
+        </div> <!-- /modal-content -->    
+    </div> <!-- /modal-dailog -->
+</div> 

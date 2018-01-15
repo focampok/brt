@@ -207,3 +207,65 @@ function editarAdicion(brandId) {
 		alert('error!! Refresh the page again');
 	}
 }
+
+function generarPDF(codCertificacion)
+{
+
+    if (codCertificacion)
+    {
+        // remove hidden id text
+        $('#codCertificacion').remove();        
+        // activo id 
+        $(".generarCertificacionFooter").after('<input type="hidden" name="codCertificacion" id="codCertificacion" value="' + codCertificacion + '" />');        
+        
+        // submit product form
+        $("#generarCertificacionForm").unbind('submit').bind('submit', function () {
+
+            // submit loading button
+            $("#createCertificacionPDFBtn").button('loading');
+
+            var form = $(this);
+            var formData = new FormData(this);
+            $.ajax({
+                url: form.attr('action'),
+                type: form.attr('method'),
+                data: formData,
+                dataType: 'json',
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+
+                    if (response.success == true) {
+                        // submit loading button
+                        $("#createCertificacionPDFBtn").button('reset');
+
+                        $("#generarCertificacionForm")[0].reset();
+
+                        $("html, body, div.modal, div.modal-content, div.modal-body").animate({scrollTop: '0'}, 100);
+
+                        // shows a successful message after operation
+                        $('#generar-certificacion-messages').html('<div class="alert alert-success">' +
+                                '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+                                '<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> ' + response.messages +
+                                '</div>');
+
+                        // reload the manage student table
+                        manageCertificacionesTable.ajax.reload(null, true);
+                        // remove text-error 
+                        $(".text-danger").remove();
+                        // remove from-group error
+                        $(".form-group").removeClass('has-error').removeClass('has-success');
+                    } // /if response.success
+
+                } // /success function
+            }); // /ajax function
+
+
+
+
+            return false;
+        }); // /submit product form
+    }
+
+}

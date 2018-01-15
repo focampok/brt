@@ -20,7 +20,6 @@ $cadenaAdiciones = $conexion->adiciones;
 $conexion = new DBMaster();
 $conexion->llenarComboCertificaciones();
 $cadenaCertificaciones = $conexion->certificaciones;
-
 ?>
 
 
@@ -30,18 +29,19 @@ $cadenaCertificaciones = $conexion->certificaciones;
     <div class="modal-dialog">
         <div class="modal-content">           
 
-            <form class="form-horizontal" id="submitCategoriesForm" action="php_action/createActivo.php" method="POST">
+            <form class="form-horizontal" id="submitCategoriesForm" action="php_action/createActivo.php" method="POST" >
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title"><i class="fa fa-plus"></i> Nuevo producto</h4>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" overflow:auto;">
 
                     <div id="add-categories-messages"></div>
 
                     <div class="form-group">
                         <center><label for="info" class="col-sm-4 control-label"><font color="red">  Obligatorio * </font></label></center>                       
                     </div> <!-- /form-group-->
+
                     <div class="form-group">
                         <label for="codigoInventario" class="col-sm-4 control-label">Código producto * </label>
                         <label class="col-sm-1 control-label">: </label>
@@ -49,7 +49,7 @@ $cadenaCertificaciones = $conexion->certificaciones;
                             <input type="text" class="form-control" id="codigoInventario" placeholder="Código producto" name="codigoInventario" required="">
                         </div>
                     </div> <!-- /form-group-->
-                     <!-- /form-group-->
+                    <!-- /form-group-->
                     <div class="form-group">
                         <label for="fecha" class="col-sm-4 control-label">Fecha * </label>
                         <label class="col-sm-1 control-label">: </label>
@@ -57,7 +57,7 @@ $cadenaCertificaciones = $conexion->certificaciones;
                             <input type="date" class="form-control" id="fecha" placeholder="Fecha" name="fecha" required="">
                         </div>
                     </div> <!-- /form-group-->
-                    
+
                     <div class="form-group">
                         <label for="cantidad" class="col-sm-4 control-label">Cantidad * </label>
                         <label class="col-sm-1 control-label">: </label>
@@ -196,15 +196,15 @@ $cadenaCertificaciones = $conexion->certificaciones;
                     </div>
 
                     <div class="edit-activo-result">
-                        
-                     <div class="form-group">
-                        <label for="cantidad" class="col-sm-4 control-label">Cantidad * </label>
-                        <label class="col-sm-1 control-label">: </label>
-                        <div class="col-sm-7">
-                            <input type="text" class="form-control" id="cantidad" placeholder="Cantidad" name="cantidad" required="">
+
+                        <div class="form-group">
+                            <label for="cantidad" class="col-sm-4 control-label">Cantidad * </label>
+                            <label class="col-sm-1 control-label">: </label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" id="cantidad" placeholder="Cantidad" name="cantidad" required="">
+                            </div>
                         </div>
-                    </div>
-                        
+
                     </div>         	        
                     <!-- /edit brand result -->
                 </div> <!-- /modal-body -->

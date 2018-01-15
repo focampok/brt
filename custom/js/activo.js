@@ -16,8 +16,27 @@ $(document).ready(function () {
         $(".text-danger").remove();
         // remove the form error
         $('.form-group').removeClass('has-error').removeClass('has-success');
+        
+        $("#imagenProducto").fileinput({
+            overwriteInitial: true,
+            maxFileSize: 30000,
+            showClose: false,
+            showCaption: false,
+            browseLabel: '',
+            removeLabel: '',
+            browseIcon: '<i class="glyphicon glyphicon-folder-open"></i>',
+            removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
+            removeTitle: 'Cancel or reset changes',
+            elErrorContainer: '#kv-avatar-errors-1',
+            msgErrorClass: 'alert alert-block alert-danger',
+            defaultPreviewContent: '<img src="assests/images/photo_default.png" alt="Profile Image" style="width:100%;">',
+            layoutTemplates: {main2: '{preview} {remove} {browse}'},
+            allowedFileExtensions: ["jpg", "png", "gif", "JPG", "PNG", "GIF"]
+        });  
+        
         // submit categories form function
         $("#submitCategoriesForm").unbind('submit').bind('submit', function () {
+            
             var form = $(this);
             // button loading
             $("#createCategoriesBtn").button('loading');
