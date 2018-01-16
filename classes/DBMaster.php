@@ -341,8 +341,7 @@ class DBMaster {
         }
         //cierro la conexion.
         $this->db_connection->close();
-    }
-    
+    } 
     
     
     
@@ -367,8 +366,5 @@ class DBMaster {
         }
         //cierro la conexion.
         $this->db_connection->close();
-    }
-    
-    
-
+    }  
 }

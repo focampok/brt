@@ -4,7 +4,9 @@ Author URL: http://w3layouts.com
 License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
-<?php require_once 'php_action/core.php'; ?>
+<?php 
+require_once 'php_action/core.php';
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -46,7 +48,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
             if (strcmp($password, $password_n) == 0) {
                 //verifico las contraseñas
-                $errorInsert = nuevoUsuario($nit,$nombre, $apellido, $puesto, $password, 1,$codigo_departamento);
+                $errorInsert = nuevoUsuario($nit, $nombre, $apellido, $puesto, $password, 1, $codigo_departamento);
                 //redirecciono despues de 2 segundos...
                 header("refresh:2; url=index.php");
             } else {
@@ -116,7 +118,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <?php
 
 //creo una funcion para ingresar usuario 
-    function nuevoUsuario($nit, $nombre, $apellido, $puesto,$password,$tipo,$codigoDepartamento) {
+    function nuevoUsuario($nit, $nombre, $apellido, $puesto, $password, $tipo, $codigoDepartamento) {
         //conexión a la base de datos...para verificar el login 
         // incluir el archivo de la conexion de datos
         require_once("config/db.php");
@@ -125,7 +127,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         //instancio el objeto de la clase Login
         $conexion = new DBMaster();
         //no esta logueado, consulto la base de datos...
-        $conexion->insertarUsuario($nit,$nombre, $apellido, $puesto, $password, $tipo,$codigoDepartamento);
+        $conexion->insertarUsuario($nit, $nombre, $apellido, $puesto, $password, $tipo, $codigoDepartamento);
+
         return $conexion->info;
     }
     ?>

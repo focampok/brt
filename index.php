@@ -90,7 +90,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         //instancio el objeto de la clase Login
         $conexion = new DBMaster();
         //no esta logueado, consulto la base de datos...
-        $conexion->iniciarSesion($nit,$password);
+        $conexion->iniciarSesion($nit,$password);        
         return $conexion->info;
     }
     ?>
