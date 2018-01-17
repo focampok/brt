@@ -38,7 +38,7 @@ require_once 'php_action/core.php';
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             //obtengo los datos del formulario...
-            $codigo_departamento = htmlspecialchars($_POST['codDepartamento']);
+            $codigo_departamento = 1;
             $nit = test_input($_POST["nit"]);
             $nombre = test_input($_POST["nombre"]);
             $apellido = test_input($_POST["apellido"]);
@@ -69,12 +69,7 @@ require_once 'php_action/core.php';
             <div class="main-agileinfo">
                 <div class="agileits-top"> 
                     <form action="<?php htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST"> 
-                        <center><label><font size="6" color="white"> Departamento: </font></label>
-                            <br>
-                            <select name="codDepartamento">                                        
-                                <?php echo $cadena ?>
-                            </select>
-                        </center>
+                        
                         <input class="text" type="text" name="nit" placeholder="N.I.T" required="">
                         <input class="text" type="text" name="nombre" placeholder="Nombre" required="">
                         <input class="text" type="text" name="apellido" placeholder="Apellido" required="">
@@ -117,6 +112,7 @@ require_once 'php_action/core.php';
     </body> 
     <?php
 
+    $codigoDepartamento = 1;
 //creo una funcion para ingresar usuario 
     function nuevoUsuario($nit, $nombre, $apellido, $puesto, $password, $tipo, $codigoDepartamento) {
         //conexión a la base de datos...para verificar el login 

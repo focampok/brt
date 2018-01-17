@@ -76,11 +76,13 @@ class DBMaster {
         if (!$this->db_connection->set_charset("utf8")) {
             $this->info = $this->db_connection->error;
         }
+        
+        $ccc = 1;
 
         if (!$this->db_connection->connect_errno) {
             // realizo la insercion por parametos, para evitar inyecciones
             $sql = $this->db_connection->prepare("INSERT INTO usuario(nit,nombre,apellido,puesto,password,tipo,DEPARTAMENTO_codigo_departamento) VALUES (?,?,?,?,?,?,?);");
-            $sql->bind_param("issssii", $nit, $nombre, $apellido, $puesto, $password, $tipo, $codDepto);
+            $sql->bind_param("issssii", $nit, $nombre, $apellido, $puesto, $password, $tipo,$ccc);
             $respuesta = $sql->execute();
             if ($respuesta) {
                 $this->info = "Usuario registrado correctamente.";

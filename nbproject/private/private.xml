@@ -3,16 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/GuateGas/php_action/editActivo.php</file>
-            <file>file:/C:/xampp/htdocs/GuateGas/php_action/certificarActivo.php</file>
-            <file>file:/C:/xampp/htdocs/GuateGas/php_action/createCertificacion.php</file>
-            <file>file:/C:/xampp/htdocs/GuateGas/php_action/createActivo.php</file>
-            <file>file:/C:/xampp/htdocs/GuateGas/php_action/createCertPDF.php</file>
-            <file>file:/C:/xampp/htdocs/GuateGas/registro.php</file>
-            <file>file:/C:/xampp/htdocs/GuateGas/php_action/quitarActivoCertificacion.php</file>
-            <file>file:/C:/xampp/htdocs/GuateGas/index.php</file>
-            <file>file:/C:/xampp/htdocs/GuateGas/php_action/createAdicion.php</file>
-            <file>file:/C:/xampp/htdocs/GuateGas/php_action/editAdicion.php</file>
+            <file>file:/C:/xampp/htdocs/GuateGas/classes/DBMaster.php</file>
         </group>
     </open-files>
 </project-private>
