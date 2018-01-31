@@ -16,7 +16,7 @@ $(document).ready(function () {
         $(".text-danger").remove();
         // remove the form error
         $('.form-group').removeClass('has-error').removeClass('has-success');
-        
+
         $("#imagenProducto").fileinput({
             overwriteInitial: true,
             maxFileSize: 30000,
@@ -32,11 +32,11 @@ $(document).ready(function () {
             defaultPreviewContent: '<img src="assests/images/photo_default.png" alt="Profile Image" style="width:100%;">',
             layoutTemplates: {main2: '{preview} {remove} {browse}'},
             allowedFileExtensions: ["jpg", "png", "gif", "JPG", "PNG", "GIF"]
-        });  
-        
+        });
+
         // submit categories form function
         $("#submitCategoriesForm").unbind('submit').bind('submit', function () {
-            
+
             var form = $(this);
             // button loading
             $("#createCategoriesBtn").button('loading');
@@ -50,20 +50,14 @@ $(document).ready(function () {
                     $("#createCategoriesBtn").button('reset');
                     if (response.success == true) {
                         // reload the manage member table 
-                        manageCategoriesTable.ajax.reload(null, false);
-                        //limpio los combos
-                        var y = document.getElementById("codigoSubCuenta");
-                        //limpio el combo antes de agregar las opciones
-                        y.options.length = 0;
-                        var z = document.getElementById("codigoNit");
-                        //limpio el combo antes de agregar las opciones
-                        z.options.length = 0;
+                        manageCategoriesTable.ajax.reload(null, false);                        
                         // reset the form text
                         $("#submitCategoriesForm")[0].reset();
                         // remove the error text
                         $(".text-danger").remove();
                         // remove the form error
-                        $('.form-group').removeClass('has-error').removeClass('has-success');
+                        $('.form-group').removeClass('has-error').removeClass('has-success');                        
+                        $('#addCategoriesModal').modal("hide");
                         $('#add-categories-messages').html('<div class="alert alert-success">' +
                                 '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
                                 '<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> ' + response.messages +

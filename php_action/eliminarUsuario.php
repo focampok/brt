@@ -13,8 +13,8 @@ if ($_POST) {
     $o = 'SET FOREIGN_KEY_CHECKS = 0';
     $connect->query($o);
 
-    //elimino el usuario
-    $d = 'DELETE FROM usuario WHERE nit =' . $comilla . $nit . $comilla;
+    //elimino el USUARIO
+    $d = 'DELETE FROM USUARIO WHERE nit =' . $comilla . $nit . $comilla;
     $connect->query($d);
 
     //enciendo llaves

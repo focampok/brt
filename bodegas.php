@@ -6,19 +6,19 @@
 
 		<ol class="breadcrumb">
 		  <li><a href="dashboard.php">Inicio</a></li>		  
-		  <li class="active">Contenedores</li>
+		  <li class="active">Bodegas</li>
 		</ol>
 
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<div class="page-heading"> <i class="glyphicon glyphicon-edit"></i> Listado de Contenedores</div>
+				<div class="page-heading"> <i class="glyphicon glyphicon-edit"></i> Listado de Bodegas</div>
 			</div> <!-- /panel-heading -->
 			<div class="panel-body">
 
 				<div class="remove-messages"></div>
 
 				<div class="div-action pull pull-right" style="padding-bottom:20px;">
-					<button class="btn btn-default button1" data-toggle="modal" data-target="#addBrandModel"> <i class="glyphicon glyphicon-plus-sign"></i> Nuevo Contenedor </button>
+					<button class="btn btn-default button1" data-toggle="modal" data-target="#addBrandModel"> <i class="glyphicon glyphicon-plus-sign"></i> Nueva Bodega </button>
 				</div> <!-- /div-action -->				
 				
 				<table class="table" id="manageBrandTable">

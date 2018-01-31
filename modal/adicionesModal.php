@@ -5,24 +5,24 @@
     	<form class="form-horizontal" id="submitBrandForm" action="php_action/createAdicion.php" method="POST">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title"><i class="fa fa-plus"></i> Nuevo Contenedor</h4>
+	        <h4 class="modal-title"><i class="fa fa-plus"></i> Nueva Bodega</h4>
 	      </div>
 	      <div class="modal-body">
 
 	      	<div id="add-brand-messages"></div>
 
 	        <div class="form-group">
-	        	<label for="brandName" class="col-sm-3 control-label">Código Contenedor </label>
+	        	<label for="brandName" class="col-sm-3 control-label">Codigo  </label>
 	        	<label class="col-sm-1 control-label">: </label>
 				    <div class="col-sm-8">
-				      <input type="text" class="form-control" id="brandName" placeholder="Código Contenedor" name="brandName" autocomplete="off">
+				      <input type="text" class="form-control" id="brandName" placeholder="Código" name="brandName" autocomplete="off">
 				    </div>
 	        </div> <!-- /form-group-->	         	        
 	        <div class="form-group">
-	        	<label for="brandStatus" class="col-sm-3 control-label">Nombre Contenedor </label>
+	        	<label for="brandStatus" class="col-sm-3 control-label">Nombre  </label>
 	        	<label class="col-sm-1 control-label">: </label>
 				    <div class="col-sm-8">
-				      <input type="text" class="form-control" id="brandStatus" placeholder="Nombre Contenedor" name="brandStatus" autocomplete="off">
+				      <input type="text" class="form-control" id="brandStatus" placeholder="Nombre" name="brandStatus" autocomplete="off">
 				    </div>
 	        </div> <!-- /form-group-->	         	        
 
@@ -52,7 +52,7 @@
     	<form class="form-horizontal" id="editBrandForm" action="php_action/editAdicion.php" method="POST">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title"><i class="fa fa-edit"></i> Editar Contenedor</h4>
+	        <h4 class="modal-title"><i class="fa fa-edit"></i> Editar Bodega</h4>
 	      </div>
 	      <div class="modal-body">
 
@@ -68,14 +68,14 @@
 		        	<label for="editBrandName" class="col-sm-3 control-label">Código: </label>
 		        	<label class="col-sm-1 control-label">: </label>
 					    <div class="col-sm-8">
-                                                <input type="text" class="form-control" id="editBrandName" placeholder="Código contenedor" name="editBrandName" readonly="">
+                                                <input type="text" class="form-control" id="editBrandName" placeholder="Código" name="editBrandName" readonly="">
 					    </div>
 		        </div> <!-- /form-group-->	         	        
 		        <div class="form-group">
 		        	<label for="editBrandStatus" class="col-sm-3 control-label">Nombre: </label>
 		        	<label class="col-sm-1 control-label">: </label>
 					    <div class="col-sm-8">
-					      <input type="text" class="form-control" id="editBrandStatus" placeholder="Nombre Contenedor" name="editBrandStatus" autocomplete="off">
+					      <input type="text" class="form-control" id="editBrandStatus" placeholder="Nombre" name="editBrandStatus" autocomplete="off">
 					    </div>
 		        </div> <!-- /form-group-->	
 		      </div>         	        

@@ -37,7 +37,7 @@ if ($_POST) {
     $nombreAdicion = $_POST['editBrandStatus'];
     $id = $_POST['brandId'];
 
-    $sql = "UPDATE contenedor SET nombre_contenedor = '$nombreAdicion' WHERE codigo_contenedor = '$id'";
+    $sql = "UPDATE CONTENEDOR SET nombre_contenedor = '$nombreAdicion' WHERE codigo_contenedor = '$id'";
 
     if ($connect->query($sql) === TRUE) {
         $valid['success'] = true;
@@ -58,7 +58,7 @@ if ($_POST) {
     //BITACORA
     $hoy = getdate();
     $fecha = $hoy['mday'] . ' de ' . obtenerMes($hoy['mon']) . ' del ' . $hoy['year'];
-    $accion = "El usuario $nombre editó el contenedor $id le cambió de nombre $nombreAdicion el $fecha";
+    $accion = "El usuario $nombre editó el CONTENEDOR $id le cambió de nombre $nombreAdicion el $fecha";
 
     $bitacora = "INSERT INTO BITACORA(fecha,accion,USUARIO_nit)VALUES ('$fecha','$accion','$nit');";
     $connect->query($bitacora);

@@ -41,11 +41,11 @@ if ($_POST) {
     $codigoCertificacion = $_POST['codigoCertificacion'];
 
     //cambio el estado del activo
-    $r = "UPDATE producto SET estado = 1 WHERE PROYECTO_codigo_proyecto = '$codigoCertificacion'";
+    $r = "UPDATE PRODUCTO SET estado = 1 WHERE PROYECTO_codigo_proyecto = '$codigoCertificacion'";
     $connect->query($r);
 
     //obtengo la cantidad que esta en ese proyecto
-    $mm = "SELECT cantidad_cert FROM producto WHERE PROYECTO_codigo_proyecto = '$codigoCertificacion';";
+    $mm = "SELECT cantidad_cert FROM PRODUCTO WHERE PROYECTO_codigo_proyecto = '$codigoCertificacion';";
     $ret = $connect->query($mm);
 
     $rst = $ret->fetch_array();
@@ -53,7 +53,7 @@ if ($_POST) {
 
     //obtengo la cant
     //obtengo la cantidad de dicho activo
-    $sx = "SELECT cantidad FROM producto WHERE PROYECTO_codigo_proyecto = '$codigoCertificacion';";
+    $sx = "SELECT cantidad FROM PRODUCTO WHERE PROYECTO_codigo_proyecto = '$codigoCertificacion';";
     $result = $connect->query($sx);
 
     $rs = $result->fetch_array();
@@ -62,18 +62,18 @@ if ($_POST) {
     $suma = $cantidad + $cantidad_cert;
 
     //regreso cantidades a estado anterior
-    $y = "UPDATE producto SET cantidad = $suma WHERE PROYECTO_codigo_proyecto = '$codigoCertificacion'";
+    $y = "UPDATE PRODUCTO SET cantidad = $suma WHERE PROYECTO_codigo_proyecto = '$codigoCertificacion'";
     $connect->query($y);
 
     //nuevo subtotal
-    $sl = "SELECT precio_unitario FROM producto WHERE PROYECTO_codigo_proyecto = '$codigoCertificacion';";
+    $sl = "SELECT precio_unitario FROM PRODUCTO WHERE PROYECTO_codigo_proyecto = '$codigoCertificacion';";
     $rstt = $connect->query($sl);
 
     $rpr = $rstt->fetch_array();
     $precio_unitario = $rpr["precio_unitario"];
 
     $nst = $suma * $precio_unitario;
-    $zz = "UPDATE producto SET subtotal = $nst WHERE PROYECTO_codigo_proyecto = '$codigoCertificacion'";
+    $zz = "UPDATE PRODUCTO SET subtotal = $nst WHERE PROYECTO_codigo_proyecto = '$codigoCertificacion'";
     $connect->query($zz);
 
 
@@ -82,7 +82,7 @@ if ($_POST) {
 
 
     //antes de actualizarla, todos sus activos los libero.        
-    $s = "UPDATE producto SET PROYECTO_codigo_proyecto = '-1', cantidad_cert = 0 WHERE PROYECTO_codigo_proyecto = '$codigoCertificacion'";
+    $s = "UPDATE PRODUCTO SET PROYECTO_codigo_proyecto = '-1', cantidad_cert = 0 WHERE PROYECTO_codigo_proyecto = '$codigoCertificacion'";
     $connect->query($s);
 
     $sql = "UPDATE proyecto SET estado = 0 WHERE codigo_proyecto = '$codigoCertificacion'";

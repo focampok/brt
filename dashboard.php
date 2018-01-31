@@ -2,15 +2,15 @@
 
 <?php 
 
-$consultaActivos = "SELECT * FROM producto;";
+$consultaActivos = "SELECT * FROM PRODUCTO;";
 $query = $connect->query($consultaActivos);
 $totalActivos = $query->num_rows;
 
-$consultaAdiciones = "SELECT * FROM contenedor";
+$consultaAdiciones = "SELECT * FROM CONTENEDOR";
 $query2 = $connect->query($consultaAdiciones);
 $totalAdiciones = ($query2->num_rows) - 1;
 
-$consultaActas = "SELECT * FROM proyecto";
+$consultaActas = "SELECT * FROM PROYECTO";
 $query3 = $connect->query($consultaActas);
 $totalActas = ($query3->num_rows) - 1;
 
@@ -56,7 +56,7 @@ $connect->close();
 			<div class="panel panel-info">
 			<div class="panel-heading">
 				<a href="adiciones.php" style="text-decoration:none;color:black;">
-					Total de Contenedores
+					Total de Bodegas
 					<span class="badge pull pull-right"><?php echo $totalAdiciones; ?></span>
 				</a>
 					
@@ -68,7 +68,7 @@ $connect->close();
 		<div class="panel panel-danger">
 			<div class="panel-heading">
 				<a href="product.php" style="text-decoration:none;color:black;">
-					Total de Proyectos
+					Total de Proyectos/Ordenes
 					<span class="badge pull pull-right"><?php echo $totalActas ?></span>	
 				</a>
 				

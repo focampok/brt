@@ -2,7 +2,7 @@
 
 require_once 'core.php';
 
-$sql = "SELECT codigo_contenedor, nombre_contenedor FROM contenedor WHERE codigo_contenedor != '-1';";
+$sql = "SELECT codigo_contenedor, nombre_contenedor FROM CONTENEDOR WHERE codigo_contenedor != '-1';";
 $result = $connect->query($sql);
 
 $output = array('data' => array());

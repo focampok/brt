@@ -38,20 +38,20 @@ if($_POST) {
 	$codAdicion = $_POST['brandName'];
         $nombreAdicion = $_POST['brandStatus']; 
 
-	$sql = "INSERT INTO contenedor (codigo_contenedor,nombre_contenedor) VALUES ('$codAdicion','$nombreAdicion')";
+	$sql = "INSERT INTO CONTENEDOR (codigo_contenedor,nombre_contenedor) VALUES ('$codAdicion','$nombreAdicion')";
 
 	if($connect->query($sql) === TRUE) {
 	 	$valid['success'] = true;
-		$valid['messages'] = "Contenedor creado exitosamente.";	
+		$valid['messages'] = "Bodega creada exitosamente.";	
 	} else {
 	 	$valid['success'] = false;
-	 	$valid['messages'] = "Error no se ha podido crear el contenedor.";
+	 	$valid['messages'] = "Error no se ha podido crear la bodega.";
 	}
         
         //obtengo info del user
     $nit = $_SESSION["nit"];
 
-    $XX = "SELECT nit,nombre,apellido FROM usuario WHERE nit = '$nit'";
+    $XX = "SELECT nit,nombre,apellido FROM USUARIO WHERE nit = '$nit'";
     $sr = $connect->query($XX);
     $us = $sr->fetch_array();
     $nombre = $us[0] . ' - ' . $us[1] . ' ' . $us[2];
@@ -59,7 +59,7 @@ if($_POST) {
     //BITACORA
     $hoy = getdate();
     $fecha = $hoy['mday'].' de '.obtenerMes($hoy['mon']).' del '.$hoy['year'];
-    $accion = "El usuario $nombre registró el contenedor $codAdicion el $fecha";
+    $accion = "El USUARIO $nombre registró la BODEGA $codAdicion - $nombreAdicion el $fecha";
 
     $bitacora = "INSERT INTO BITACORA(fecha,accion,USUARIO_nit)VALUES ('$fecha','$accion','$nit');";
     $connect->query($bitacora);

@@ -35,33 +35,29 @@ function obtenerMes($numeroMes) {
 
 if ($_POST) {
 
-    $codProd = $_POST['codigoInventario'];
-    $fecha = $_POST['fecha'];
-    $cantidad = $_POST['cantidad'];
+    $codProd = $_POST['codigoInventario'];    
     $marca = $_POST['marca'];
     $modelo = $_POST['modelo'];
     $serie = $_POST['serie'];
     $descripcion = $_POST['descripcion'];
-    $precio_unitario = $_POST['precio_unitario'];
-    $subTotal = $cantidad * $precio_unitario;
     $codContenedor = $_POST['codigoAdicion'];
     
     //inserto en la tabla activo
-    $sql = "INSERT INTO producto(codigo_producto,fecha,estado,cantidad,marca,modelo,serie,descripcion,precio_unitario,subtotal,CONTENEDOR_codigo_contenedor,PROYECTO_codigo_proyecto)
-               VALUES ('$codProd','$fecha',1,$cantidad,'$marca','$modelo','$serie','$descripcion',$precio_unitario,$subTotal,'$codContenedor','-1');";
+    $sql = "INSERT INTO PRODUCTO(codigo_producto,fecha,estado,cantidad,marca,modelo,serie,descripcion,precio_unitario,subtotal,CONTENEDOR_codigo_contenedor,PROYECTO_codigo_proyecto)
+               VALUES ('$codProd','',1,0,'$marca','$modelo','$serie','$descripcion',0,0,'$codContenedor','-1');";
     
     if ($connect->query($sql) === TRUE) {
         $valid['success'] = true;
         $valid['messages'] = "Producto registrado correctamente";
     } else {
         $valid['success'] = false;
-        $valid['messages'] = "Error al registrar producto.";
+        $valid['messages'] = "Error al registrar PRODUCTO.";
     }
     
     //obtengo info del user
     $nit = $_SESSION["nit"];
 
-    $XX = "SELECT nit,nombre,apellido FROM usuario WHERE nit = '$nit'";
+    $XX = "SELECT nit,nombre,apellido FROM USUARIO WHERE nit = '$nit'";
     $sr = $connect->query($XX);
     $us = $sr->fetch_array();
     $nombre = $us[0] . ' - ' . $us[1] . ' ' . $us[2];
@@ -69,7 +65,7 @@ if ($_POST) {
     //BITACORA
     $hoy = getdate();
     $fecha = $hoy['mday'].' de '.obtenerMes($hoy['mon']).' del '.$hoy['year'];
-    $accion = "El usuario $nombre registró el producto $codProd cuyo contenedor es el $codContenedor el $fecha";
+    $accion = "El USUARIO $nombre registró el PRODUCTO $codProd cuyo contenedor es el $codContenedor el $fecha";
 
     $bitacora = "INSERT INTO BITACORA(fecha,accion,USUARIO_nit)VALUES ('$fecha','$accion','$nit');";
     $connect->query($bitacora);

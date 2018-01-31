@@ -6,14 +6,14 @@
             <form class="form-horizontal" id="submitCertificacionForm" action="php_action/createCertificacion.php" method="POST">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title"><i class="fa fa-plus"></i> Nuevo Proyecto</h4>
+                    <h4 class="modal-title"><i class="fa fa-plus"></i> Nuevo Proyecto/Orden</h4>
                 </div>
                 <div class="modal-body">
 
                     <div id="add-certificaciones-messages"></div>
 
                     <div class="form-group">
-                        <label for="codCertificacion" class="col-sm-3 control-label">Código Proyecto </label>
+                        <label for="codCertificacion" class="col-sm-3 control-label">Código </label>
                         <label class="col-sm-1 control-label">: </label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control" id="codCertificacion" placeholder="Código" name="codCertificacion" required="">

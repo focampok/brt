@@ -2,7 +2,7 @@
 
 require_once 'core.php';
 
-$sql = "SELECT codigo_producto,fecha,estado,cantidad,descripcion,precio_unitario,subtotal,CONTENEDOR_codigo_contenedor,PROYECTO_codigo_proyecto FROM producto";
+$sql = "SELECT codigo_producto,fecha,estado,cantidad,descripcion,precio_unitario,subtotal,CONTENEDOR_codigo_contenedor,PROYECTO_codigo_proyecto FROM PRODUCTO";
 $result = $connect->query($sql);
 
 $output = array('data' => array());

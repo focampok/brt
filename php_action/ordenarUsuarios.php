@@ -2,7 +2,7 @@
 
 require_once 'core.php';
 
-$sql = "SELECT nit,nombre,apellido,puesto,DEPARTAMENTO_codigo_departamento FROM usuario where tipo != 0";
+$sql = "SELECT nit,nombre,apellido,puesto,DEPARTAMENTO_codigo_departamento FROM USUARIO where tipo != 0";
 $result = $connect->query($sql);
 
 $output = array('data' => array());

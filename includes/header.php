@@ -55,11 +55,13 @@
 
                         <li id="navDashboard"><a href="registro.php"><i class="glyphicon glyphicon-user"></i> Nuevo Usuario </a></li> 
 
-                        <li id="navBrand"><a href="contenedores.php"><i class="glyphicon glyphicon-compressed"></i> Contenedores </a></li>        
+                        <li id="navBrand"><a href="bodegas.php"><i class="glyphicon glyphicon-compressed"></i> Bodegas </a></li>        
 
                         <li id="navCategories"><a href="productos.php"> <i class="glyphicon glyphicon-pushpin"></i> Productos </a></li>        
+                        
+                        <li id="navIngreso"><a href="ingresos.php"> <i class="glyphicon glyphicon-import"></i> Ingreso a Bodega </a></li> 
 
-                        <li id="navCertificacion"><a href="proyectos.php"> <i class="glyphicon glyphicon-briefcase"></i> Proyectos </a></li>     
+                        <li id="navCertificacion"><a href="proyectos.php"> <i class="glyphicon glyphicon-briefcase"></i> Proyectos/Ordenes </a></li>     
 
 
                         <li class="dropdown" id="navOrder">

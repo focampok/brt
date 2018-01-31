@@ -196,12 +196,12 @@ if ($resultado->num_rows > 0) {
     $hoja->setCellValue('H' . ($i + 3), '=SUM(G6:G' . ($i - 1) . ')');
 
     //escribo los nombres y firmas...
-    $hoja->setCellValue('F48', "FRANCISCO JOSE OCAMPO GONZALEZ                                                                                                             ANA LETICIA ARAGON CASTILLO");
-    $hoja->getStyle('F48')->getFont()->setBold(TRUE);
-    $hoja->setCellValue('F49', "ENCARGADO DE INVENTARIOS                                                                                                                 JEFE DE DEPARTAMENTO FINANCIERO");
-    $hoja->getStyle('F49')->getFont()->setBold(TRUE);
-    $hoja->setCellValue('F50', "DIRECCION SUPERIOR                                                                                                                                                                    DIRECCION SUPERIOR");
-    $hoja->getStyle('F50')->getFont()->setBold(TRUE);
+//    $hoja->setCellValue('F48', "FRANCISCO JOSE OCAMPO GONZALEZ                                                                                                             ANA LETICIA ARAGON CASTILLO");
+//    $hoja->getStyle('F48')->getFont()->setBold(TRUE);
+//    $hoja->setCellValue('F49', "ENCARGADO DE INVENTARIOS                                                                                                                 JEFE DE DEPARTAMENTO FINANCIERO");
+//    $hoja->getStyle('F49')->getFont()->setBold(TRUE);
+//    $hoja->setCellValue('F50', "DIRECCION SUPERIOR                                                                                                                                                                    DIRECCION SUPERIOR");
+//    $hoja->getStyle('F50')->getFont()->setBold(TRUE);
 
     //centrado
     $hoja->getStyle('F48')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);

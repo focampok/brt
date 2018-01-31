@@ -2,7 +2,7 @@
 
 require_once 'core.php';
 
-$sql = "SELECT codigo_proyecto,fecha,estado FROM proyecto WHERE codigo_proyecto != '-1';";
+$sql = "SELECT codigo_proyecto,fecha,estado FROM PROYECTO WHERE codigo_proyecto != '-1';";
 $result = $connect->query($sql);
 
 $output = array('data' => array());

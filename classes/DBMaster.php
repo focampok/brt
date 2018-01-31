@@ -12,7 +12,7 @@ class DBMaster {
     public $cuentas = "";
     public $subcuentas = "";
     public $adiciones = "";
-    public $usuarios = "";
+    public $USUARIOs = "";
     public $certificaciones = "";
     public $actas = "";
 
@@ -36,21 +36,21 @@ class DBMaster {
             $nit = $this->db_connection->real_escape_string($n);
             $password = $this->db_connection->real_escape_string($p);
 
-            // realizo la consulta para ver si el usuario existe
-            $sql = "SELECT * FROM usuario where nit = '" . $nit . "' AND password = '" . $password . "';";
+            // realizo la consulta para ver si el USUARIO existe
+            $sql = "SELECT * FROM USUARIO where nit = '" . $nit . "' AND password = '" . $password . "';";
             $result_of_login_check = $this->db_connection->query($sql);
 
-            // si el usuario existe
+            // si el USUARIO existe
             if ($result_of_login_check->num_rows == 1) {
                 // convierto las fila en un objeto
                 $result_row = $result_of_login_check->fetch_object();
-                // guardo la info del usuario en variables de sesion
+                // guardo la info del USUARIO en variables de sesion
                 $_SESSION['nit'] = $result_row->nit;
                 $_SESSION['nombre'] = $result_row->nombre;
                 $_SESSION['apellido'] = $result_row->apellido;
                 $_SESSION['puesto'] = $result_row->puesto;
 
-                //verifico el tipo de usuario, si es admin o normal
+                //verifico el tipo de USUARIO, si es admin o normal
                 $tipoUsuario = $result_row->tipo;
                 //es admin
                 if ($tipoUsuario == 0) {
@@ -81,13 +81,13 @@ class DBMaster {
 
         if (!$this->db_connection->connect_errno) {
             // realizo la insercion por parametos, para evitar inyecciones
-            $sql = $this->db_connection->prepare("INSERT INTO usuario(nit,nombre,apellido,puesto,password,tipo,DEPARTAMENTO_codigo_departamento) VALUES (?,?,?,?,?,?,?);");
+            $sql = $this->db_connection->prepare("INSERT INTO USUARIO(nit,nombre,apellido,puesto,password,tipo,DEPARTAMENTO_codigo_departamento) VALUES (?,?,?,?,?,?,?);");
             $sql->bind_param("issssii", $nit, $nombre, $apellido, $puesto, $password, $tipo,$ccc);
             $respuesta = $sql->execute();
             if ($respuesta) {
                 $this->info = "Usuario registrado correctamente.";
             } else {
-                $this->info = "Error, ya existe un usuario con el mismo N.I.T.";
+                $this->info = "Error, ya existe un USUARIO con el mismo N.I.T.";
             }
         } else {
             $this->info = "Problema de conexión de base de datos.";
@@ -104,7 +104,7 @@ class DBMaster {
 
         // si la conexion no tiene errorres, hago la consulta
         if (!$this->db_connection->connect_errno) {
-            // realizo la consulta para obtener codigo y nombre del producto.
+            // realizo la consulta para obtener codigo y nombre del PRODUCTO.
             $sql = "SELECT * FROM departamento;";
             $resultado = $this->db_connection->query($sql);
             // si existen productos
@@ -130,7 +130,7 @@ class DBMaster {
 
         // si la conexion no tiene errorres, hago la consulta
         if (!$this->db_connection->connect_errno) {
-            // realizo la consulta para obtener codigo y nombre del producto.
+            // realizo la consulta para obtener codigo y nombre del PRODUCTO.
             $sql = "SELECT * FROM cuenta;";
             $resultado = $this->db_connection->query($sql);
             // si existen productos
@@ -156,8 +156,8 @@ class DBMaster {
 
         // si la conexion no tiene errorres, hago la consulta
         if (!$this->db_connection->connect_errno) {
-            // realizo la consulta para obtener codigo y nombre del producto.
-            $sql = "SELECT * FROM contenedor where codigo_contenedor != -1;";
+            // realizo la consulta para obtener codigo y nombre del PRODUCTO.
+            $sql = "SELECT * FROM CONTENEDOR where codigo_contenedor != -1;";
             $resultado = $this->db_connection->query($sql);
             // si existen productos
             if ($resultado->num_rows > 0) {
@@ -183,7 +183,7 @@ class DBMaster {
         // si la conexion no tiene errorres, hago la consulta
         if (!$this->db_connection->connect_errno) {
             // realizo la consulta para obtener certificaciones disponibles
-            $sql = "SELECT * FROM proyecto WHERE estado != 0;";
+            $sql = "SELECT * FROM PROYECTO WHERE estado != 0;";
             $resultado = $this->db_connection->query($sql);
             // si existen productos
             if ($resultado->num_rows > 0) {
@@ -234,7 +234,7 @@ class DBMaster {
 
         // si la conexion no tiene errorres, hago la consulta
         if (!$this->db_connection->connect_errno) {
-            // realizo la consulta para obtener codigo y nombre del producto.
+            // realizo la consulta para obtener codigo y nombre del PRODUCTO.
             $sql = "SELECT * FROM subcuenta WHERE CUENTA_codigo_cuenta ='" . $codigo . "';";
             $resultado = $this->db_connection->query($sql);
             // si existen productos
@@ -260,8 +260,8 @@ class DBMaster {
 
         // si la conexion no tiene errorres, hago la consulta
         if (!$this->db_connection->connect_errno) {
-            // realizo la consulta para obtener codigo y nombre del producto.
-            $sql = "SELECT * FROM usuario WHERE DEPARTAMENTO_codigo_departamento = $codigo ;";
+            // realizo la consulta para obtener codigo y nombre del PRODUCTO.
+            $sql = "SELECT * FROM USUARIO WHERE DEPARTAMENTO_codigo_departamento = $codigo ;";
             $resultado = $this->db_connection->query($sql);
             // si existen productos
             if ($resultado->num_rows > 0) {
@@ -269,7 +269,7 @@ class DBMaster {
                 while ($us = $resultado->fetch_array()) {
                     $lista .= $us['nit'] . ' * ' . $us['nombre'] . ' ' . $us['apellido'] . ";";
                 }
-                $this->usuarios = $lista;
+                $this->USUARIOs = $lista;
             }
         } else {
             $this->info = "Problema de conexión de base de datos.";
@@ -286,8 +286,8 @@ class DBMaster {
 
         // si la conexion no tiene errorres, hago la consulta
         if (!$this->db_connection->connect_errno) {
-            // realizo la consulta para obtener codigo y nombre del producto.
-            $sql = "SELECT * FROM producto WHERE PROYECTO_codigo_proyecto = '$codigoCertificacion';";
+            // realizo la consulta para obtener codigo y nombre del PRODUCTO.
+            $sql = "SELECT * FROM PRODUCTO WHERE PROYECTO_codigo_proyecto = '$codigoCertificacion';";
             $resultado = $this->db_connection->query($sql);
             // si existen activos
             if ($resultado->num_rows > 0) {
@@ -308,8 +308,8 @@ class DBMaster {
 
         // si la conexion no tiene errorres, hago la consulta
         if (!$this->db_connection->connect_errno) {
-            // realizo la consulta para obtener codigo y nombre del producto.
-            $sql = "SELECT * FROM producto WHERE CONTENEDOR_codigo_contenedor = '$codigoCertificacion';";
+            // realizo la consulta para obtener codigo y nombre del PRODUCTO.
+            $sql = "SELECT * FROM PRODUCTO WHERE CONTENEDOR_codigo_contenedor = '$codigoCertificacion';";
             $resultado = $this->db_connection->query($sql);
             // si existen activos
             if ($resultado->num_rows > 0) {
@@ -331,7 +331,7 @@ class DBMaster {
 
         // si la conexion no tiene errorres, hago la consulta
         if (!$this->db_connection->connect_errno) {
-            // realizo la consulta para obtener codigo y nombre del producto.
+            // realizo la consulta para obtener codigo y nombre del PRODUCTO.
             $sql = "SELECT * FROM activo WHERE ACTA_codigo_acta = '$codigoActa';";
             $resultado = $this->db_connection->query($sql);
             // si existen activos
@@ -356,8 +356,8 @@ class DBMaster {
 
         // si la conexion no tiene errorres, hago la consulta
         if (!$this->db_connection->connect_errno) {
-            // realizo la consulta para obtener codigo y nombre del producto.
-            $sql = "SELECT * FROM producto WHERE CONTENEDOR_codigo_contenedor = '$codigoAdicion';";
+            // realizo la consulta para obtener codigo y nombre del PRODUCTO.
+            $sql = "SELECT * FROM PRODUCTO WHERE CONTENEDOR_codigo_contenedor = '$codigoAdicion';";
             $resultado = $this->db_connection->query($sql);
             // si existen activos
             if ($resultado->num_rows > 0) {

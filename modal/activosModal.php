@@ -49,22 +49,7 @@ $cadenaCertificaciones = $conexion->certificaciones;
                             <input type="text" class="form-control" id="codigoInventario" placeholder="Código producto" name="codigoInventario" required="">
                         </div>
                     </div> <!-- /form-group-->
-                    <!-- /form-group-->
-                    <div class="form-group">
-                        <label for="fecha" class="col-sm-4 control-label">Fecha * </label>
-                        <label class="col-sm-1 control-label">: </label>
-                        <div class="col-sm-7">
-                            <input type="date" class="form-control" id="fecha" placeholder="Fecha" name="fecha" required="">
-                        </div>
-                    </div> <!-- /form-group-->
-
-                    <div class="form-group">
-                        <label for="cantidad" class="col-sm-4 control-label">Cantidad * </label>
-                        <label class="col-sm-1 control-label">: </label>
-                        <div class="col-sm-7">
-                            <input type="text" class="form-control" id="cantidad" placeholder="Cantidad" name="cantidad" required="">
-                        </div>
-                    </div> <!-- /form-group-->
+                    
                     <div class="form-group">
                         <label for="marca" class="col-sm-4 control-label">Marca </label>
                         <label class="col-sm-1 control-label">: </label>
@@ -93,15 +78,9 @@ $cadenaCertificaciones = $conexion->certificaciones;
                             <input type="text" class="form-control" id="descripcion" placeholder="Descripción" name="descripcion" required="">
                         </div>
                     </div> <!-- /form-group-->
+                                      
                     <div class="form-group">
-                        <label for="precio_unitario" class="col-sm-4 control-label">Precio Unitario *</label>
-                        <label class="col-sm-1 control-label">: </label>
-                        <div class="col-sm-7">
-                            <input type="text" class="form-control" id="precio_unitario" placeholder="Precio" name="precio_unitario" required="">
-                        </div>
-                    </div> <!-- /form-group-->                    
-                    <div class="form-group">
-                        <label for="codigoAdicion" class="col-sm-4 control-label">Contenedor * </label>
+                        <label for="codigoAdicion" class="col-sm-4 control-label">Bodega * </label>
                         <label class="col-sm-1 control-label">: </label>
                         <div class="col-sm-7">
                             <select class="form-control" id="codigoAdicion" name="codigoAdicion">

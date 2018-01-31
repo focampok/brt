@@ -39,21 +39,21 @@ if ($_POST) {
     $fechaCertificacion = $_POST['fechaCertificacion'];
     $estado = 1;
 
-    $sql = "INSERT INTO proyecto (codigo_proyecto,fecha,estado) VALUES ('$codCertificacion','$fechaCertificacion',$estado)";
+    $sql = "INSERT INTO PROYECTO (codigo_proyecto,fecha,estado) VALUES ('$codCertificacion','$fechaCertificacion',$estado)";
 
     if ($connect->query($sql) === TRUE) {
         $valid['success'] = true;
         $valid['messages'] = "Proyecto creado exitosamente.";
     } else {
         $valid['success'] = false;
-        $valid['messages'] = "Error no se ha podido crear el proyecto.";
+        $valid['messages'] = "Error no se ha podido crear el PROYECTO.";
     }
 
 
     //obtengo info del user
     $nit = $_SESSION["nit"];
 
-    $XX = "SELECT nit,nombre,apellido FROM usuario WHERE nit = '$nit'";
+    $XX = "SELECT nit,nombre,apellido FROM USUARIO WHERE nit = '$nit'";
     $sr = $connect->query($XX);
     $us = $sr->fetch_array();
     $nombre = $us[0] . ' - ' . $us[1] . ' ' . $us[2];
@@ -61,7 +61,7 @@ if ($_POST) {
     //BITACORA
     $hoy = getdate();
     $fecha = $hoy['mday'] . ' de ' . obtenerMes($hoy['mon']) . ' del ' . $hoy['year'];
-    $accion = "El usuario $nombre creó el proyecto $codCertificacion el $fecha";
+    $accion = "El USUARIO $nombre creó el PROYECTO $codCertificacion el $fecha";
 
     $bitacora = "INSERT INTO BITACORA(fecha,accion,USUARIO_nit)VALUES ('$fecha','$accion','$nit');";
     $connect->query($bitacora);

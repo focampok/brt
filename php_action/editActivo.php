@@ -10,7 +10,7 @@ if ($_POST) {
     $id = $_POST['activoID'];
 
     //obtengo precio
-    $sl = "SELECT precio_unitario FROM producto WHERE codigo_producto = '$id';";
+    $sl = "SELECT precio_unitario FROM PRODUCTO WHERE codigo_producto = '$id';";
     $rst = $connect->query($sl);
 
     $rpr = $rst->fetch_array();
@@ -19,11 +19,11 @@ if ($_POST) {
     //nuevo subtotal
     $sub = $cant * $precio_unitario;
     
-    $sx = "UPDATE producto SET subtotal = $sub WHERE codigo_producto = '$id'";
+    $sx = "UPDATE PRODUCTO SET subtotal = $sub WHERE codigo_producto = '$id'";
     $connect->query($sx);
     
 
-    $sql = "UPDATE producto SET cantidad = $cant WHERE codigo_producto = '$id'";
+    $sql = "UPDATE PRODUCTO SET cantidad = $cant WHERE codigo_producto = '$id'";
 
 
 
