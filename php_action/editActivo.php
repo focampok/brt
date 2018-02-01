@@ -1,41 +1,15 @@
 <?php
 
 require_once 'core.php';
-
-$valid['success'] = array('success' => false, 'messages' => array());
-
-if ($_POST) {
-
-    $cant = $_POST['cantidad'];
-    $id = $_POST['activoID'];
-
-    //obtengo precio
-    $sl = "SELECT precio_unitario FROM PRODUCTO WHERE codigo_producto = '$id';";
-    $rst = $connect->query($sl);
-
-    $rpr = $rst->fetch_array();
-    $precio_unitario = $rpr[0];
-    
-    //nuevo subtotal
-    $sub = $cant * $precio_unitario;
-    
-    $sx = "UPDATE PRODUCTO SET subtotal = $sub WHERE codigo_producto = '$id'";
-    $connect->query($sx);
-    
-
-    $sql = "UPDATE PRODUCTO SET cantidad = $cant WHERE codigo_producto = '$id'";
-
-
-
-    if ($connect->query($sql) === TRUE) {
-        $valid['success'] = true;
-        $valid['messages'] = "Producto editado correctamente";
-    } else {
-        $valid['success'] = false;
-        $valid['messages'] = "Error no se ha podido editar";
+$id = $_POST['id'];
+$sql = "SELECT cantidad,PROYECTO_codigo_proyecto FROM asignacion WHERE PRODUCTO_codigo_producto = '$id';";
+$result = $connect->query($sql);
+if ($result->num_rows > 0) {
+    $salida=" ";
+    while ($row = $result->fetch_array()) {
+        $salida .= $row[0].' - '.$row[1].'; ';
     }
-
-    $connect->close();
-
-    echo json_encode($valid);
-} // /if $_POST
+}
+// if num_rows
+$connect->close();
+echo json_encode($salida);

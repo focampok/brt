@@ -92,7 +92,7 @@ if ($_POST) {
                                     </tbody>
                                     </table>
                                     <div id = "pie">
-                                    <font size = "5"><b>TEXTO TEXTO TEXTO ' . $fechaPDF . '<b></font>.
+                                    <font size = "5"><b> ' . $fechaPDF . '<b></font>.
                                     </div>
                                     </main>
                                     <footer>

@@ -35,45 +35,49 @@ function obtenerMes($numeroMes) {
 
 if ($_POST) {
 
-    $codProd = $_POST['codigoInventario'];    
-    $marca = $_POST['marca'];
-    $modelo = $_POST['modelo'];
-    $serie = $_POST['serie'];
-    $descripcion = $_POST['descripcion'];
-    $codContenedor = $_POST['codigoAdicion'];
-    
-    //inserto en la tabla activo
-    $sql = "INSERT INTO PRODUCTO(codigo_producto,fecha,estado,cantidad,marca,modelo,serie,descripcion,precio_unitario,subtotal,CONTENEDOR_codigo_contenedor,PROYECTO_codigo_proyecto,ORDEN_codigo_orden)
-               VALUES ('$codProd','-',1,100,'$marca','$modelo','$serie','$descripcion',25,0,'$codContenedor','-1','-');";
-    
-    if ($connect->query($sql) === TRUE) {
-        $valid['success'] = true;
-        $valid['messages'] = "Producto registrado correctamente";
-    } else {
-        $valid['success'] = false;
-        $valid['messages'] = "Error al registrar PRODUCTO.";
-    }
-    
-    //obtengo info del user
-    $nit = $_SESSION["nit"];
+    $codigo = $_POST['codigo'];
+    $fecha = $_POST['fecha'];
+    $factura = $_POST['factura'];
+    $proveedor = $_POST['proveedor'];
 
+    //creo una una nueva orden
+    $consultaOrden = "INSERT INTO ORDEN(codigo_orden,fecha,factura,proveedor)VALUES ('$codigo','$fecha','$factura','$proveedor');";
+    $connect->query($consultaOrden);
+    
+    
+    //seteo los datos del producto 1
+    
+    
+
+    //creo un nuevo detalle
+    $codProd = $_POST['codProd1'];
+    $cantidad = $_POST['cantidad1'];
+    $precio = $_POST['precio1'];
+    $st = $cantidad * $precio;
+
+    $consultaDetalle = "INSERT INTO DETALLE_ORDEN(ORDEN_codigo_orden,PRODUCTO_codigo_producto,cantidad,precio_unitario,subtotal)VALUES ('$codigo','$codProd',$cantidad,$precio,$st);";
+    $connect->query($consultaDetalle);
+
+    
+    
+    
+    
+    //mensaje de exito
+    $valid['success'] = true;
+    $valid['messages'] = "exito";
+
+    //usuario
+    $nit = $_SESSION["nit"];
     $XX = "SELECT nit,nombre,apellido FROM USUARIO WHERE nit = '$nit'";
     $sr = $connect->query($XX);
     $us = $sr->fetch_array();
     $nombre = $us[0] . ' - ' . $us[1] . ' ' . $us[2];
-
     //BITACORA
     $hoy = getdate();
-    $fecha = $hoy['mday'].' de '.obtenerMes($hoy['mon']).' del '.$hoy['year'];
-    $accion = "El USUARIO $nombre registró el PRODUCTO $codProd cuyo contenedor es el $codContenedor el $fecha";
-
+    $fecha = $hoy['mday'] . ' de ' . obtenerMes($hoy['mon']) . ' del ' . $hoy['year'];
+    $accion = "El USUARIO $nombre registró el ingreso de Bodega $codigo el $fecha";
     $bitacora = "INSERT INTO BITACORA(fecha,accion,USUARIO_nit)VALUES ('$fecha','$accion','$nit');";
     $connect->query($bitacora);
-    
     $connect->close();
     echo json_encode($valid);
-    
-    
-    
-    
 } // /if $_POST

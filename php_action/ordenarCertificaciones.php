@@ -31,11 +31,10 @@ if ($result->num_rows > 0) {
         } else if ($row[2] == 1) {
             // disponible, tiene ambas opciones...
             $estado = "<label class='label label-success'>Disponible</label>";
-            $button.= '<li><a type="button" data-toggle="modal" id="anularCertificacionBtn" data-target="#anularCertificacionModal" onclick="anularCertificacion(\'' . $id . '\')"> <i class="glyphicon glyphicon-ban-circle"></i> Anular </a></li>';
             $button.= '<li><a type="button" data-toggle="modal" id="generarCertificacionModalBtn" data-target="#generarCertificacionModal" onclick="generarCertificacion(\'' . $id . '\')"> <i class="glyphicon glyphicon-print"></i> Generar PDF </a></li>';
             $button .= '</ul></div>';
-        }
-        //calcular total de certificaciones
+        }        
+        
         //calcular los totales por cada adición
         $consultaAdicion = "call obtenerTotalProyecto('$id',@total)";
         $connect->query($consultaAdicion);
@@ -50,8 +49,8 @@ if ($result->num_rows > 0) {
             $total = "<label class='label label-success'>" . "Q " . number_format($totalCertificacion, 2) . "</label>";
         }
 
-        //busco los activos de esa cerf.
-        $ac = "SELECT codigo_producto FROM producto WHERE PROYECTO_codigo_proyecto = '$id'";
+        //busco los productos que tenga ese proyecto
+        $ac = "SELECT distinct(PRODUCTO_codigo_producto) FROM asignacion WHERE PROYECTO_codigo_proyecto = '$id'";
         $rsac = $connect->query($ac);
         if ($rsac->num_rows > 0) {
             $activos = "";
@@ -61,7 +60,7 @@ if ($result->num_rows > 0) {
 
             $lista .= '<div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	    Activos <span class="caret"></span>
+	    Productos <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">' .
                     $activos .

@@ -163,7 +163,7 @@ $cadenaCertificaciones = $conexion->certificaciones;
             <form class="form-horizontal" id="editActivoForm" action="php_action/editActivo.php" method="POST">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title"><i class="glyphicon glyphicon-edit"></i> Editar Producto</h4>
+                    <h4 class="modal-title"><i class="glyphicon glyphicon-edit"></i> Ver proyectos</h4>
                 </div>
                 <div class="modal-body">
 
@@ -177,10 +177,10 @@ $cadenaCertificaciones = $conexion->certificaciones;
                     <div class="edit-activo-result">
 
                         <div class="form-group">
-                            <label for="cantidad" class="col-sm-4 control-label">Cantidad * </label>
+                            <label for="cantidad" class="col-sm-4 control-label">Proyectos * </label>
                             <label class="col-sm-1 control-label">: </label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" id="cantidad" placeholder="Cantidad" name="cantidad" required="">
+                                <input type="text" class="form-control" id="verInfo" placeholder="Proyectos" name="verInfo" readonly="">
                             </div>
                         </div>
 
@@ -188,8 +188,7 @@ $cadenaCertificaciones = $conexion->certificaciones;
                     <!-- /edit brand result -->
                 </div> <!-- /modal-body -->
                 <div class="modal-footer editActivoFooter">
-                    <button type="button" class="btn btn-default" data-dismiss="modal"> <i class="glyphicon glyphicon-remove-sign"></i> Cerrar</button>	        
-                    <button type="submit" class="btn btn-success" id="editActivoBtn" data-loading-text="Loading..." autocomplete="off"> <i class="glyphicon glyphicon-ok-sign"></i> Guardar cambios</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"> <i class="glyphicon glyphicon-remove-sign"></i> Cerrar</button>	                            
                 </div>
                 <!-- /modal-footer -->
             </form>

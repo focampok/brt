@@ -46,13 +46,6 @@ if ($_POST) {
 
     $rs = $result->fetch_array();
     $cantidad = $rs["cantidad"];
-    
-    //obtengo precio
-    $sl = "SELECT precio_unitario FROM PRODUCTO WHERE codigo_producto = '$id';";
-    $rst = $connect->query($sl);
-
-    $rpr = $rst->fetch_array();
-    $precio_unitario = $rpr["precio_unitario"];
 
     if ($cant <= $cantidad) {
 
@@ -60,31 +53,30 @@ if ($_POST) {
         $s = "UPDATE PRODUCTO SET estado = 2 WHERE codigo_producto = '$id'";
         $connect->query($s);
 
-        //cambio cantidad cert
 
-        $x = "UPDATE PRODUCTO SET cantidad_cert = $cant WHERE codigo_producto = '$id'";
-        $connect->query($x);
-
+        //resto la cantidades.
         $z = $cantidad - $cant;
 
         //se acabaron existencias, por lo tanto PRODUCTO no disponible
         if ($z == 0) {
-            $n= "UPDATE PRODUCTO SET estado = 0 WHERE codigo_producto = '$id'";
+            $n = "UPDATE PRODUCTO SET estado = 0 WHERE codigo_producto = '$id'";
             $connect->query($n);
         }
 
-        //resto cantidades
+        //seteo la nueva cantidad.
         $y = "UPDATE PRODUCTO SET cantidad = $z WHERE codigo_producto = '$id'";
         $connect->query($y);
         
-        //nuevo subtotal
-       // $nst = $z * $precio_unitario;
-       // $zz = "UPDATE PRODUCTO SET subtotal = $nst WHERE codigo_producto = '$id'";
-       // $connect->query($zz);
-
-        //enlazo PRODUCTO con proyecto
-
-        $sql = "UPDATE PRODUCTO SET PROYECTO_codigo_proyecto = '$codCertificacion' WHERE codigo_producto = '$id'";
+        $consultaAdicion = "call obtenerPrecioProducto('$id',@total)";
+        $connect->query($consultaAdicion);
+        $c = "select @total as salida";
+        $query4 = $connect->query($c);
+        $rs = $query4->fetch_assoc();
+        $precio = $rs['salida'];
+        $st = $precio*$cant;
+        
+        //inserto en la asignacion.
+        $sql = "INSERT INTO ASIGNACION(PRODUCTO_codigo_producto,cantidad,precio_unitario,subtotal,PROYECTO_codigo_proyecto)values('$id',$cant,$precio,$st,'$codCertificacion')";
         if ($connect->query($sql) === TRUE) {
             $valid['success'] = true;
             $valid['messages'] = "Producto agregado al PRODUCTO correctamente";
@@ -96,7 +88,7 @@ if ($_POST) {
         $valid['success'] = false;
         $valid['messages'] = "Cantidad incorrecta.";
     }
-    
+
     //obtengo info del user
     $nit = $_SESSION["nit"];
 
@@ -107,13 +99,13 @@ if ($_POST) {
 
     //BITACORA
     $hoy = getdate();
-    $fecha = $hoy['mday'].' de '.obtenerMes($hoy['mon']).' del '.$hoy['year'];
+    $fecha = $hoy['mday'] . ' de ' . obtenerMes($hoy['mon']) . ' del ' . $hoy['year'];
     $accion = "El USUARIO $nombre agregó $cant del PRODUCTO $id al proyecto $codCertificacion el $fecha";
 
     $bitacora = "INSERT INTO BITACORA(fecha,accion,USUARIO_nit)VALUES ('$fecha','$accion','$nit');";
     $connect->query($bitacora);
-    
-    
+
+
 
 
 

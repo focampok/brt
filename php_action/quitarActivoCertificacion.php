@@ -38,27 +38,21 @@ if ($_POST) {
     //obtengo el codigo la certificacion
     $id = $_POST['codigoInventario'];
 
-    //obtengo la cantidad de dicho activo
-    $sx = "SELECT cantidad FROM PRODUCTO WHERE codigo_producto = '$id';";
-    $result = $connect->query($sx);
-
-    $rs = $result->fetch_array();
-    $cantidad = $rs["cantidad"];
-
-    $mm = "SELECT cantidad_cert FROM PRODUCTO WHERE codigo_producto = '$id';";
-    $ret = $connect->query($mm);
-
-    $rst = $ret->fetch_array();
-    $cantidad_cert = $rst["cantidad_cert"];
-
-    $suma = $cantidad + $cantidad_cert;
-
-    //regreso cantidades a estado anterior
+    //obtengo la suma de cantidades de dicho producto en el proyecto
+    $sx = "SELECT sum(cantidad)as cantidad FROM ASIGNACION WHERE PRODUCTO_codigo_producto = '$id';";
+    $rt = $connect->query($sx);
+    $rrr = $rt->fetch_array();
+    $cantidadProyecto = $rrr["cantidad"];
+    
+    $sxy = "SELECT cantidad cantidad FROM PRODUCTO WHERE codigo_producto = '$id';";
+    $rty = $connect->query($sxy);
+    $rrry = $rty->fetch_array();
+    $cantidadOriginal = $rrry["cantidad"];
+    
+    $suma = $cantidadOriginal + $cantidadProyecto;
+    //a la cantidad actual del proyecto le sumo la cantidad del proyecto
     $y = "UPDATE PRODUCTO SET cantidad = $suma WHERE codigo_producto = '$id'";
     $connect->query($y);
-
-    $r = "UPDATE PRODUCTO SET cantidad_cert = 0 WHERE codigo_producto = '$id'";
-    $connect->query($r);
 
     //nuevo subtotal
     $sl = "SELECT precio_unitario FROM PRODUCTO WHERE codigo_producto = '$id';";
@@ -70,7 +64,11 @@ if ($_POST) {
     $nst = $suma * $precio_unitario;
     $zz = "UPDATE PRODUCTO SET subtotal = $nst WHERE codigo_producto = '$id'";
     $connect->query($zz);
-
+    
+    //elimino el producto de la tabla de asignacion
+    $zzx = "delete from asignacion where PRODUCTO_codigo_producto = '$id'";
+    $connect->query($zzx);
+    
 
     //cambio el estado del activo
     $r = "UPDATE PRODUCTO SET estado = 1 WHERE codigo_producto = '$id'";
@@ -85,8 +83,8 @@ if ($_POST) {
         $valid['success'] = false;
         $valid['messages'] = "Error no se ha podido quitar el PRODUCTO.";
     }
-    
-     //obtengo info del user
+
+    //obtengo info del user
     $nit = $_SESSION["nit"];
 
     $XX = "SELECT nit,nombre,apellido FROM USUARIO WHERE nit = '$nit'";
@@ -96,7 +94,7 @@ if ($_POST) {
 
     //BITACORA
     $hoy = getdate();
-    $fecha = $hoy['mday'].' de '.obtenerMes($hoy['mon']).' del '.$hoy['year'];
+    $fecha = $hoy['mday'] . ' de ' . obtenerMes($hoy['mon']) . ' del ' . $hoy['year'];
     $accion = "El USUARIO $nombre eliminó el PRODUCTO $id del proyecto el $fecha";
 
     $bitacora = "INSERT INTO BITACORA(fecha,accion,USUARIO_nit)VALUES ('$fecha','$accion','$nit');";

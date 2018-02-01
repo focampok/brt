@@ -15,6 +15,7 @@ class DBMaster {
     public $USUARIOs = "";
     public $certificaciones = "";
     public $actas = "";
+    public $productos = "";
 
     // el contructor de la clase... crea la conexion a la bd.
     public function __construct() {
@@ -173,6 +174,34 @@ class DBMaster {
         //cierro la conexion.
         $this->db_connection->close();
     }
+    
+    
+    public function llenarComboProductos() {
+        // verifico la codificacion
+        if (!$this->db_connection->set_charset("utf8")) {
+            $this->info = $this->db_connection->error;
+        }
+
+        // si la conexion no tiene errorres, hago la consulta
+        if (!$this->db_connection->connect_errno) {
+            // realizo la consulta para obtener codigo y nombre del PRODUCTO.
+            $sql = "SELECT * FROM producto";
+            $resultado = $this->db_connection->query($sql);
+            // si existen productos
+            if ($resultado->num_rows > 0) {
+                $lista = "";
+                while ($add = $resultado->fetch_array()) {
+                    $lista .=" <option value='" . $add['codigo_producto'] . "'>" . $add['codigo_producto'] . "</option>";
+                }
+                $this->productos = $lista;
+            }
+        } else {
+            $this->info = "Problema de conexión de base de datos.";
+        }
+        //cierro la conexion.
+        $this->db_connection->close();
+    }
+    
 
     public function llenarComboCertificaciones() {
         // verifico la codificacion
@@ -287,7 +316,7 @@ class DBMaster {
         // si la conexion no tiene errorres, hago la consulta
         if (!$this->db_connection->connect_errno) {
             // realizo la consulta para obtener codigo y nombre del PRODUCTO.
-            $sql = "SELECT * FROM PRODUCTO WHERE PROYECTO_codigo_proyecto = '$codigoCertificacion';";
+            $sql = "SELECT distinct * from asignacion  WHERE PROYECTO_codigo_proyecto = '$codigoCertificacion';";
             $resultado = $this->db_connection->query($sql);
             // si existen activos
             if ($resultado->num_rows > 0) {

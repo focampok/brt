@@ -35,8 +35,6 @@ function obtenerMes($numeroMes) {
 
 if ($_POST) {
 
-
-
     //obtengo el codigo la certificacion
     $codigoCertificacion = $_POST['codigoCertificacion'];
 

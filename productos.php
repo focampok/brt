@@ -30,8 +30,9 @@
                             <th><font size="1">Descripción</font></th>
                             <th><font size="1">Precio Unitario</font></th>
                             <th><font size="1">Subtotal</font></th>
-                            <th><font size="1">Bodega</font></th>
-                            <th><font size="1">Proyecto</font></th>  
+                            <th><font size="1">Bodega</font></th>                                                       
+                              
+                            <th><font size="1">Ingreso</font></th>
                             <th style="width:15%;">Opciones</th>
                         </tr>
                     </thead>

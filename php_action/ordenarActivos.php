@@ -2,7 +2,7 @@
 
 require_once 'core.php';
 
-$sql = "SELECT codigo_producto,fecha,estado,cantidad,descripcion,precio_unitario,subtotal,CONTENEDOR_codigo_contenedor,PROYECTO_codigo_proyecto FROM PRODUCTO";
+$sql = "SELECT codigo_producto,fecha,estado,cantidad,descripcion,precio_unitario,subtotal,CONTENEDOR_codigo_contenedor,ORDEN_codigo_orden FROM PRODUCTO";
 $result = $connect->query($sql);
 
 $output = array('data' => array());
@@ -35,24 +35,18 @@ if ($result->num_rows > 0) {
             //disponible
             $estado = "<label class='label label-success'>Disponible</label>";
             $button.= '<li><a type="button" data-toggle="modal" id="verActivoModalBtn" data-target="#verActivoModal" onclick="verActivo(\'' . $id . '\')"> <i class="glyphicon glyphicon-eye-open"></i> Detalle </a></li>';
-            $button.= '<li><a type="button" data-toggle="modal" id="editarActivoModalBtn" data-target="#editActivoModal" onclick="editarActivo(\'' . $id . '\')"> <i class="glyphicon glyphicon-pencil"></i> Editar </a></li>';
+            $button.= '<li><a type="button" data-toggle="modal" id="editarActivoModalBtn" data-target="#editActivoModal" onclick="editarActivo(\'' . $id . '\')"> <i class="glyphicon glyphicon-pencil"></i> Ver proyectos </a></li>';
             $button.= '<li><a type="button" data-toggle="modal" id="certificarModalBtn" data-target="#certificarActivoModal" onclick="certificarActivo(\'' . $id . '\')"> <i class="glyphicon glyphicon-briefcase"></i> Asignar a proyecto </a></li>';
             $button .= '</ul></div>';
         } else if ($row[2] == 2) {
             //asignado a un proyecto
             $estado = "<label class='label label-info'> Asignado a proyecto </label>";
             $button.= '<li><a type="button" data-toggle="modal" id="verActivoModalBtn" data-target="#verActivoModal" onclick="verActivo(\'' . $id . '\')"> <i class="glyphicon glyphicon-eye-open"></i> Detalle </a></li>';
-            $button.= '<li><a type="button" data-toggle="modal" id="editarActivoModalBtn" data-target="#editActivoModal" onclick="editarActivo(\'' . $id . '\')"> <i class="glyphicon glyphicon-pencil"></i> Editar </a></li>';
+            $button.= '<li><a type="button" data-toggle="modal" id="editarActivoModalBtn" data-target="#editActivoModal" onclick="editarActivo(\'' . $id . '\')"> <i class="glyphicon glyphicon-pencil"></i> Ver proyectos </a></li>';
             $button.= '<li><a type="button" data-toggle="modal" id="certificarModalBtn" data-target="#certificarActivoModal" onclick="certificarActivo(\'' . $id . '\')"> <i class="glyphicon glyphicon-briefcase"></i> Asignar a proyecto </a></li>';
             $button .= '</ul></div>';
         }
-
-        if ($row[8] == '-1') {
-            $proyecto = "Sin asignar";
-        } else {
-            $proyecto = $row[8];
-        }
-
+        
         $output['data'][] = array(            
             $row[0],
             $row[1],
@@ -61,8 +55,8 @@ if ($result->num_rows > 0) {
             $row[4],
             number_format($row[5], 2),
             number_format($row[6], 2),
-            $row[7],
-            $proyecto,
+            $row[7],            
+            $row[8],
             $button
         );
     } // /while 

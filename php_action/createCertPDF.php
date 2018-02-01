@@ -52,8 +52,8 @@ if ($_POST) {
                     <table>
                       <thead>
                         <tr>
-                          <th class="service">COD. Producto </th>
-                          <th class="desc"> DESCRIPCION </th>
+                          <th> # </th>
+                          <th class="service">COD. Producto </th>                          
                           <th> CANTIDAD </th>
                           <th> PRECIO UNITARIO</th>
                           <th> SUBTOTAL </th>
@@ -65,11 +65,11 @@ if ($_POST) {
     $contador = 1;
     foreach ($activos as $activo) {
         $contenidoHTML.= '<tr>
-                                      <td class = "service">' . $activo['codigo_producto'] . '</td>
-                                      <td class = "desc">' . $activo['descripcion'] . '</td>
-                                      <td>' . $activo['cantidad_cert'] . '</td>
+                                      <td>' . $contador . '</td>
+                                      <td class = "service">' . $activo['PRODUCTO_codigo_producto'] . '</td>                                      
+                                      <td>' . $activo['cantidad'] . '</td>
                                       <td>' . 'Q ' . number_format($activo['precio_unitario'], 2) . '</td>                                      
-                                      <td class = "total">' . 'Q ' . number_format($activo['cantidad_cert'] * $activo['precio_unitario'], 2) . '</td>
+                                      <td class = "total">' . 'Q ' . number_format($activo['subtotal'], 2) . '</td>
                                      </tr>';
         $contador++;
         if ($contador == count($activos)) {
@@ -92,7 +92,7 @@ if ($_POST) {
                                     </tbody>
                                     </table>
                                     <div id = "pie">
-                                    <font size = "5"><b>TEXTO TEXTO TEXTO ' . $fechaPDF . '<b></font>.
+                                    <font size = "5"><b> ' . $fechaPDF . '<b></font>.
                                     </div>
                                     </main>
                                     <footer>

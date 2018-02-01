@@ -101,63 +101,32 @@ function verActivo(id)
     }
 }
 
+
 function editarActivo(id)
 {
-    if (id)
-    {
-        // remove hidden id text
-        $('#activoID').remove();
-        // activo id 
-        $(".editActivoFooter").after('<input type="hidden" name="activoID" id="activoID" value="' + id + '" />');
+    if (id) {
+        $.ajax({
+            url: 'php_action/editActivo.php',
+            type: 'post',
+            data: {id: id},
+            dataType: 'json',
+            success: function (response) {
+                // modal spinner
+                $('.modal-loading').addClass('div-hide');
+                // modal result
+                $('.ver-activo-result').removeClass('div-hide');
+                //modal footer
+                $(".verFooter").removeClass('div-hide');
+                $("#verInfo").val(response);
+            } // /success
+        }); // /fetch the selected categories data
 
-        // update brand form 
-        $('#editActivoForm').unbind('submit').bind('submit', function () {
-
-            // remove the error text
-            $(".text-danger").remove();
-            // remove the form error
-            $('.form-group').removeClass('has-error').removeClass('has-success');
-            var form = $(this);
-            // submit btn
-            $('#editActivoBtn').button('loading');
-            $.ajax({
-                url: form.attr('action'),
-                type: form.attr('method'),
-                data: form.serialize(),
-                dataType: 'json',
-                success: function (response) {
-                    if (response.success == true) {
-                        console.log(response);
-                        // submit btn
-                        $('#editActivoBtn').button('reset');
-                        // reload the manage member table                         
-                        manageCategoriesTable.ajax.reload(null, false);
-                        // remove the error text
-                        $(".text-danger").remove();
-                        // remove the form error
-                        $('.form-group').removeClass('has-error').removeClass('has-success');
-
-                        $('#edit-activo-messages').html('<div class="alert alert-success">' +
-                                '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
-                                '<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> ' + response.messages +
-                                '</div>');
-
-                        $(".alert-success").delay(500).show(10, function () {
-                            $(this).delay(3000).hide(10, function () {
-                                $(this).remove();
-                            });
-                        }); // /.alert
-                    } // /if
-
-                }// /success
-            });	 // /ajax
-            return false;
-        }); // /update brand form
-    }
-    else {
+    } else {
         alert('Oops!! Refresh the page');
     }
 }
+
+
 
 function certificarActivo(id)
 {
