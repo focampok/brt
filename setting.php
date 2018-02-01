@@ -2,7 +2,7 @@
 
 <?php 
 $nit = $_SESSION['nit'];
-$sql = "SELECT * FROM usuario WHERE nit = '$nit'";
+$sql = "SELECT * FROM USUARIO WHERE nit = '$nit'";
 $query = $connect->query($sql);
 $result = $query->fetch_assoc();
 $connect->close();

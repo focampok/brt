@@ -2,7 +2,7 @@
 
 require_once 'core.php';
 
-$sql = "SELECT codigo_orden,factura,proveedor FROM orden;";
+$sql = "SELECT codigo_orden,factura,proveedor FROM ORDEN;";
 $result = $connect->query($sql);
 
 $output = array('data' => array());

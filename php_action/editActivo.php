@@ -2,7 +2,7 @@
 
 require_once 'core.php';
 $id = $_POST['id'];
-$sql = "SELECT cantidad,PROYECTO_codigo_proyecto FROM asignacion WHERE PRODUCTO_codigo_producto = '$id';";
+$sql = "SELECT cantidad,PROYECTO_codigo_proyecto FROM ASIGNACION WHERE PRODUCTO_codigo_producto = '$id';";
 $result = $connect->query($sql);
 if ($result->num_rows > 0) {
     $salida=" ";

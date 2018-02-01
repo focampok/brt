@@ -52,23 +52,25 @@ if ($_POST) {
         $precio = $_POST['precio' . $contador];
         $st = $cantidad * $precio;
 
-        //seteo la info de ese producto...
-        //obtengo la cantidad y precio actual.
-        $consultaProducto = "SELECT cantidad,subtotal FROM producto WHERE codigo_producto = '$codProd'";
-        $cc = $connect->query($consultaProducto);
-        $prod = $cc->fetch_array();
-        //cantidad actual + cantidad nueva
-        $nuevaCantidad = $prod[0] + $cantidad;
-        //subtotal actual + nuevo st
-        $nuevoSubtotal = $nuevaCantidad * $precio;
+        if ($cantidad !== '' && $precio !== '') {
+            //seteo la info de ese PRODUCTO...
+            //obtengo la cantidad y precio actual.
+            $consultaProducto = "SELECT cantidad,subtotal FROM PRODUCTO WHERE codigo_producto = '$codProd'";
+            $cc = $connect->query($consultaProducto);
+            $prod = $cc->fetch_array();
+            //cantidad actual + cantidad nueva
+            $nuevaCantidad = $prod[0] + $cantidad;
+            //subtotal actual + nuevo st
+            $nuevoSubtotal = $nuevaCantidad * $precio;
 
-        //actualizo el producto con la nueva info.
-        $actualizar = "UPDATE producto SET fecha='$fecha',cantidad = $nuevaCantidad,precio_unitario=$precio,subtotal = $nuevoSubtotal,ORDEN_codigo_orden='$codigo' WHERE codigo_producto = '$codProd'";
-        $connect->query($actualizar);
+            //actualizo el PRODUCTO con la nueva info.
+            $actualizar = "UPDATE PRODUCTO SET fecha='$fecha',cantidad = $nuevaCantidad,precio_unitario=$precio,subtotal = $nuevoSubtotal,ORDEN_codigo_orden='$codigo' WHERE codigo_producto = '$codProd'";
+            $connect->query($actualizar);            
+            //nuevo detalle
+            $consultaDetalle = "INSERT INTO DETALLE_ORDEN(ORDEN_codigo_orden,PRODUCTO_codigo_producto,cantidad,precio_unitario,subtotal)VALUES ('$codigo','$codProd',$cantidad,$precio,$st);";
+            $connect->query($consultaDetalle);
+        }
         $contador++;
-        //nuevo detalle
-        $consultaDetalle = "INSERT INTO DETALLE_ORDEN(ORDEN_codigo_orden,PRODUCTO_codigo_producto,cantidad,precio_unitario,subtotal)VALUES ('$codigo','$codProd',$cantidad,$precio,$st);";
-        $connect->query($consultaDetalle);
     }
 
     //mensaje de exito

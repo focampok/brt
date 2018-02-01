@@ -185,7 +185,7 @@ class DBMaster {
         // si la conexion no tiene errorres, hago la consulta
         if (!$this->db_connection->connect_errno) {
             // realizo la consulta para obtener codigo y nombre del PRODUCTO.
-            $sql = "SELECT * FROM producto";
+            $sql = "SELECT * FROM PRODUCTO";
             $resultado = $this->db_connection->query($sql);
             // si existen productos
             if ($resultado->num_rows > 0) {
@@ -316,7 +316,7 @@ class DBMaster {
         // si la conexion no tiene errorres, hago la consulta
         if (!$this->db_connection->connect_errno) {
             // realizo la consulta para obtener codigo y nombre del PRODUCTO.
-            $sql = "SELECT distinct * from asignacion  WHERE PROYECTO_codigo_proyecto = '$codigoCertificacion';";
+            $sql = "SELECT distinct * from ASIGNACION  WHERE PROYECTO_codigo_proyecto = '$codigoCertificacion';";
             $resultado = $this->db_connection->query($sql);
             // si existen activos
             if ($resultado->num_rows > 0) {
@@ -360,7 +360,7 @@ class DBMaster {
         // si la conexion no tiene errorres, hago la consulta
         if (!$this->db_connection->connect_errno) {
             // realizo la consulta para obtener codigo y nombre del PRODUCTO.
-            $sql = "SELECT * FROM detalle_orden WHERE ORDEN_codigo_orden = '$codigoCertificacion';";
+            $sql = "SELECT * FROM DETALLE_ORDEN WHERE ORDEN_codigo_orden = '$codigoCertificacion';";
             $resultado = $this->db_connection->query($sql);
             // si existen activos
             if ($resultado->num_rows > 0) {

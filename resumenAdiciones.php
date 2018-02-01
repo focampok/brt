@@ -16,7 +16,7 @@ $conexion = new DBMaster();
 $conversor = new NumberToLetterConverter();
 
 
-$consulta = "SELECT * FROM contenedor WHERE codigo_contenedor != '-1';";
+$consulta = "SELECT * FROM CONTENEDOR WHERE codigo_contenedor != '-1';";
 $resultado = $connect->query($consulta);
 
 //obtengo la fecha actual.
@@ -197,7 +197,7 @@ if ($resultado->num_rows > 0) {
     $hoja->getStyle('F49')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
     $hoja->getStyle('F50')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
     //busco todas las adiciones...
-    $consulta = "SELECT * FROM contenedor WHERE codigo_contenedor != '-1';";
+    $consulta = "SELECT * FROM CONTENEDOR WHERE codigo_contenedor != '-1';";
     $resultado = $connect->query($consulta);
     $objPHPExcel->getActiveSheet()->setTitle("CONTENEDORES");
 

@@ -65,8 +65,8 @@ if ($_POST) {
     $zz = "UPDATE PRODUCTO SET subtotal = $nst WHERE codigo_producto = '$id'";
     $connect->query($zz);
     
-    //elimino el producto de la tabla de asignacion
-    $zzx = "delete from asignacion where PRODUCTO_codigo_producto = '$id'";
+    //elimino el producto de la tabla de ASIGNACION
+    $zzx = "delete from ASIGNACION where PRODUCTO_codigo_producto = '$id'";
     $connect->query($zzx);
     
 

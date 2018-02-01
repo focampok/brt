@@ -16,7 +16,7 @@ $conexion = new DBMaster();
 $conversor = new NumberToLetterConverter();
 
 
-$consulta = "SELECT * FROM contenedor where codigo_contenedor != '-1';";
+$consulta = "SELECT * FROM CONTENEDOR where codigo_contenedor != '-1';";
 $resultado = $connect->query($consulta);
 
 //obtengo la fecha actual.
@@ -208,7 +208,7 @@ if ($resultado->num_rows > 0) {
     $hoja->getStyle('F49')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
     $hoja->getStyle('F50')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
     //busco todas las adiciones...
-    $consulta = "SELECT * FROM contenedor WHERE codigo_contenedor != '-1';";
+    $consulta = "SELECT * FROM CONTENEDOR WHERE codigo_contenedor != '-1';";
     $resultado = $connect->query($consulta);
 
     $x = 53;
@@ -269,9 +269,9 @@ if ($resultado->num_rows > 0) {
                     $hoja->setCellValue('I' . ($x + $contador), '=' . 'E' . ($x + $contador) . '*' . 'H' . ($x + $contador));
                     $hoja->getStyle('I' . ($x + $contador))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
                     $hoja->getStyle('I' . $i)->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
-                    //proyecto
+                    //PROYECTO
                     $codP = $activo['PROYECTO_codigo_proyecto'];
-                    $s = "SELECT codigo_proyecto FROM proyecto WHERE codigo_proyecto = '$codP'";
+                    $s = "SELECT codigo_proyecto FROM PROYECTO WHERE codigo_proyecto = '$codP'";
                     $rs = $connect->query($s);
                     $us = $rs->fetch_array();
 

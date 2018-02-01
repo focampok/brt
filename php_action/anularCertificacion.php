@@ -42,7 +42,7 @@ if ($_POST) {
     $r = "UPDATE PRODUCTO SET estado = 1 WHERE PROYECTO_codigo_proyecto = '$codigoCertificacion'";
     $connect->query($r);
 
-    //obtengo la cantidad que esta en ese proyecto
+    //obtengo la cantidad que esta en ese PROYECTO
     $mm = "SELECT cantidad_cert FROM PRODUCTO WHERE PROYECTO_codigo_proyecto = '$codigoCertificacion';";
     $ret = $connect->query($mm);
 
@@ -83,13 +83,13 @@ if ($_POST) {
     $s = "UPDATE PRODUCTO SET PROYECTO_codigo_proyecto = '-1', cantidad_cert = 0 WHERE PROYECTO_codigo_proyecto = '$codigoCertificacion'";
     $connect->query($s);
 
-    $sql = "UPDATE proyecto SET estado = 0 WHERE codigo_proyecto = '$codigoCertificacion'";
+    $sql = "UPDATE PROYECTO SET estado = 0 WHERE codigo_proyecto = '$codigoCertificacion'";
     if ($connect->query($sql) === TRUE) {
         $valid['success'] = true;
         $valid['messages'] = "Proyecto anulado correctamente";
     } else {
         $valid['success'] = false;
-        $valid['messages'] = "Error no se ha podido anular el proyecto";
+        $valid['messages'] = "Error no se ha podido anular el PROYECTO";
     }
     //obtengo info del user
     $nit = $_SESSION["nit"];
@@ -102,7 +102,7 @@ if ($_POST) {
     //BITACORA
     $hoy = getdate();
     $fecha = $hoy['mday'].' de '.obtenerMes($hoy['mon']).' del '.$hoy['year'];
-    $accion = "El usuario $nombre anuló el proyecto $codigoCertificacion el $fecha";
+    $accion = "El usuario $nombre anuló el PROYECTO $codigoCertificacion el $fecha";
 
     $bitacora = "INSERT INTO BITACORA(fecha,accion,USUARIO_nit)VALUES ('$fecha','$accion','$nit');";
     $connect->query($bitacora);

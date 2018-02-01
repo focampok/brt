@@ -46,16 +46,31 @@ if ($result->num_rows > 0) {
             $button.= '<li><a type="button" data-toggle="modal" id="certificarModalBtn" data-target="#certificarActivoModal" onclick="certificarActivo(\'' . $id . '\')"> <i class="glyphicon glyphicon-briefcase"></i> Asignar a proyecto </a></li>';
             $button .= '</ul></div>';
         }
+
+        //precio_unitario
+        if ($row[5] == 0) {
+            $pu = "<label class='label label-danger'>" . "Q " . number_format($row[5], 2) . "</label>";
+        } else {
+            $pu = "<label class='label label-success'>" . "Q " . number_format($row[5], 2) . "</label>";
+        }
+        //subtotal
+        if ($row[6] == 0) {
+            $st = "<label class='label label-danger'>" . "Q " . number_format($row[6], 2) . "</label>";
+        } else {
+            $st = "<label class='label label-success'>" . "Q " . number_format($row[6], 2) . "</label>";
+        }
         
-        $output['data'][] = array(            
+
+
+        $output['data'][] = array(
             $row[0],
             $row[1],
             $estado,
             $row[3],
             $row[4],
-            number_format($row[5], 2),
-            number_format($row[6], 2),
-            $row[7],            
+            $pu,
+            $st,
+            $row[7],
             $row[8],
             $button
         );
