@@ -351,6 +351,29 @@ class DBMaster {
         $this->db_connection->close();
     }
     
+    public function obtenerActivosOrden($codigoCertificacion) {
+        // verifico la codificacion
+        if (!$this->db_connection->set_charset("utf8")) {
+            $this->info = $this->db_connection->error;
+        }
+
+        // si la conexion no tiene errorres, hago la consulta
+        if (!$this->db_connection->connect_errno) {
+            // realizo la consulta para obtener codigo y nombre del PRODUCTO.
+            $sql = "SELECT * FROM detalle_orden WHERE ORDEN_codigo_orden = '$codigoCertificacion';";
+            $resultado = $this->db_connection->query($sql);
+            // si existen activos
+            if ($resultado->num_rows > 0) {
+                return $resultado;
+            }
+        } else {
+            $this->info = "Problema de conexión de base de datos.";
+        }
+        //cierro la conexion.
+        $this->db_connection->close();
+    }
+    
+    
 
     public function obtenerActivosActa($codigoActa) {
         // verifico la codificacion

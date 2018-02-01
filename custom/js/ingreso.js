@@ -40,8 +40,8 @@ $(document).ready(function () {
                     // remove the error text
                     $(".text-danger").remove();
                     // remove the form error
-                    $('.form-group').removeClass('has-error').removeClass('has-success');
-
+                    $('.form-group').removeClass('has-error').removeClass('has-success');                    
+                    $('#addBrandModel').modal("hide");
                     $('#add-brand-messages').html('<div class="alert alert-success">' +
                             '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
                             '<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> ' + response.messages +
@@ -63,32 +63,7 @@ $(document).ready(function () {
 
 });
 
-
-function guardarDatos(id)
-{
-    //en base al id obtengo la info.
-    
-    
-    
-    $.ajax({
-        url: 'php_action/setearProductos.php',
-        type: 'post',
-        data: {test: id},
-        dataType: 'json',
-        success: function (response) {
-
-            $('#add-brand-messages').html('<div class="alert alert-success">' +
-                    '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
-                    '<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> ' + response.messages +
-                    '</div>');
-
-        }
-
-    });
-}
-
-
-function generarPDF(codCertificacion)
+function generarOrdenPDF(codCertificacion)
 {
 
     if (codCertificacion)
@@ -99,10 +74,10 @@ function generarPDF(codCertificacion)
         $(".generarCertificacionFooter").after('<input type="hidden" name="codCertificacion" id="codCertificacion" value="' + codCertificacion + '" />');
 
         // submit product form
-        $("#generarCertificacionForm").unbind('submit').bind('submit', function () {
+        $("#generarOrdenForm").unbind('submit').bind('submit', function () {
 
             // submit loading button
-            $("#createCertificacionPDFBtn").button('loading');
+            $("#createOrdenPDFBtn").button('loading');
 
             var form = $(this);
             var formData = new FormData(this);
@@ -118,9 +93,9 @@ function generarPDF(codCertificacion)
 
                     if (response.success == true) {
                         // submit loading button
-                        $("#createCertificacionPDFBtn").button('reset');
+                        $("#createOrdenPDFBtn").button('reset');
 
-                        $("#generarCertificacionForm")[0].reset();
+                        $("#generarOrdenForm")[0].reset();
 
                         $("html, body, div.modal, div.modal-content, div.modal-body").animate({scrollTop: '0'}, 100);
 

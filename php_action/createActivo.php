@@ -44,7 +44,7 @@ if ($_POST) {
     
     //inserto en la tabla activo
     $sql = "INSERT INTO PRODUCTO(codigo_producto,fecha,estado,cantidad,marca,modelo,serie,descripcion,precio_unitario,subtotal,CONTENEDOR_codigo_contenedor,PROYECTO_codigo_proyecto,ORDEN_codigo_orden)
-               VALUES ('$codProd','-',1,100,'$marca','$modelo','$serie','$descripcion',25,0,'$codContenedor','-1','-');";
+               VALUES ('$codProd','-',1,0,'$marca','$modelo','$serie','$descripcion',0,0,'$codContenedor','-1','-');";
     
     if ($connect->query($sql) === TRUE) {
         $valid['success'] = true;

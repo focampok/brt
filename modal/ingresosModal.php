@@ -75,10 +75,10 @@ $cadenaProductos = $conexion->productos;
                                             </select>
                                         </td>
                                         <td class="col-sm-4">
-                                            <input type="text" id ="cantidad1" name="cantidad1"  class="form-control"/>
+                                            <input type="text" id ="cantidad1" name="cantidad1"  class="form-control" required=""/>
                                         </td>
                                         <td class="col-sm-3">
-                                            <input type="text" id="precio1" name="precio1"  class="form-control" />
+                                            <input type="text" id="precio1" name="precio1"  class="form-control" required="" />
                                         </td>                                         
                                     </tr>
                                     <tr>
@@ -88,10 +88,10 @@ $cadenaProductos = $conexion->productos;
                                             </select>
                                         </td>
                                         <td class="col-sm-4">
-                                            <input type="text" id ="cantidad2" name="cantidad2"  class="form-control"/>
+                                            <input type="text" id ="cantidad2" name="cantidad2"  class="form-control" required=""/>
                                         </td>
                                         <td class="col-sm-3">
-                                            <input type="text" id ="precio2" name="precio2"  class="form-control" />
+                                            <input type="text" id ="precio2" name="precio2"  class="form-control" required=""/>
                                         </td>                                         
                                     </tr>
                                     <tr>
@@ -101,10 +101,10 @@ $cadenaProductos = $conexion->productos;
                                             </select>
                                         </td>
                                         <td class="col-sm-4">
-                                            <input type="text" id ="cantidad3" name="cantidad3"  class="form-control"/>
+                                            <input type="text" id ="cantidad3" name="cantidad3"  class="form-control" required=""/>
                                         </td>
                                         <td class="col-sm-3">
-                                            <input type="text" id ="precio3" name="precio3"  class="form-control" />
+                                            <input type="text" id ="precio3" name="precio3"  class="form-control" required=""/>
                                         </td>                                         
                                     </tr>
                                     <tr>
@@ -114,10 +114,10 @@ $cadenaProductos = $conexion->productos;
                                             </select>
                                         </td>
                                         <td class="col-sm-4">
-                                            <input type="text" id ="cantidad4" name="cantidad4"  class="form-control"/>
+                                            <input type="text" id ="cantidad4" name="cantidad4"  class="form-control" required=""/>
                                         </td>
                                         <td class="col-sm-3">
-                                            <input type="text" id ="precio4" name="precio4"  class="form-control" />
+                                            <input type="text" id ="precio4" name="precio4"  class="form-control" required=""/>
                                         </td>                                         
                                     </tr>
                                     <tr>
@@ -127,10 +127,10 @@ $cadenaProductos = $conexion->productos;
                                             </select>
                                         </td>
                                         <td class="col-sm-4">
-                                            <input type="text" id ="cantidad5" name="cantidad5"  class="form-control"/>
+                                            <input type="text" id ="cantidad5" name="cantidad5"  class="form-control" required=""/>
                                         </td>
                                         <td class="col-sm-3">
-                                            <input type="text" id ="precio5" name="precio5"  class="form-control" />
+                                            <input type="text" id ="precio5" name="precio5"  class="form-control" required=""/>
                                         </td>                                         
                                     </tr>
                                     <tr>
@@ -140,10 +140,10 @@ $cadenaProductos = $conexion->productos;
                                             </select>
                                         </td>
                                         <td class="col-sm-4">
-                                            <input type="text" id ="cantidad6" name="cantidad6"  class="form-control"/>
+                                            <input type="text" id ="cantidad6" name="cantidad6"  class="form-control" required=""/>
                                         </td>
                                         <td class="col-sm-3">
-                                            <input type="text" id ="precio6" name="precio6"  class="form-control" />
+                                            <input type="text" id ="precio6" name="precio6"  class="form-control" required=""/>
                                         </td>                                         
                                     </tr>
                                     <tr>
@@ -153,10 +153,10 @@ $cadenaProductos = $conexion->productos;
                                             </select>
                                         </td>
                                         <td class="col-sm-4">
-                                            <input type="text" id ="cantidad7" name="cantidad7"  class="form-control"/>
+                                            <input type="text" id ="cantidad7" name="cantidad7"  class="form-control" required=""/>
                                         </td>
                                         <td class="col-sm-3">
-                                            <input type="text" id ="precio7" name="precio7"  class="form-control" />
+                                            <input type="text" id ="precio7" name="precio7"  class="form-control" required=""/>
                                         </td>                                         
                                     </tr>
                                     <tr>
@@ -166,10 +166,10 @@ $cadenaProductos = $conexion->productos;
                                             </select>
                                         </td>
                                         <td class="col-sm-4">
-                                            <input type="text" id ="cantidad8" name="cantidad8"  class="form-control"/>
+                                            <input type="text" id ="cantidad8" name="cantidad8"  class="form-control" required=""/>
                                         </td>
                                         <td class="col-sm-3">
-                                            <input type="text" id ="precio8" name="precio8"  class="form-control" />
+                                            <input type="text" id ="precio8" name="precio8"  class="form-control" required="" />
                                         </td>                                         
                                     </tr>
                                     <tr>
@@ -179,10 +179,10 @@ $cadenaProductos = $conexion->productos;
                                             </select>
                                         </td>
                                         <td class="col-sm-4">
-                                            <input type="text" id ="cantidad9" name="cantidad9"  class="form-control"/>
+                                            <input type="text" id ="cantidad9" name="cantidad9"  class="form-control" required=""/>
                                         </td>
                                         <td class="col-sm-3">
-                                            <input type="text" id ="precio9" name="precio9"  class="form-control" />
+                                            <input type="text" id ="precio9" name="precio9"  class="form-control" required=""/>
                                         </td>                                         
                                     </tr>
                                     <tr>
@@ -192,10 +192,10 @@ $cadenaProductos = $conexion->productos;
                                             </select>
                                         </td>
                                         <td class="col-sm-4">
-                                            <input type="text" id ="cantidad10" name="cantidad10"  class="form-control"/>
+                                            <input type="text" id ="cantidad10" name="cantidad10"  class="form-control" required=""/>
                                         </td>
                                         <td class="col-sm-3">
-                                            <input type="text" id ="precio10" name="precio10"  class="form-control" />
+                                            <input type="text" id ="precio10" name="precio10"  class="form-control" required=""/>
                                         </td>                                         
                                     </tr>
                                 </tbody>
@@ -227,10 +227,10 @@ $cadenaProductos = $conexion->productos;
 
 
 <!-- GENERAR PDF -->
-<div class="modal fade" id="generarContenedorPDFModal" tabindex="-1" role="dialog">
+<div class="modal fade" id="generarOrdenModal" tabindex="-1" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form class="form-horizontal" id="generarCertificacionForm" action="php_action/createContPDF.php" method="POST" enctype="multipart/form-data">
+            <form class="form-horizontal" id="generarOrdenForm" action="php_action/createFactPDF.php" method="POST" enctype="multipart/form-data">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title"><i class="glyphicon glyphicon-print"></i> Generar PDF </h4>
@@ -259,7 +259,7 @@ $cadenaProductos = $conexion->productos;
 
                 <div class="modal-footer generarCertificacionFooter">
                     <button type="button" class="btn btn-default" data-dismiss="modal"> <i class="glyphicon glyphicon-remove-sign"></i> Cerrar</button>	        
-                    <button type="submit" class="btn btn-primary" id="createCertificacionPDFBtn" data-loading-text="Loading..." autocomplete="off"> <i class="glyphicon glyphicon-ok-sign"></i> Guardar cambios</button>
+                    <button type="submit" class="btn btn-primary" id="createOrdenPDFBtn" data-loading-text="Loading..." autocomplete="off"> <i class="glyphicon glyphicon-ok-sign"></i> Guardar cambios</button>
                 </div> <!-- /modal-footer -->	      
             </form> <!-- /.form -->	
         </div> <!-- /modal-content -->    

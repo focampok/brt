@@ -43,28 +43,37 @@ if ($_POST) {
     //creo una una nueva orden
     $consultaOrden = "INSERT INTO ORDEN(codigo_orden,fecha,factura,proveedor)VALUES ('$codigo','$fecha','$factura','$proveedor');";
     $connect->query($consultaOrden);
-    
-    
-    //seteo los datos del producto 1
-    
-    
 
-    //creo un nuevo detalle
-    $codProd = $_POST['codProd1'];
-    $cantidad = $_POST['cantidad1'];
-    $precio = $_POST['precio1'];
-    $st = $cantidad * $precio;
+    $contador = 1;
+    while ($contador <= 10) {
+        //creo un nuevo detalle
+        $codProd = $_POST['codProd' . $contador];
+        $cantidad = $_POST['cantidad' . $contador];
+        $precio = $_POST['precio' . $contador];
+        $st = $cantidad * $precio;
 
-    $consultaDetalle = "INSERT INTO DETALLE_ORDEN(ORDEN_codigo_orden,PRODUCTO_codigo_producto,cantidad,precio_unitario,subtotal)VALUES ('$codigo','$codProd',$cantidad,$precio,$st);";
-    $connect->query($consultaDetalle);
+        //seteo la info de ese producto...
+        //obtengo la cantidad y precio actual.
+        $consultaProducto = "SELECT cantidad,subtotal FROM producto WHERE codigo_producto = '$codProd'";
+        $cc = $connect->query($consultaProducto);
+        $prod = $cc->fetch_array();
+        //cantidad actual + cantidad nueva
+        $nuevaCantidad = $prod[0] + $cantidad;
+        //subtotal actual + nuevo st
+        $nuevoSubtotal = $nuevaCantidad * $precio;
 
-    
-    
-    
-    
+        //actualizo el producto con la nueva info.
+        $actualizar = "UPDATE producto SET fecha='$fecha',cantidad = $nuevaCantidad,precio_unitario=$precio,subtotal = $nuevoSubtotal,ORDEN_codigo_orden='$codigo' WHERE codigo_producto = '$codProd'";
+        $connect->query($actualizar);
+        $contador++;
+        //nuevo detalle
+        $consultaDetalle = "INSERT INTO DETALLE_ORDEN(ORDEN_codigo_orden,PRODUCTO_codigo_producto,cantidad,precio_unitario,subtotal)VALUES ('$codigo','$codProd',$cantidad,$precio,$st);";
+        $connect->query($consultaDetalle);
+    }
+
     //mensaje de exito
     $valid['success'] = true;
-    $valid['messages'] = "exito";
+    $valid['messages'] = "Ingreso a bodega creado correctamente.";
 
     //usuario
     $nit = $_SESSION["nit"];

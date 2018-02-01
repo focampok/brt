@@ -23,7 +23,7 @@ if ($result->num_rows > 0) {
 	    Acción <span class="caret"></span>
 	  </button>
 	  <ul class="dropdown-menu">';        
-        $button.= '<li><a type="button" data-toggle="modal" id="generarOrdenModalBtn" data-target="#generarOrdenModal" onclick="generarOrden(\'' . $id . '\')"> <i class="glyphicon glyphicon-print"></i> Generar PDF </a></li>';
+        $button.= '<li><a type="button" data-toggle="modal" id="generarOrdenModalBtn" data-target="#generarOrdenModal" onclick="generarOrdenPDF(\'' . $id . '\')"> <i class="glyphicon glyphicon-print"></i> Generar PDF </a></li>';
         $button .= '</ul></div>';
         
         //obtengo el total
