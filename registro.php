@@ -1,14 +1,9 @@
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
 <?php
-require_once 'php_action/core.php';
-$estado = $_SESSION['estado'];
+// incluir el archivo de la conexion de datos
+require_once("config/db.php");
+// cargar la clase de login
+require_once("classes/DBMaster.php");
 ?>
-<!DOCTYPE html>
 <html>
     <head>
         <title>Inventario GuateGas</title>
@@ -25,15 +20,8 @@ $estado = $_SESSION['estado'];
     </head>
     <body>  
         <?php
-        // incluir el archivo de la conexion de datos
-        require_once("config/db.php");
-        // cargar la clase de login
-        require_once("classes/DBMaster.php");
         //instancio el objeto de la clase sql
         $conexion = new DBMaster();
-        $conexion->llenarComboDepartamentos();
-        $cadena = $conexion->departamentos;
-
         $errorInfo = "";
         $errorInsert = "";
 
@@ -50,15 +38,12 @@ $estado = $_SESSION['estado'];
             if (strcmp($password, $password_n) == 0) {
                 //verifico las contraseñas
 
-                if ($estado == 1) {
+                if ($_SESSION["estado"] == 1) {
                     $tipoUser = $_POST["tipoUser"];
                 } else {
                     $tipoUser = 1;
                 }
-
-                $errorInsert = nuevoUsuario($nit, $nombre, $apellido, $puesto, $password, $tipoUser, $codigo_departamento);
-                //redirecciono despues de 2 segundos...
-                header("refresh:2; url=index.php");
+                $errorInsert = nuevoUsuario($nit, $nombre, $apellido, $puesto, $password, $tipoUser, $codigo_departamento);                
             } else {
                 $errorInfo = "Las contraseñas no coinciden.";
             }
@@ -85,7 +70,7 @@ $estado = $_SESSION['estado'];
                         <input class="text" type="password" name="password" placeholder="Password" required="">
                         <input class="text" type="password" name="password_confirmacion" placeholder="Confirmar Password" required="">
                         <?php
-                        if ($estado == 1) {
+                        if ($_SESSION["estado"] == 1) {
                             echo '<center>';
                             echo '<br>';
                             echo '<br>';

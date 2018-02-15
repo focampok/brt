@@ -11,21 +11,19 @@ require_once("../classes/DBMaster.php");
 //instancio el objeto de la clase sql
 $conexion = new DBMaster();
 //obtengo un array de lo que hay en la tabla actualmente
-
 if ($_POST) {
-
     $codigoCertificacion = $_POST['codCertificacion'];
     $encabezadoPDF = $_POST['encabezadoPDF'];
     $fechaPDF = $_POST['fechaPDF'];
 
 
 
-    //genero el pdf con html...
+//genero el pdf con html...
     $rs = $conexion->obtenerActivosContenedor($codigoCertificacion);
     while ($activos[] = $rs->fetch_array());
-    $banner = "../assests/images/banner/" . 'logo_guategas.png';
 
-    //cadena html de la cotizacion
+
+//cadena html de la cotizacion
     $contenidoHTML = '<html lang="en">
                 <head>
                   <meta charset="utf-8">
@@ -35,7 +33,7 @@ if ($_POST) {
                 <body>
                   <header class="clearfix">
                     <div id="logo">
-                      <a href="../certificaciones.php"><img src="' . $banner . '" border="1" width="400" height="175"></a>
+                      
                     </div>
                     <h1></h1>
                     <div id="company" class="clearfix">
@@ -62,22 +60,21 @@ if ($_POST) {
                       <tbody>';
 
 
-    $contador = 1;
-    foreach ($activos as $activo) {
-        $contenidoHTML.= '<tr>
-                                      <td class = "service">' . $activo['codigo_producto'] . '</td>
-                                      <td class = "desc">' . $activo['descripcion'] . '</td>
-                                      <td>' . $activo['cantidad'] . '</td>
-                                      <td>' . 'Q ' . number_format($activo['precio_unitario'], 2) . '</td>                                      
-                                      <td class = "total">' . 'Q ' . number_format($activo['cantidad'] * $activo['precio_unitario'], 2) . '</td>
-                                     </tr>';
-        $contador++;
-        if ($contador == count($activos)) {
-            break;
-        }
-    }
-
-    //calculo el total de la certifacion...
+//$contador = 1;
+//foreach ($activos as $activo) {
+//    $contenidoHTML.= '<tr>
+//                                      <td class = "service">' . $activo['codigo_producto'] . '</td>
+//                                      <td class = "desc">' . $activo['descripcion'] . '</td>
+//                                      <td>' . $activo['cantidad'] . '</td>
+//                                      <td>' . 'Q ' . number_format($activo['precio_unitario'], 2) . '</td>                                      
+//                                      <td class = "total">' . 'Q ' . number_format($activo['cantidad'] * $activo['precio_unitario'], 2) . '</td>
+//                                     </tr>';
+//    $contador++;
+//    if ($contador == count($activos)) {
+//        break;
+//    }
+//}
+//calculo el total de la certifacion...
     $totalCert = "call obtenerTotalContenedor('$codigoCertificacion',@total)";
     $connect->query($totalCert);
     $c = "select @total as salida";
@@ -101,19 +98,19 @@ if ($_POST) {
                                     </body>
                                     </html>';
 
-    //una vez creada la cadena html la escribo...
-    //defino el tamaño carta a4
+//una vez creada la cadena html la escribo...
+//defino el tamaño carta a4
     $myPDF = new mPDF('c', 'A4');
-    //escribo la cadena html en el pdf
+//escribo la cadena html en el pdf
     $myPDF->WriteHTML($contenidoHTML);
-    //genero el pdf, le agrego el email del dueño y el total.
+//genero el pdf, le agrego el email del dueño y el total.
     $nombre = "CONTENEDOR_" . $codigoCertificacion . ".pdf";
     $salida = "contenedores/" . $nombre . "";
     $myPDF->Output("../" . $salida);
 
-    //el banner se subio correctamente...                
+//el banner se subio correctamente...                
     $valid['success'] = true;
-    $valid['messages'] = 'PDF generado exitosamente <a href = "verPDF.php?ruta=' . $salida . '"> <b> VISUALIZAR </b> </a>';
+    $valid['messages'] = 'PDF generado exitosamente <a href = "verPDF.php?ruta=' . $salida . '"><b>VISUALIZAR</b></a>';
 
     $connect->close();
     echo json_encode($valid);

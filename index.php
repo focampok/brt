@@ -1,16 +1,18 @@
 <?php
-session_start();
-if(isset($_SESSION['nit'])) {
-	header('location: dashboard.php');	
+$errorLogin = "";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nit = test_input($_POST["nit"]);
+    $password = test_input($_POST["password"]);
+    $errorLogin = login($nit, $password);
+}
+
+function test_input($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
 }
 ?>
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
-<!DOCTYPE html>
 <html>
     <head>
         <title>Inventario GuateGas</title>
@@ -25,21 +27,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <link href='//fonts.googleapis.com/css?family=Text+Me+One' rel='stylesheet' type='text/css'>
         <!-- //web font -->
     </head>
-    <body>  
-        <?php
-        $errorLogin = "";
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $nit = test_input($_POST["nit"]);
-            $password = test_input($_POST["password"]);
-            $errorLogin = login($nit,$password);
-        }
-        function test_input($data) {
-            $data = trim($data);
-            $data = stripslashes($data);
-            $data = htmlspecialchars($data);
-            return $data;
-        }
-        ?>
+    <body>
         <!-- main -->
         <div class="main-w3layouts wrapper">            
             <center><a href="index.php"><img src="loginStyle/images/logo_guategas.png" border="1" width="400" height="175"></a></center>
@@ -81,7 +69,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <?php
 
     //creo una funcion para loguearme 
-    function login($nit,$password) {
+    function login($nit, $password) {
         //conexión a la base de datos...para verificar el login 
         // incluir el archivo de la conexion de datos
         require_once("config/db.php");
@@ -90,7 +78,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         //instancio el objeto de la clase Login
         $conexion = new DBMaster();
         //no esta logueado, consulto la base de datos...
-        $conexion->iniciarSesion($nit,$password);        
+        $conexion->iniciarSesion($nit, $password);
         return $conexion->info;
     }
     ?>

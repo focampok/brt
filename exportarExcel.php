@@ -202,7 +202,6 @@ if ($resultado->num_rows > 0) {
 //    $hoja->getStyle('F49')->getFont()->setBold(TRUE);
 //    $hoja->setCellValue('F50', "DIRECCION SUPERIOR                                                                                                                                                                    DIRECCION SUPERIOR");
 //    $hoja->getStyle('F50')->getFont()->setBold(TRUE);
-
     //centrado
     $hoja->getStyle('F48')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
     $hoja->getStyle('F49')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
@@ -280,7 +279,7 @@ if ($resultado->num_rows > 0) {
                     } else {
                         $nombre = $us[0];
                     }
-                    
+
                     $hoja->setCellValue('J' . ($x + $contador), $nombre);
                     $hoja->getStyle('J' . ($x + $contador))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
                     $hoja->getStyle('J' . ($x + $contador))->getFont()->setBold(true);
@@ -333,7 +332,9 @@ if ($resultado->num_rows > 0) {
     header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
     header('Content-Disposition: attachment;filename="' . $nombreArchivo . '"');
     header('Cache-Control: max-age=0');
-    ob_clean();
+    if (ob_get_length() > 0) {
+        ob_end_clean();
+    }
     $objWriter->save('php://output');
     exit;
 } else {

@@ -1,8 +1,5 @@
 <?php
-
-/**
-  Clase encargada de conectarse a la bd.
- */
+session_start();
 class DBMaster {
 
     private $db_connection = null;
@@ -55,13 +52,12 @@ class DBMaster {
                 $tipoUsuario = $result_row->tipo;
                 //es admin
                 if ($tipoUsuario == 0) {
-                    $_SESSION['estado'] = 1; // es admin
-                    header("location: admin.php");
+                    $_SESSION['estado'] = 1; // es admin                                           
                 } //es normal 
-                else {
-                    $_SESSION['estado'] = 2; //es user
-                    header("location: dashboard.php");
+                else {                    
+                    $_SESSION['estado'] = 2; //es user 
                 }
+                header("location: dashboard.php");
             } else {
                 $this->info = "Usuario y/o contraseña no coinciden.";
             }
@@ -106,7 +102,7 @@ class DBMaster {
         // si la conexion no tiene errorres, hago la consulta
         if (!$this->db_connection->connect_errno) {
             // realizo la consulta para obtener codigo y nombre del PRODUCTO.
-            $sql = "SELECT * FROM departamento;";
+            $sql = "SELECT * FROM DEPARTAMENTO;";
             $resultado = $this->db_connection->query($sql);
             // si existen productos
             if ($resultado->num_rows > 0) {
@@ -422,3 +418,4 @@ class DBMaster {
         $this->db_connection->close();
     }  
 }
+?>

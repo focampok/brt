@@ -207,7 +207,9 @@ if ($resultado->num_rows > 0) {
     header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
     header('Content-Disposition: attachment;filename="' . $nombreArchivo . '"');
     header('Cache-Control: max-age=0');
-    ob_clean();
+    if (ob_get_length() > 0) {
+        ob_end_clean();
+    }
     $objWriter->save('php://output');
     exit;
 } else {
