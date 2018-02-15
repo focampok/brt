@@ -48,10 +48,10 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title"><i class="glyphicon glyphicon-trash"></i> Anular Proyecto</h4>
+                <h4 class="modal-title"><i class="glyphicon glyphicon-trash"></i> Eliminar Salida</h4>
             </div>
             <div class="modal-body">
-                <p> ¿Realmente desea anular el proyecto seleccionado ?</p>
+                <p> ¿Realmente desea anular la  salida seleccionada ?</p>
             </div>
             <div class="modal-footer removeBrandFooter">
                 <button type="button" class="btn btn-default" data-dismiss="modal"> <i class="glyphicon glyphicon-remove-sign"></i> Cerrar</button>

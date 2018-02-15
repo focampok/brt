@@ -44,7 +44,7 @@ if ($_POST) {
     $rrr = $rt->fetch_array();
     $cantidadProyecto = $rrr["cantidad"];
     
-    $sxy = "SELECT cantidad cantidad FROM PRODUCTO WHERE codigo_producto = '$id';";
+    $sxy = "SELECT cantidad FROM PRODUCTO WHERE codigo_producto = '$id';";
     $rty = $connect->query($sxy);
     $rrry = $rty->fetch_array();
     $cantidadOriginal = $rrry["cantidad"];

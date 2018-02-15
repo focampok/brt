@@ -1,4 +1,4 @@
-<?php require_once 'includes/headerAdmin.php'; ?>
+<?php require_once 'includes/header.php'; ?>
 <?php include('modal/usuariosModal.php');?>
 
 <div class="row">

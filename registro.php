@@ -4,8 +4,9 @@ Author URL: http://w3layouts.com
 License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
-<?php 
+<?php
 require_once 'php_action/core.php';
+$estado = $_SESSION['estado'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -48,7 +49,14 @@ require_once 'php_action/core.php';
 
             if (strcmp($password, $password_n) == 0) {
                 //verifico las contraseñas
-                $errorInsert = nuevoUsuario($nit, $nombre, $apellido, $puesto, $password, 1, $codigo_departamento);
+
+                if ($estado == 1) {
+                    $tipoUser = $_POST["tipoUser"];
+                } else {
+                    $tipoUser = 1;
+                }
+
+                $errorInsert = nuevoUsuario($nit, $nombre, $apellido, $puesto, $password, $tipoUser, $codigo_departamento);
                 //redirecciono despues de 2 segundos...
                 header("refresh:2; url=index.php");
             } else {
@@ -69,13 +77,23 @@ require_once 'php_action/core.php';
             <div class="main-agileinfo">
                 <div class="agileits-top"> 
                     <form action="<?php htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST"> 
-                        
+
                         <input class="text" type="text" name="nit" placeholder="N.I.T" required="">
                         <input class="text" type="text" name="nombre" placeholder="Nombre" required="">
                         <input class="text" type="text" name="apellido" placeholder="Apellido" required="">
                         <input class="text" type="text" name="puesto" placeholder="Puesto" required="">                        
                         <input class="text" type="password" name="password" placeholder="Password" required="">
                         <input class="text" type="password" name="password_confirmacion" placeholder="Confirmar Password" required="">
+                        <?php
+                        if ($estado == 1) {
+                            echo '<center>';
+                            echo '<br>';
+                            echo '<br>';
+                            echo '<input type = "radio" name = "tipoUser" value = "0" checked> <font size="5" color="white">Administrador</font><br>
+                        <input type = "radio" name = "tipoUser" value = "1"><font size="5" color="white">Usuario</font><br>';
+                            echo '</center>';
+                        }
+                        ?>
                         <br>
 
                         <div class="wthree-text">
@@ -111,8 +129,8 @@ require_once 'php_action/core.php';
         <!-- //main --> 
     </body> 
     <?php
-
     $codigoDepartamento = 1;
+
 //creo una funcion para ingresar usuario 
     function nuevoUsuario($nit, $nombre, $apellido, $puesto, $password, $tipo, $codigoDepartamento) {
         //conexión a la base de datos...para verificar el login 

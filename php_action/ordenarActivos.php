@@ -1,6 +1,7 @@
 <?php
 
 require_once 'core.php';
+$tipoUser = $_SESSION["estado"];
 
 $sql = "SELECT codigo_producto,fecha,estado,cantidad,descripcion,precio_unitario,subtotal,CONTENEDOR_codigo_contenedor,ORDEN_codigo_orden FROM PRODUCTO";
 $result = $connect->query($sql);
@@ -30,6 +31,9 @@ if ($result->num_rows > 0) {
             // no disponible
             $estado = "<label class='label label-danger'> No disponible </label>";
             $button.= '<li><a type="button" data-toggle="modal" id="verActivoModalBtn" data-target="#verActivoModal" onclick="verActivo(\'' . $id . '\')"> <i class="glyphicon glyphicon-eye-open"></i> Detalle </a></li>';
+            if ($tipoUser == 1) {
+            $button.= '<li><a type="button" data-toggle="modal" id="eliminarProductoModalBtn" data-target="#eliminarProductoModal" onclick="eliminarProducto(\'' . $id . '\')"> <i class="glyphicon glyphicon-trash"></i> Eliminar Producto </a></li>';    
+            }
             $button .= '</ul></div>';
         } else if ($row[2] == 1) {
             //disponible
@@ -37,6 +41,9 @@ if ($result->num_rows > 0) {
             $button.= '<li><a type="button" data-toggle="modal" id="verActivoModalBtn" data-target="#verActivoModal" onclick="verActivo(\'' . $id . '\')"> <i class="glyphicon glyphicon-eye-open"></i> Detalle </a></li>';
             $button.= '<li><a type="button" data-toggle="modal" id="editarActivoModalBtn" data-target="#editActivoModal" onclick="editarActivo(\'' . $id . '\')"> <i class="glyphicon glyphicon-pencil"></i> Ver proyectos </a></li>';
             $button.= '<li><a type="button" data-toggle="modal" id="certificarModalBtn" data-target="#certificarActivoModal" onclick="certificarActivo(\'' . $id . '\')"> <i class="glyphicon glyphicon-briefcase"></i> Asignar a proyecto </a></li>';
+            if ($tipoUser == 1) {
+            $button.= '<li><a type="button" data-toggle="modal" id="eliminarProductoModalBtn" data-target="#eliminarProductoModal" onclick="eliminarProducto(\'' . $id . '\')"> <i class="glyphicon glyphicon-trash"></i> Eliminar Producto </a></li>';    
+            }
             $button .= '</ul></div>';
         } else if ($row[2] == 2) {
             //asignado a un proyecto
@@ -44,6 +51,9 @@ if ($result->num_rows > 0) {
             $button.= '<li><a type="button" data-toggle="modal" id="verActivoModalBtn" data-target="#verActivoModal" onclick="verActivo(\'' . $id . '\')"> <i class="glyphicon glyphicon-eye-open"></i> Detalle </a></li>';
             $button.= '<li><a type="button" data-toggle="modal" id="editarActivoModalBtn" data-target="#editActivoModal" onclick="editarActivo(\'' . $id . '\')"> <i class="glyphicon glyphicon-pencil"></i> Ver proyectos </a></li>';
             $button.= '<li><a type="button" data-toggle="modal" id="certificarModalBtn" data-target="#certificarActivoModal" onclick="certificarActivo(\'' . $id . '\')"> <i class="glyphicon glyphicon-briefcase"></i> Asignar a proyecto </a></li>';
+            if ($tipoUser == 1) {
+            $button.= '<li><a type="button" data-toggle="modal" id="eliminarProductoModalBtn" data-target="#eliminarProductoModal" onclick="eliminarProducto(\'' . $id . '\')"> <i class="glyphicon glyphicon-trash"></i> Eliminar Producto </a></li>';    
+            }
             $button .= '</ul></div>';
         }
 
@@ -59,7 +69,7 @@ if ($result->num_rows > 0) {
         } else {
             $st = "<label class='label label-success'>" . "Q " . number_format($row[6], 2) . "</label>";
         }
-        
+
 
 
         $output['data'][] = array(

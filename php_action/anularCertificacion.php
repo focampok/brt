@@ -38,58 +38,62 @@ if ($_POST) {
     //obtengo el codigo la certificacion
     $codigoCertificacion = $_POST['codigoCertificacion'];
 
-    //cambio el estado del activo
-    $r = "UPDATE PRODUCTO SET estado = 1 WHERE PROYECTO_codigo_proyecto = '$codigoCertificacion'";
-    $connect->query($r);
+    //obtengo todos los productos que hay en ese proyecto
+    $sxw = "SELECT * FROM ASIGNACION WHERE PROYECTO_codigo_proyecto = '$codigoCertificacion';";
+    $rtw = $connect->query($sxw);
+    while ($rrrw = $rtw->fetch_array()) {
+       $id = $rrrw["PRODUCTO_codigo_producto"];
 
-    //obtengo la cantidad que esta en ese PROYECTO
-    $mm = "SELECT cantidad_cert FROM PRODUCTO WHERE PROYECTO_codigo_proyecto = '$codigoCertificacion';";
-    $ret = $connect->query($mm);
+    //obtengo la suma de cantidades de dicho producto en el proyecto
+    $sx = "SELECT sum(cantidad)as cantidad FROM ASIGNACION WHERE PRODUCTO_codigo_producto = '$id';";
+    $rt = $connect->query($sx);
+    $rrr = $rt->fetch_array();
+    $cantidadProyecto = $rrr["cantidad"];
 
-    $rst = $ret->fetch_array();
-    $cantidad_cert = $rst["cantidad_cert"];
+    $sxy = "SELECT cantidad FROM PRODUCTO WHERE codigo_producto = '$id';";
+    $rty = $connect->query($sxy);
+    $rrry = $rty->fetch_array();
+    $cantidadOriginal = $rrry["cantidad"];
 
-    //obtengo la cant
-    //obtengo la cantidad de dicho activo
-    $sx = "SELECT cantidad FROM PRODUCTO WHERE PROYECTO_codigo_proyecto = '$codigoCertificacion';";
-    $result = $connect->query($sx);
-
-    $rs = $result->fetch_array();
-    $cantidad = $rs["cantidad"];
-
-    $suma = $cantidad + $cantidad_cert;
-
-    //regreso cantidades a estado anterior
-    $y = "UPDATE PRODUCTO SET cantidad = $suma WHERE PROYECTO_codigo_proyecto = '$codigoCertificacion'";
+    $suma = $cantidadOriginal + $cantidadProyecto;
+    //a la cantidad actual del proyecto le sumo la cantidad del proyecto
+    $y = "UPDATE PRODUCTO SET cantidad = $suma WHERE codigo_producto = '$id'";
     $connect->query($y);
 
     //nuevo subtotal
-    $sl = "SELECT precio_unitario FROM PRODUCTO WHERE PROYECTO_codigo_proyecto = '$codigoCertificacion';";
+    $sl = "SELECT precio_unitario FROM PRODUCTO WHERE codigo_producto = '$id';";
     $rstt = $connect->query($sl);
 
     $rpr = $rstt->fetch_array();
     $precio_unitario = $rpr["precio_unitario"];
 
     $nst = $suma * $precio_unitario;
-    $zz = "UPDATE PRODUCTO SET subtotal = $nst WHERE PROYECTO_codigo_proyecto = '$codigoCertificacion'";
+    $zz = "UPDATE PRODUCTO SET subtotal = $nst WHERE codigo_producto = '$id'";
     $connect->query($zz);
 
+    //elimino el producto de la tabla de ASIGNACION
+    $zzx = "delete from ASIGNACION where PRODUCTO_codigo_producto = '$id'";
+    $connect->query($zzx);
 
 
-
-
+    //cambio el estado del activo
+    $r = "UPDATE PRODUCTO SET estado = 1 WHERE codigo_producto = '$id'";
+    $connect->query($r); 
+    }
+    
+    //apago llaves
+    $o = 'SET FOREIGN_KEY_CHECKS = 0';
+    $connect->query($o);    
 
     //antes de actualizarla, todos sus activos los libero.        
-    $s = "UPDATE PRODUCTO SET PROYECTO_codigo_proyecto = '-1', cantidad_cert = 0 WHERE PROYECTO_codigo_proyecto = '$codigoCertificacion'";
-    $connect->query($s);
+    $sql = "DELETE FROM PROYECTO WHERE codigo_proyecto = '$codigoCertificacion'";
 
-    $sql = "UPDATE PROYECTO SET estado = 0 WHERE codigo_proyecto = '$codigoCertificacion'";
     if ($connect->query($sql) === TRUE) {
         $valid['success'] = true;
-        $valid['messages'] = "Proyecto anulado correctamente";
+        $valid['messages'] = "Salida eliminada correctamente";
     } else {
         $valid['success'] = false;
-        $valid['messages'] = "Error no se ha podido anular el PROYECTO";
+        $valid['messages'] = "Error no se ha podido eliminar la salida";
     }
     //obtengo info del user
     $nit = $_SESSION["nit"];
@@ -101,8 +105,8 @@ if ($_POST) {
 
     //BITACORA
     $hoy = getdate();
-    $fecha = $hoy['mday'].' de '.obtenerMes($hoy['mon']).' del '.$hoy['year'];
-    $accion = "El usuario $nombre anuló el PROYECTO $codigoCertificacion el $fecha";
+    $fecha = $hoy['mday'] . ' de ' . obtenerMes($hoy['mon']) . ' del ' . $hoy['year'];
+    $accion = "El usuario $nombre eliminó la salida $codigoCertificacion el $fecha";
 
     $bitacora = "INSERT INTO BITACORA(fecha,accion,USUARIO_nit)VALUES ('$fecha','$accion','$nit');";
     $connect->query($bitacora);

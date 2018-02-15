@@ -2,6 +2,8 @@
 
 require_once 'core.php';
 
+$tipoUser = $_SESSION["estado"];
+
 $sql = "SELECT codigo_proyecto,fecha,estado FROM PROYECTO WHERE codigo_proyecto != '-1';";
 $result = $connect->query($sql);
 
@@ -32,9 +34,12 @@ if ($result->num_rows > 0) {
             // disponible, tiene ambas opciones...
             $estado = "<label class='label label-success'>Disponible</label>";
             $button.= '<li><a type="button" data-toggle="modal" id="generarCertificacionModalBtn" data-target="#generarCertificacionModal" onclick="generarCertificacion(\'' . $id . '\')"> <i class="glyphicon glyphicon-print"></i> Generar PDF </a></li>';
+            if ($tipoUser == 1) {
+                $button.= '<li><a type="button" data-toggle="modal" id="anularCertificacionModalBtn" data-target="#anularCertificacionModal" onclick="anularCertificacion(\'' . $id . '\')"> <i class="glyphicon glyphicon-trash"></i> Eliminar Salida </a></li>';
+            }
             $button .= '</ul></div>';
-        }        
-        
+        }
+
         //calcular los totales por cada adición
         $consultaAdicion = "call obtenerTotalProyecto('$id',@total)";
         $connect->query($consultaAdicion);
@@ -50,7 +55,7 @@ if ($result->num_rows > 0) {
         }
 
         //busco los productos que tenga ese proyecto
-        $ac = "SELECT distinct(PRODUCTO_codigo_producto) FROM asignacion WHERE PROYECTO_codigo_proyecto = '$id'";
+        $ac = "SELECT distinct(PRODUCTO_codigo_producto) FROM ASIGNACION WHERE PROYECTO_codigo_proyecto = '$id'";
         $rsac = $connect->query($ac);
         if ($rsac->num_rows > 0) {
             $activos = "";

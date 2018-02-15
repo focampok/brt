@@ -1,4 +1,4 @@
-<?php require_once 'includes/headerAdmin.php'; ?>
+<?php require_once 'includes/header.php'; ?>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <div class="row">
 	<div class="col-md-12">

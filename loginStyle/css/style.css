@@ -76,6 +76,13 @@ input[type="text"],input[type="password"]{
     background-repeat: no-repeat;
     color: #fff;
 }  
+
+input[type="radio"]
+{
+    font-size:24px;
+    color: #fff;
+}
+
 .text:focus, .text:valid {
 	box-shadow: none;
 	outline: none;

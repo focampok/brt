@@ -1,4 +1,7 @@
-<?php require_once 'php_action/core.php'; ?>
+<?php
+require_once 'php_action/core.php';
+$estado = $_SESSION['estado'];
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -58,10 +61,17 @@
                         <li id="navBrand"><a href="bodegas.php"><i class="glyphicon glyphicon-compressed"></i> Bodegas </a></li>        
 
                         <li id="navCategories"><a href="productos.php"> <i class="glyphicon glyphicon-pushpin"></i> Productos </a></li>        
-                        
+
                         <li id="navIngreso"><a href="ingresos.php"> <i class="glyphicon glyphicon-import"></i> Ingreso a Bodega </a></li> 
 
                         <li id="navCertificacion"><a href="proyectos.php"> <i class="glyphicon glyphicon-briefcase"></i> Proyectos/Ordenes </a></li>     
+
+                        <?php
+                        if ($estado == 1) {
+                            echo '<li id="navBitacora"><a href="bitacora.php"> <i class="glyphicon glyphicon-bold"></i> Bitacora</a></li>';
+                            echo '<li id="navUsuarios"><a href="usuarios.php"><i class="glyphicon glyphicon-user"></i> Usuarios </a></li> ';
+                        }
+                        ?>
 
 
                         <li class="dropdown" id="navOrder">

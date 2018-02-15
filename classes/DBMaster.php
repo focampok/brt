@@ -55,7 +55,7 @@ class DBMaster {
                 $tipoUsuario = $result_row->tipo;
                 //es admin
                 if ($tipoUsuario == 0) {
-                    $_SESSION['estado'] = 2; // es admin
+                    $_SESSION['estado'] = 1; // es admin
                     header("location: admin.php");
                 } //es normal 
                 else {
@@ -83,7 +83,7 @@ class DBMaster {
         if (!$this->db_connection->connect_errno) {
             // realizo la insercion por parametos, para evitar inyecciones
             $sql = $this->db_connection->prepare("INSERT INTO USUARIO(nit,nombre,apellido,puesto,password,tipo,DEPARTAMENTO_codigo_departamento) VALUES (?,?,?,?,?,?,?);");
-            $sql->bind_param("issssii", $nit, $nombre, $apellido, $puesto, $password, $tipo,$ccc);
+            $sql->bind_param("sssssii", $nit, $nombre, $apellido, $puesto, $password, $tipo,$ccc);
             $respuesta = $sql->execute();
             if ($respuesta) {
                 $this->info = "Usuario registrado correctamente.";
