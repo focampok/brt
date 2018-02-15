@@ -61,7 +61,7 @@ if ($_POST) {
             //cantidad actual + cantidad nueva
             $nuevaCantidad = $prod[0] + $cantidad;
             //subtotal actual + nuevo st            
-            $nuevoSubtotal = $prod[1] + ($nuevaCantidad * $precio);
+            $nuevoSubtotal = $prod[1] + ($cantidad * $precio);
 
             //actualizo el PRODUCTO con la nueva info.
             $actualizar = "UPDATE PRODUCTO SET fecha='$fecha',cantidad = $nuevaCantidad,precio_unitario=$precio,subtotal = $nuevoSubtotal,ORDEN_codigo_orden='$codigo' WHERE codigo_producto = '$codProd'";
