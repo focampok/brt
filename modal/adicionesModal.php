@@ -105,7 +105,7 @@
             <form class="form-horizontal" id="generarCertificacionForm" action="php_action/createContPDF.php" method="POST" enctype="multipart/form-data">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title"><i class="glyphicon glyphicon-print"></i> Generar PDF </h4>
+                    <h4 class="modal-title"><i class="glyphicon glyphicon-print"></i> Generar Reporte </h4>
                 </div>
 
                 <div class="modal-body" style="max-height:450px; overflow:auto;">

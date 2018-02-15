@@ -36,7 +36,7 @@ if ($result->num_rows > 0) {
 	  </button>
 	  <ul class="dropdown-menu">
 	    <li><a type="button" data-toggle="modal" data-target="#editBrandModel" onclick="editarAdicion(\'' . $brandId . '\')"> <i class="glyphicon glyphicon-edit"></i> Editar </a></li>                           
-                <li><a type="button" data-toggle="modal" data-target="#generarContenedorPDFModal" onclick="generarPDF(\'' . $brandId . '\')"> <i class="glyphicon glyphicon-list-alt"></i> Generar PDF </a></li> 
+                
                     <li><a type="button" data-toggle="modal" data-target="#eliminarBodegaModal" onclick="eliminarBodega(\'' . $brandId . '\')"> <i class="glyphicon glyphicon-trash"></i> Eliminar Bodega </a></li> 
 	  </ul>
 	</div>';
@@ -48,7 +48,7 @@ if ($result->num_rows > 0) {
 	  </button>
 	  <ul class="dropdown-menu">
 	    <li><a type="button" data-toggle="modal" data-target="#editBrandModel" onclick="editarAdicion(\'' . $brandId . '\')"> <i class="glyphicon glyphicon-edit"></i> Editar </a></li>                           
-                <li><a type="button" data-toggle="modal" data-target="#generarContenedorPDFModal" onclick="generarPDF(\'' . $brandId . '\')"> <i class="glyphicon glyphicon-list-alt"></i> Generar PDF </a></li> 
+                
 	  </ul>
 	</div>';
         }

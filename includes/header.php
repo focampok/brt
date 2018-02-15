@@ -77,7 +77,10 @@ $estado = $_SESSION['estado'];
                         <li class="dropdown" id="navOrder">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="glyphicon glyphicon-download-alt"></i> Reportes <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li id="topNavAddOrder"><a href="resumenAdiciones.php"> <i class="glyphicon glyphicon-stats"></i> Resumen de Contenedores </a></li> 
+                                <li id="topNavAddOrder"><a href="resumenAdiciones.php"> <i class="glyphicon glyphicon-stats"></i> Bodegas </a></li> 
+                                <li id="topNavAddOrder"><a href="resumenProductos.php"> <i class="glyphicon glyphicon-lamp"></i> Productos </a></li> 
+                                <li id="topNavAddOrder"><a href="resumenIngresos.php"> <i class="glyphicon glyphicon-log-in"></i> Entradas </a></li> 
+                                <li id="topNavAddOrder"><a href="resumenSalidas.php"> <i class="glyphicon glyphicon-export"></i> Salidas </a></li> 
                                 <li id="topNavAddOrder"><a href="exportarExcel.php"> <i class="glyphicon glyphicon-dashboard"></i> Inventario </a></li>                                                     
                             </ul>
                         </li> 

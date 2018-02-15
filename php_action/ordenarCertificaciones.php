@@ -19,12 +19,7 @@ if ($result->num_rows > 0) {
         // 0 anulada
         // 1 disponible
 
-        $button = '<!-- Single button -->
-	<div class="btn-group">
-	  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	    Acción <span class="caret"></span>
-	  </button>
-	  <ul class="dropdown-menu">';
+
 
         if ($row[2] == 0) {
             // si esta anulada, no tiene opciones
@@ -33,11 +28,20 @@ if ($result->num_rows > 0) {
         } else if ($row[2] == 1) {
             // disponible, tiene ambas opciones...
             $estado = "<label class='label label-success'>Disponible</label>";
-            $button.= '<li><a type="button" data-toggle="modal" id="generarCertificacionModalBtn" data-target="#generarCertificacionModal" onclick="generarCertificacion(\'' . $id . '\')"> <i class="glyphicon glyphicon-print"></i> Generar PDF </a></li>';
             if ($tipoUser == 1) {
+                $button = '<!-- Single button -->
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Acción <span class="caret"></span>
+                      </button>
+                     <ul class="dropdown-menu">';
                 $button.= '<li><a type="button" data-toggle="modal" id="anularCertificacionModalBtn" data-target="#anularCertificacionModal" onclick="anularCertificacion(\'' . $id . '\')"> <i class="glyphicon glyphicon-trash"></i> Eliminar Salida </a></li>';
+                $button .= '</ul></div>';
+            } else {
+                $button = '<!-- Single button -->
+                    <div class="btn-group">
+                      </div>';
             }
-            $button .= '</ul></div>';
         }
 
         //calcular los totales por cada adición

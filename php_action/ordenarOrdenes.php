@@ -25,19 +25,13 @@ if ($result->num_rows > 0) {
 	  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 	    Acción <span class="caret"></span>
 	  </button>
-	  <ul class="dropdown-menu">';        
-        $button.= '<li><a type="button" data-toggle="modal" id="generarOrdenModalBtn" data-target="#generarOrdenModal" onclick="generarOrdenPDF(\'' . $id . '\')"> <i class="glyphicon glyphicon-print"></i> Generar PDF </a></li>';
-        $button.= '<li><a type="button" data-toggle="modal" id="eliminarIngresoModalBtn" data-target="#eliminarIngresoModal" onclick="eliminarIngreso(\'' . $id . '\')"> <i class="glyphicon glyphicon-trash"></i> Eliminar ingreso </a></li>';
-        $button .= '</ul></div>'; 
+	  <ul class="dropdown-menu">';
+            $button.= '<li><a type="button" data-toggle="modal" id="eliminarIngresoModalBtn" data-target="#eliminarIngresoModal" onclick="eliminarIngreso(\'' . $id . '\')"> <i class="glyphicon glyphicon-trash"></i> Eliminar ingreso </a></li>';
+            $button .= '</ul></div>';
         } else {
             $button = '<!-- Single button -->
-	<div class="btn-group">
-	  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	    Acción <span class="caret"></span>
-	  </button>
-	  <ul class="dropdown-menu">';
-            $button.= '<li><a type="button" data-toggle="modal" id="generarOrdenModalBtn" data-target="#generarOrdenModal" onclick="generarOrdenPDF(\'' . $id . '\')"> <i class="glyphicon glyphicon-print"></i> Generar PDF </a></li>';
-            $button .= '</ul></div>';
+                       <div class="btn-group">	  
+                       </div>';
         }
 
         //obtengo el total
