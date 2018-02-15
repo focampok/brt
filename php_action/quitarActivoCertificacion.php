@@ -37,9 +37,10 @@ if ($_POST) {
 
     //obtengo el codigo la certificacion
     $id = $_POST['codigoInventario'];
+    $codProyecto = $_POST['codigoProyecto'];
 
     //obtengo la suma de cantidades de dicho producto en el proyecto
-    $sx = "SELECT sum(cantidad)as cantidad FROM ASIGNACION WHERE PRODUCTO_codigo_producto = '$id';";
+    $sx = "SELECT sum(cantidad)as cantidad FROM ASIGNACION WHERE PRODUCTO_codigo_producto = '$id' and PROYECTO_codigo_proyecto='$codProyecto';";
     $rt = $connect->query($sx);
     $rrr = $rt->fetch_array();
     $cantidadProyecto = $rrr["cantidad"];
@@ -66,7 +67,7 @@ if ($_POST) {
     $connect->query($zz);
     
     //elimino el producto de la tabla de ASIGNACION
-    $zzx = "delete from ASIGNACION where PRODUCTO_codigo_producto = '$id'";
+    $zzx = "delete from ASIGNACION where PRODUCTO_codigo_producto = '$id' and PROYECTO_codigo_proyecto = '$codProyecto'";
     $connect->query($zzx);
     
 
@@ -95,7 +96,7 @@ if ($_POST) {
     //BITACORA
     $hoy = getdate();
     $fecha = $hoy['mday'] . ' de ' . obtenerMes($hoy['mon']) . ' del ' . $hoy['year'];
-    $accion = "El USUARIO $nombre eliminó el PRODUCTO $id del proyecto el $fecha";
+    $accion = "El USUARIO $nombre eliminó el PRODUCTO $id del proyecto $codProyecto el $fecha";
 
     $bitacora = "INSERT INTO BITACORA(fecha,accion,USUARIO_nit)VALUES ('$fecha','$accion','$nit');";
     $connect->query($bitacora);

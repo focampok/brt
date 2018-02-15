@@ -64,7 +64,7 @@ if ($result->num_rows > 0) {
         if ($rsac->num_rows > 0) {
             $activos = "";
             while ($rw = $rsac->fetch_array()) {
-                $activos.= '<li><a type="button" data-toggle="modal" id="quitarActivoModalBtn" data-target="#quitarActivoModal" onclick="quitarActivo(\'' . $rw[0] . '\')"> <i class="glyphicon glyphicon-remove-circle"></i> Quitar ' . $rw[0] . ' </a></li>';
+                $activos.= '<li><a type="button" data-toggle="modal" id="quitarActivoModalBtn" data-target="#quitarActivoModal" onclick="quitarActivo(\'' . $rw[0] . '\',\'' . $id . '\')"> <i class="glyphicon glyphicon-remove-circle"></i> Quitar ' . $rw[0] . ' </a></li>';
             }
 
             $lista .= '<div class="btn-group">

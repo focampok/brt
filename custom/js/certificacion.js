@@ -110,7 +110,7 @@ function anularCertificacion(id)
     }
 }
 
-function quitarActivo(codInventario)
+function quitarActivo(codInventario, codProyecto)
 {
     if (codInventario) {
         // click on remove button to remove the brand
@@ -120,7 +120,7 @@ function quitarActivo(codInventario)
             $.ajax({
                 url: 'php_action/quitarActivoCertificacion.php',
                 type: 'post',
-                data: {codigoInventario: codInventario},
+                data: {codigoInventario: codInventario, codigoProyecto: codProyecto},
                 dataType: 'json',
                 success: function (response) {
                     console.log(response);
@@ -163,10 +163,10 @@ function generarCertificacion(codCertificacion)
     if (codCertificacion)
     {
         // remove hidden id text
-        $('#codCertificacion').remove();        
+        $('#codCertificacion').remove();
         // activo id 
-        $(".generarCertificacionFooter").after('<input type="hidden" name="codCertificacion" id="codCertificacion" value="' + codCertificacion + '" />');        
-        
+        $(".generarCertificacionFooter").after('<input type="hidden" name="codCertificacion" id="codCertificacion" value="' + codCertificacion + '" />');
+
         // submit product form
         $("#generarCertificacionForm").unbind('submit').bind('submit', function () {
 

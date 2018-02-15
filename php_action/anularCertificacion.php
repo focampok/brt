@@ -45,7 +45,7 @@ if ($_POST) {
        $id = $rrrw["PRODUCTO_codigo_producto"];
 
     //obtengo la suma de cantidades de dicho producto en el proyecto
-    $sx = "SELECT sum(cantidad)as cantidad FROM ASIGNACION WHERE PRODUCTO_codigo_producto = '$id';";
+    $sx = "SELECT sum(cantidad)as cantidad FROM ASIGNACION WHERE PRODUCTO_codigo_producto = '$id' and PROYECTO_codigo_proyecto='$codigoCertificacion';";
     $rt = $connect->query($sx);
     $rrr = $rt->fetch_array();
     $cantidadProyecto = $rrr["cantidad"];
@@ -72,7 +72,7 @@ if ($_POST) {
     $connect->query($zz);
 
     //elimino el producto de la tabla de ASIGNACION
-    $zzx = "delete from ASIGNACION where PRODUCTO_codigo_producto = '$id'";
+    $zzx = "delete from ASIGNACION where PRODUCTO_codigo_producto = '$id' and PROYECTO_codigo_proyecto='$codigoCertificacion'";
     $connect->query($zzx);
 
 
