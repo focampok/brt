@@ -43,7 +43,7 @@ $connect->close();
 		<div class="panel panel-success">
 			<div class="panel-heading">
 				
-				<a href="activos.php" style="text-decoration:none;color:black;">
+				<a href="productos.php" style="text-decoration:none;color:black;">
 					Total de Productos
 					<span class="badge pull pull-right"><?php echo $totalActivos; ?></span>	
 				</a>
@@ -55,7 +55,7 @@ $connect->close();
 		<div class="col-md-4">
 			<div class="panel panel-info">
 			<div class="panel-heading">
-				<a href="adiciones.php" style="text-decoration:none;color:black;">
+				<a href="bodegas.php" style="text-decoration:none;color:black;">
 					Total de Bodegas
 					<span class="badge pull pull-right"><?php echo $totalAdiciones; ?></span>
 				</a>
@@ -67,7 +67,7 @@ $connect->close();
 	<div class="col-md-4">
 		<div class="panel panel-danger">
 			<div class="panel-heading">
-				<a href="product.php" style="text-decoration:none;color:black;">
+				<a href="proyectos.php" style="text-decoration:none;color:black;">
 					Total de Proyectos/Ordenes
 					<span class="badge pull pull-right"><?php echo $totalActas ?></span>	
 				</a>
