@@ -54,7 +54,7 @@ $estado = $_SESSION['estado'];
 
                     <ul class="nav navbar-nav navbar-right">        
 
-                        <li id="navDashboard"><a href="dashboard.php"><i class="glyphicon glyphicon-home"></i> Inicio </a></li>        
+<!--                        <li id="navDashboard"><a href="dashboard.php"><i class="glyphicon glyphicon-home"></i> Inicio </a></li>        -->
 
                         <li id="navDashboard"><a href="registro.php"><i class="glyphicon glyphicon-user"></i> Nuevo Usuario </a></li> 
 

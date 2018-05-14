@@ -35,7 +35,7 @@ class DBMaster {
             $password = $this->db_connection->real_escape_string($p);
 
             // realizo la consulta para ver si el USUARIO existe
-            $sql = "SELECT * FROM USUARIO where nit = '" . $nit . "' AND password = '" . $password . "';";
+            $sql = "SELECT * FROM USUARIO where username = '" . $nit . "' AND password = '" . $password . "';";
             $result_of_login_check = $this->db_connection->query($sql);
 
             // si el USUARIO existe
@@ -43,10 +43,8 @@ class DBMaster {
                 // convierto las fila en un objeto
                 $result_row = $result_of_login_check->fetch_object();
                 // guardo la info del USUARIO en variables de sesion
-                $_SESSION['nit'] = $result_row->nit;
+                $_SESSION['username'] = $result_row->nit;
                 $_SESSION['nombre'] = $result_row->nombre;
-                $_SESSION['apellido'] = $result_row->apellido;
-                $_SESSION['puesto'] = $result_row->puesto;
 
                 //verifico el tipo de USUARIO, si es admin o normal
                 $tipoUsuario = $result_row->tipo;
@@ -57,7 +55,7 @@ class DBMaster {
                 else {                    
                     $_SESSION['estado'] = 2; //es user 
                 }
-                header("location: dashboard.php");
+                header("location: productos.php");
             } else {
                 $this->info = "Usuario y/o contraseña no coinciden.";
             }
@@ -68,23 +66,20 @@ class DBMaster {
         $this->db_connection->close();
     }
 
-    public function insertarUsuario($nit, $nombre, $apellido, $puesto, $password, $tipo, $codDepto) {
+    public function insertarUsuario($nombre, $apellido,$username, $password, $tipo) {
         // verifico la codificacion
         if (!$this->db_connection->set_charset("utf8")) {
             $this->info = $this->db_connection->error;
         }
-        
-        $ccc = 1;
-
         if (!$this->db_connection->connect_errno) {
             // realizo la insercion por parametos, para evitar inyecciones
-            $sql = $this->db_connection->prepare("INSERT INTO USUARIO(nit,nombre,apellido,puesto,password,tipo,DEPARTAMENTO_codigo_departamento) VALUES (?,?,?,?,?,?,?);");
-            $sql->bind_param("sssssii", $nit, $nombre, $apellido, $puesto, $password, $tipo,$ccc);
+            $sql = $this->db_connection->prepare("INSERT INTO USUARIO(nombre,apellido,username,password,tipo) VALUES (?,?,?,?,?);");
+            $sql->bind_param("ssssi", $nombre, $apellido,$username,$password, $tipo);
             $respuesta = $sql->execute();
             if ($respuesta) {
                 $this->info = "Usuario registrado correctamente.";
             } else {
-                $this->info = "Error, ya existe un USUARIO con el mismo N.I.T.";
+                $this->info = "Error, ya existe un usuario con el mismo username";
             }
         } else {
             $this->info = "Problema de conexión de base de datos.";
