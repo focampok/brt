@@ -1,11 +1,11 @@
-var manageBrandTable;
+var raceDayTable;
 
 $(document).ready(function() {
 	// top bar active
 	$('#navBrand').addClass('active');
 	
 	// manage brand table
-	manageBrandTable = $("#manageBrandTable").DataTable({
+	raceDayTable = $("#raceDayTable").DataTable({
 		'ajax': 'php_action/ordenarAdiciones.php',
 		'order': []
 		
@@ -58,7 +58,7 @@ $(document).ready(function() {
 
 					if(response.success == true) {
 						// reload the manage member table 
-						manageBrandTable.ajax.reload(null, false);						
+						raceDayTable.ajax.reload(null, false);						
 
   	  			// reset the form text
 						$("#submitBrandForm")[0].reset();
@@ -66,7 +66,7 @@ $(document).ready(function() {
 						$(".text-danger").remove();
 						// remove the form error
 						$('.form-group').removeClass('has-error').removeClass('has-success');
-  	  			
+                                                $('#addBrandModel').modal("hide");
   	  			$('#add-brand-messages').html('<div class="alert alert-success">'+
             '<button type="button" class="close" data-dismiss="alert">&times;</button>'+
             '<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> '+ response.messages +
@@ -118,11 +118,11 @@ function editarAdicion(brandId) {
 				$('.editBrandFooter').removeClass('div-hide');
 
 				// setting the brand name value 
-				$('#editBrandName').val(response.codigo_contenedor);
+				$('#editBrandName').val(response.codigoFecha);
 				// setting the brand status value
-				$('#editBrandStatus').val(response.nombre_contenedor);
+				$('#editBrandStatus').val(response.nombreFecha);
 				// brand id                                 
-				$(".editBrandFooter").after('<input type="hidden" name="brandId" id="brandId" value="'+response.codigo_contenedor+'" />');
+				$(".editBrandFooter").after('<input type="hidden" name="brandId" id="brandId" value="'+response.codigoFecha+'" />');
 
 				// update brand form 
 				$('#editBrandForm').unbind('submit').bind('submit', function() {
@@ -175,11 +175,12 @@ function editarAdicion(brandId) {
 									$('#editBrandBtn').button('reset');
 
 									// reload the manage member table 
-									manageBrandTable.ajax.reload(null, false);								  	  										
+									raceDayTable.ajax.reload(null, false);								  	  										
 									// remove the error text
 									$(".text-danger").remove();
 									// remove the form error
 									$('.form-group').removeClass('has-error').removeClass('has-success');
+                                                                        $('#editBrandModel').modal("hide");
 			  	  			
 			  	  			$('#edit-brand-messages').html('<div class="alert alert-success">'+
 			            '<button type="button" class="close" data-dismiss="alert">&times;</button>'+
@@ -208,67 +209,7 @@ function editarAdicion(brandId) {
 	}
 }
 
-function generarPDF(codCertificacion)
-{
 
-    if (codCertificacion)
-    {
-        // remove hidden id text
-        $('#codCertificacion').remove();        
-        // activo id 
-        $(".generarCertificacionFooter").after('<input type="hidden" name="codCertificacion" id="codCertificacion" value="' + codCertificacion + '" />');        
-        
-        // submit product form
-        $("#generarCertificacionForm").unbind('submit').bind('submit', function () {
-
-            // submit loading button
-            $("#createCertificacionPDFBtn").button('loading');
-
-            var form = $(this);
-            var formData = new FormData(this);
-            $.ajax({
-                url: form.attr('action'),
-                type: form.attr('method'),
-                data: formData,
-                dataType: 'json',
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function (response) {
-
-                    if (response.success == true) {
-                        // submit loading button
-                        $("#createCertificacionPDFBtn").button('reset');
-
-                        $("#generarCertificacionForm")[0].reset();
-
-                        $("html, body, div.modal, div.modal-content, div.modal-body").animate({scrollTop: '0'}, 100);
-
-                        // shows a successful message after operation
-                        $('#generar-certificacion-messages').html('<div class="alert alert-success">' +
-                                '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
-                                '<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> ' + response.messages +
-                                '</div>');
-
-                        // reload the manage student table
-                        manageCertificacionesTable.ajax.reload(null, true);
-                        // remove text-error 
-                        $(".text-danger").remove();
-                        // remove from-group error
-                        $(".form-group").removeClass('has-error').removeClass('has-success');
-                    } // /if response.success
-
-                } // /success function
-            }); // /ajax function
-
-
-
-
-            return false;
-        }); // /submit product form
-    }
-
-}
 
 function eliminarBodega(id)
 {
@@ -292,7 +233,7 @@ function eliminarBodega(id)
                         $('#eliminarBodegaModal').modal('hide');
 
                         // reload the brand table 
-                        manageBrandTable.ajax.reload(null, false);
+                        raceDayTable.ajax.reload(null, false);
 
                         $('.remove-messages').html('<div class="alert alert-success">' +
                                 '<button type="button" class="close" data-dismiss="alert">&times;</button>' +

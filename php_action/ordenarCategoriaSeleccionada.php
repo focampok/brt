@@ -5,7 +5,7 @@ require_once 'core.php';
 $id = $_POST['brandId'];
 
 
-$sql = "SELECT * FROM FECHA WHERE codigoFecha = '$id'";
+$sql = "SELECT * FROM CATEGORIA WHERE codCategoria = '$id'";
 $result = $connect->query($sql);
 
 if($result->num_rows > 0) { 

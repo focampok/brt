@@ -43,7 +43,7 @@ if ($_POST) {
     $connect->query($o);
 
     //elimino todos los heats que esten en esa fecha
-    $r = "DELETE FROM HEAT WHERE FECHA_codigoFecha = '$cc'";
+    $r = "DELETE FROM PILOTO WHERE CATEGORIA_codCategoria = '$cc'";
     $connect->query($r);
 
     //enciendo llaves
@@ -51,13 +51,13 @@ if ($_POST) {
     $connect->query($e);
 
     //elimino la bodega
-    $sql = "DELETE FROM FECHA WHERE codigoFecha = '$cc'";
+    $sql = "DELETE FROM CATEGORIA WHERE codCategoria = '$cc'";
     if ($connect->query($sql) === TRUE) {
         $valid['success'] = true;
-        $valid['messages'] = "Fecha eliminada correctamente";
+        $valid['messages'] = "Categoria eliminada correctamente";
     } else {
         $valid['success'] = false;
-        $valid['messages'] = "Error no se ha podido eliminar la fecha";
+        $valid['messages'] = "Error no se ha podido eliminar la categoria";
     }
     $connect->close();
     echo json_encode($valid);

@@ -5,12 +5,12 @@ class DBMaster {
     private $db_connection = null;
     public $info = "";
     public $pass = "";
-    public $departamentos = "";
+    public $fechas = "";
     public $cuentas = "";
     public $subcuentas = "";
     public $adiciones = "";
     public $USUARIOs = "";
-    public $certificaciones = "";
+    public $categorias = "";
     public $actas = "";
     public $productos = "";
 
@@ -55,7 +55,7 @@ class DBMaster {
                 else {                    
                     $_SESSION['estado'] = 2; //es user 
                 }
-                header("location: productos.php");
+                header("location: dashboard.php");
             } else {
                 $this->info = "Usuario y/o contraseña no coinciden.";
             }
@@ -88,7 +88,7 @@ class DBMaster {
         $this->db_connection->close();
     }
 
-    public function llenarComboDepartamentos() {
+    public function llenarComboFechas() {
         // verifico la codificacion
         if (!$this->db_connection->set_charset("utf8")) {
             $this->info = $this->db_connection->error;
@@ -97,15 +97,41 @@ class DBMaster {
         // si la conexion no tiene errorres, hago la consulta
         if (!$this->db_connection->connect_errno) {
             // realizo la consulta para obtener codigo y nombre del PRODUCTO.
-            $sql = "SELECT * FROM DEPARTAMENTO;";
+            $sql = "SELECT * FROM FECHA;";
             $resultado = $this->db_connection->query($sql);
             // si existen productos
             if ($resultado->num_rows > 0) {
                 $lista = "";
                 while ($depto = $resultado->fetch_array()) {
-                    $lista .=" <option value='" . $depto['codigo_departamento'] . "'>" . $depto['codigo_departamento'] . ' - ' . $depto['nombre'] . "</option>";
+                    $lista .=" <option value='" . $depto['codigoFecha'] . "'>" . $depto['codigoFecha'] . ' * ' . $depto['nombreFecha'] . "</option>";
                 }
-                $this->departamentos = $lista;
+                $this->fechas = $lista;
+            }
+        } else {
+            $this->info = "Problema de conexión de base de datos.";
+        }
+        //cierro la conexion.
+        $this->db_connection->close();
+    }
+    
+    public function llenarComboCategorias() {
+        // verifico la codificacion
+        if (!$this->db_connection->set_charset("utf8")) {
+            $this->info = $this->db_connection->error;
+        }
+
+        // si la conexion no tiene errorres, hago la consulta
+        if (!$this->db_connection->connect_errno) {
+            // realizo la consulta para obtener codigo y nombre del PRODUCTO.
+            $sql = "SELECT * FROM CATEGORIA;";
+            $resultado = $this->db_connection->query($sql);
+            // si existen productos
+            if ($resultado->num_rows > 0) {
+                $lista = "";
+                while ($depto = $resultado->fetch_array()) {
+                    $lista .=" <option value='" . $depto['codCategoria'] . "'>" . $depto['codCategoria'] . ' - ' . $depto['nombreCategoria'] . "</option>";
+                }
+                $this->categorias = $lista;
             }
         } else {
             $this->info = "Problema de conexión de base de datos.";

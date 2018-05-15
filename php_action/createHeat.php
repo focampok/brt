@@ -35,29 +35,18 @@ function obtenerMes($numeroMes) {
 
 if ($_POST) {
 
-    //obtengo el codigo la certificacion
-    $cc = $_POST['codigoBodega'];
+    $fechaCertificacion = $_POST['fechaCertificacion'];
+    $vueltas = $_POST['vueltas'];
+    $codCategoria = $_POST['codigoCategoria'];  
 
-    //apago llaves
-    $o = 'SET FOREIGN_KEY_CHECKS = 0';
-    $connect->query($o);
+    $sql = "INSERT INTO HEAT(nombreHEAT,vueltas,CATEGORIA_codCategoria) VALUES ('$fechaCertificacion','$vueltas','$codCategoria')";
 
-    //elimino todos los heats que esten en esa fecha
-    $r = "DELETE FROM HEAT WHERE FECHA_codigoFecha = '$cc'";
-    $connect->query($r);
-
-    //enciendo llaves
-    $e = 'SET FOREIGN_KEY_CHECKS= 1 ';
-    $connect->query($e);
-
-    //elimino la bodega
-    $sql = "DELETE FROM FECHA WHERE codigoFecha = '$cc'";
     if ($connect->query($sql) === TRUE) {
         $valid['success'] = true;
-        $valid['messages'] = "Fecha eliminada correctamente";
+        $valid['messages'] = "Heat creado exitosamente.";
     } else {
         $valid['success'] = false;
-        $valid['messages'] = "Error no se ha podido eliminar la fecha";
+        $valid['messages'] = "Error no se ha podido crear el heat.";
     }
     $connect->close();
     echo json_encode($valid);

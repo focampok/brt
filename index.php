@@ -66,9 +66,14 @@ function test_input($data) {
                         <div class="wthree-field">
                             <input name="password" id="password" type="Password" placeholder="password" required>
                         </div>
-                    </div>                    
+                    </div>
+                    <div class="wthree-text">
+                        <div class="clear"> </div>
+                        <br>
+                        <center><font size="5" style="color:blue;"><?php echo $errorLogin ?></font></center>
+                    </div>
                     <div class="wthree-field">
-                        <input id="saveForm" name="saveForm" type="submit" value="sign in" />
+                        <input id="saveForm" name="saveForm" type="submit" value="Entrar" />
                     </div>
                 </form>
             </div>

@@ -1,12 +1,12 @@
-var manageCertificacionesTable;
+var categoriasTable;
 
 $(document).ready(function () {
     // top bar active
     $('#navCertificacion').addClass('active');
 
     // manage brand table
-    manageCertificacionesTable = $("#manageCertificacionesTable").DataTable({
-        'ajax': 'php_action/ordenarCertificaciones.php',
+    categoriasTable = $("#categoriasTable").DataTable({
+        'ajax': 'php_action/ordenarCategorias.php',
         'order': []
 
     });
@@ -33,7 +33,7 @@ $(document).ready(function () {
 
                 if (response.success == true) {
                     // reload the manage member table 
-                    manageCertificacionesTable.ajax.reload(null, false);
+                    categoriasTable.ajax.reload(null, false);
 
                     // reset the form text
                     $("#submitCertificacionForm")[0].reset();
@@ -41,6 +41,8 @@ $(document).ready(function () {
                     $(".text-danger").remove();
                     // remove the form error
                     $('.form-group').removeClass('has-error').removeClass('has-success');
+                    
+                    $('#addCertificacionModal').modal('hide');
 
                     $('#add-certificacion-messages').html('<div class="alert alert-success">' +
                             '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
@@ -62,6 +64,178 @@ $(document).ready(function () {
     }); // /submit brand form function
 
 });
+
+
+function editarCategoria(brandId) {    
+    if(brandId) {
+		// remove hidden brand id text
+		$('#brandId').remove();
+		// remove the error 
+		$('.text-danger').remove();
+		// remove the form-error
+		$('.form-group').removeClass('has-error').removeClass('has-success');
+
+		// modal loading
+		$('.modal-loading').removeClass('div-hide');
+		// modal result
+		$('.edit-brand-result').addClass('div-hide');
+		// modal footer
+		$('.editBrandFooter').addClass('div-hide');
+
+		$.ajax({
+			url: 'php_action/ordenarCategoriaSeleccionada.php',
+			type: 'post',
+			data: {brandId : brandId},
+			dataType: 'json',
+			success:function(response) {
+				// modal loading
+				$('.modal-loading').addClass('div-hide');
+				// modal result
+				$('.edit-brand-result').removeClass('div-hide');
+				// modal footer
+				$('.editBrandFooter').removeClass('div-hide');
+
+				// setting the brand name value 
+				$('#editBrandName').val(response.codCategoria);
+				// setting the brand status value
+				$('#editBrandStatus').val(response.nombreCategoria);
+				// brand id                                 
+				$(".editBrandFooter").after('<input type="hidden" name="brandId" id="brandId" value="'+response.codCategoria+'" />');
+
+				// update brand form 
+				$('#editBrandForm').unbind('submit').bind('submit', function() {
+
+					// remove the error text
+					$(".text-danger").remove();
+					// remove the form error
+					$('.form-group').removeClass('has-error').removeClass('has-success');			
+
+					var brandName = $('#editBrandName').val();
+					var brandStatus = $('#editBrandStatus').val();
+
+					if(brandName == "") {
+						$("#editBrandName").after('<p class="text-danger">Este campo es obligatorio</p>');
+						$('#editBrandName').closest('.form-group').addClass('has-error');
+					} else {
+						// remov error text field
+						$("#editBrandName").find('.text-danger').remove();
+						// success out for form 
+						$("#editBrandName").closest('.form-group').addClass('has-success');	  	
+					}
+
+					if(brandStatus == "") {
+						$("#editBrandStatus").after('<p class="text-danger">Este campo es obligatorio</p>');
+
+						$('#editBrandStatus').closest('.form-group').addClass('has-error');
+					} else {
+						// remove error text field
+						$("#editBrandStatus").find('.text-danger').remove();
+						// success out for form 
+						$("#editBrandStatus").closest('.form-group').addClass('has-success');	  	
+					}
+
+					if(brandName && brandStatus) {
+						var form = $(this);
+
+						// submit btn
+						$('#editBrandBtn').button('loading');
+
+						$.ajax({
+							url: form.attr('action'),
+							type: form.attr('method'),
+							data: form.serialize(),
+							dataType: 'json',
+							success:function(response) {
+
+								if(response.success == true) {
+									console.log(response);
+									// submit btn
+									$('#editBrandBtn').button('reset');
+
+									// reload the manage member table 
+									categoriasTable.ajax.reload(null, false);								  	  										
+									// remove the error text
+									$(".text-danger").remove();
+									// remove the form error
+									$('.form-group').removeClass('has-error').removeClass('has-success');
+                                                                        $('#editCategoriaModal').modal("hide");
+			  	  			
+			  	  			$('#edit-brand-messages').html('<div class="alert alert-success">'+
+			            '<button type="button" class="close" data-dismiss="alert">&times;</button>'+
+			            '<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> '+ response.messages +
+			          '</div>');
+
+			  	  			$(".alert-success").delay(500).show(10, function() {
+										$(this).delay(3000).hide(10, function() {
+											$(this).remove();
+										});
+									}); // /.alert
+								} // /if
+									
+							}// /success
+						});	 // /ajax												
+					} // /if
+
+					return false;
+				}); // /update brand form
+
+			} // /success
+		}); // ajax function
+
+	} else {
+		alert('error!! Refresh the page again');
+	}
+}
+
+function eliminarCategoria(id)
+{
+    if (id) {
+        // click on remove button to remove the brand
+        $("#eliminarBodegaModalBtn").unbind('click').bind('click', function () {
+            // button loading
+            $("#eliminarBodegaModalBtn").button('loading');
+            $.ajax({
+                url: 'php_action/eliminarCategoria.php',
+                type: 'post',
+                data: {codigoBodega: id},
+                dataType: 'json',
+                success: function (response) {
+                    console.log(response);
+                    // button loading
+                    $("#eliminarBodegaModalBtn").button('reset');
+                    if (response.success == true) {
+
+                        // hide the remove modal 
+                        $('#eliminarCategoriaModal').modal('hide');
+
+                        // reload the brand table 
+                        categoriasTable.ajax.reload(null, false);
+
+                        $('.remove-messages').html('<div class="alert alert-success">' +
+                                '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+                                '<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> ' + response.messages +
+                                '</div>');
+
+                        $(".alert-success").delay(500).show(10, function () {
+                            $(this).delay(3000).hide(10, function () {
+                                $(this).remove();
+                            });
+                        }); // /.alert
+                    } else {
+
+                    } // /else
+                } // /response messages
+            }); // /ajax function to remove the brand
+
+        }); // /click on remove button to remove the brand
+
+    } else {
+        alert('error!! Refresh the page again');
+    }
+}
+
+
+
 
 function anularCertificacion(id)
 {
@@ -85,7 +259,7 @@ function anularCertificacion(id)
                         $('#anularCertificacionModal').modal('hide');
 
                         // reload the brand table 
-                        manageCertificacionesTable.ajax.reload(null, false);
+                        categoriasTable.ajax.reload(null, false);
 
                         $('.remove-messages').html('<div class="alert alert-success">' +
                                 '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
@@ -132,7 +306,7 @@ function quitarActivo(codInventario, codProyecto)
                         $('#quitarActivoModal').modal('hide');
 
                         // reload the brand table 
-                        manageCertificacionesTable.ajax.reload(null, false);
+                        categoriasTable.ajax.reload(null, false);
 
                         $('.remove-messages').html('<div class="alert alert-success">' +
                                 '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
@@ -200,7 +374,7 @@ function generarCertificacion(codCertificacion)
                                 '</div>');
 
                         // reload the manage student table
-                        manageCertificacionesTable.ajax.reload(null, true);
+                        categoriasTable.ajax.reload(null, true);
                         // remove text-error 
                         $(".text-danger").remove();
                         // remove from-group error

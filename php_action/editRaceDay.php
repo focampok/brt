@@ -34,31 +34,18 @@ function obtenerMes($numeroMes) {
 }
 
 if ($_POST) {
+    $nombreAdicion = $_POST['editBrandStatus'];
+    $id = $_POST['brandId'];
 
-    //obtengo el codigo la certificacion
-    $cc = $_POST['codigoBodega'];
+    $sql = "UPDATE FECHA SET nombreFecha = '$nombreAdicion' WHERE codigoFecha = '$id'";
 
-    //apago llaves
-    $o = 'SET FOREIGN_KEY_CHECKS = 0';
-    $connect->query($o);
-
-    //elimino todos los heats que esten en esa fecha
-    $r = "DELETE FROM HEAT WHERE FECHA_codigoFecha = '$cc'";
-    $connect->query($r);
-
-    //enciendo llaves
-    $e = 'SET FOREIGN_KEY_CHECKS= 1 ';
-    $connect->query($e);
-
-    //elimino la bodega
-    $sql = "DELETE FROM FECHA WHERE codigoFecha = '$cc'";
     if ($connect->query($sql) === TRUE) {
         $valid['success'] = true;
-        $valid['messages'] = "Fecha eliminada correctamente";
+        $valid['messages'] = "Fecha editada exitosamente";
     } else {
         $valid['success'] = false;
-        $valid['messages'] = "Error no se ha podido eliminar la fecha";
+        $valid['messages'] = "Error no se ha podido editar";
     }
-    $connect->close();
+
     echo json_encode($valid);
 } // /if $_POST

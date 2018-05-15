@@ -36,38 +36,18 @@ function obtenerMes($numeroMes) {
 if ($_POST) {
 
     $codCertificacion = $_POST['codCertificacion'];
-    $fechaCertificacion = $_POST['fechaCertificacion'];
-    $estado = 1;
+    $fechaCertificacion = $_POST['fechaCertificacion'];   
+    $codFecha = $_POST['codigoFecha'];  
 
-    $sql = "INSERT INTO PROYECTO (codigo_proyecto,fecha,estado) VALUES ('$codCertificacion','$fechaCertificacion',$estado)";
+    $sql = "INSERT INTO CATEGORIA (codCategoria,nombreCategoria,FECHA_codigoFecha) VALUES ('$codCertificacion','$fechaCertificacion','$codFecha')";
 
     if ($connect->query($sql) === TRUE) {
         $valid['success'] = true;
-        $valid['messages'] = "Proyecto creado exitosamente.";
+        $valid['messages'] = "Categoria creada exitosamente.";
     } else {
         $valid['success'] = false;
-        $valid['messages'] = "Error no se ha podido crear el PROYECTO.";
+        $valid['messages'] = "Error no se ha podido crear la categoria.";
     }
-
-
-    //obtengo info del user
-    $nit = $_SESSION["nit"];
-
-    $XX = "SELECT nit,nombre,apellido FROM USUARIO WHERE nit = '$nit'";
-    $sr = $connect->query($XX);
-    $us = $sr->fetch_array();
-    $nombre = $us[0] . ' - ' . $us[1] . ' ' . $us[2];
-
-    //BITACORA
-    $hoy = getdate();
-    $fecha = $hoy['mday'] . ' de ' . obtenerMes($hoy['mon']) . ' del ' . $hoy['year'];
-    $accion = "El USUARIO $nombre creó el PROYECTO $codCertificacion el $fecha";
-
-    $bitacora = "INSERT INTO BITACORA(fecha,accion,USUARIO_nit)VALUES ('$fecha','$accion','$nit');";
-    $connect->query($bitacora);
-
-
-
     $connect->close();
     echo json_encode($valid);
 } // /if $_POST

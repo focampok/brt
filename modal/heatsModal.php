@@ -1,31 +1,50 @@
+<?php
+// incluir el archivo de la conexion de datos
+require_once("config/db.php");
+// cargar la clase de login
+require_once("classes/DBMaster.php");
+//instancio el objeto de la clase sql
+$conexion = new DBMaster();
+$conexion->llenarComboCategorias();
+$cadenaCategorias = $conexion->categorias;
+?>
 <!-- AGREGAR CERTIFICACION -->
 <div class="modal fade" id="addCertificacionModal" tabindex="-1" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
 
-            <form class="form-horizontal" id="submitCertificacionForm" action="php_action/createCertificacion.php" method="POST">
+            <form class="form-horizontal" id="submitCertificacionForm" action="php_action/createHeat.php" method="POST">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title"><i class="fa fa-plus"></i> Nuevo Proyecto/Orden</h4>
+                    <h4 class="modal-title"><i class="fa fa-plus"></i> Nuevo Heat</h4>
                 </div>
                 <div class="modal-body">
 
                     <div id="add-certificaciones-messages"></div>
-
+                    	         	        
                     <div class="form-group">
-                        <label for="codCertificacion" class="col-sm-3 control-label">Código </label>
+                        <label for="fechaCertificacion" class="col-sm-3 control-label">Nombre </label>
                         <label class="col-sm-1 control-label">: </label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="codCertificacion" placeholder="Código" name="codCertificacion" required="">
+                            <input type="text" class="form-control" id="fechaCertificacion" placeholder="Nombre" name="fechaCertificacion" required="">
                         </div>
-                    </div> <!-- /form-group-->	         	        
+                    </div> <!-- /form-group-->
                     <div class="form-group">
-                        <label for="fechaCertificacion" class="col-sm-3 control-label">Fecha </label>
+                        <label for="fechaCertificacion" class="col-sm-3 control-label">Vueltas </label>
                         <label class="col-sm-1 control-label">: </label>
                         <div class="col-sm-8">
-                            <input type="date" class="form-control" id="fechaCertificacion" placeholder="Fecha" name="fechaCertificacion" required="">
+                            <input type="text" class="form-control" id="vueltas" placeholder="Vueltas" name="vueltas" required="">
                         </div>
-                    </div> <!-- /form-group-->	         	        
+                    </div> <!-- /form-group-->
+                    <div class="form-group">
+                        <label for="codigoAdicion" class="col-sm-4 control-label">Categoria * </label>
+                        <label class="col-sm-1 control-label">: </label>
+                        <div class="col-sm-7">
+                            <select class="form-control" id="codigoCategoria" name="codigoCategoria">
+                                <?php echo $cadenaCategorias ?>
+                            </select>
+                        </div>
+                    </div> <!-- /form-group-->
 
                 </div> <!-- /modal-body -->
 
@@ -42,20 +61,83 @@
     <!-- /modal-dailog -->
 </div>
 
-<!-- ANULAR CERTIFICACION -->
-<div class="modal fade" tabindex="-1" role="dialog" id="anularCertificacionModal">
+
+<div class="modal fade" id="editHeatModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <form class="form-horizontal" id="editBrandForm" action="php_action/editHeat.php" method="POST">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title"><i class="fa fa-edit"></i> Editar Heat</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div id="edit-brand-messages"></div>
+
+                    <div class="modal-loading div-hide" style="width:50px; margin:auto;padding-top:50px; padding-bottom:50px;">
+                        <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+                        <span class="sr-only">Cargando...</span>
+                    </div>
+
+                    <div class="edit-brand-result">
+                        <div class="form-group">
+                            <label for="editBrandName" class="col-sm-3 control-label">Nombre: </label>
+                            <label class="col-sm-1 control-label">: </label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="nombre" placeholder="Nombre" name="nombre">
+                            </div>
+                        </div> <!-- /form-group-->
+                        <div class="form-group">
+                            <label for="editBrandName" class="col-sm-3 control-label">Vueltass: </label>
+                            <label class="col-sm-1 control-label">: </label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="vvv" placeholder="vueltas" name="vvv">
+                            </div>
+                        </div> <!-- /form-group-->
+                        
+                        <div class="form-group">
+                        <label for="codigoAdicion" class="col-sm-4 control-label">Categoria * </label>
+                        <label class="col-sm-1 control-label">: </label>
+                        <div class="col-sm-7">
+                            <select class="form-control" id="codigoCategoria" name="codigoCategoria">
+                                <?php echo $cadenaCategorias ?>
+                            </select>
+                        </div>
+                    </div> <!-- /form-group-->
+                    </div>         	        
+                    <!-- /edit brand result -->
+
+                </div> <!-- /modal-body -->
+
+                <div class="modal-footer editBrandFooter">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"> <i class="glyphicon glyphicon-remove-sign"></i> Cerrar</button>	        
+                    <button type="submit" class="btn btn-success" id="editBrandBtn" data-loading-text="Loading..." autocomplete="off"> <i class="glyphicon glyphicon-ok-sign"></i> Guardar cambios</button>
+                </div>
+                <!-- /modal-footer -->
+            </form>
+            <!-- /.form -->
+        </div>
+        <!-- /modal-content -->
+    </div>
+    <!-- /modal-dailog -->
+</div>
+
+
+<!-- BORRAR CATEGORIA -->
+<div class="modal fade" tabindex="-1" role="dialog" id="eliminarHeatModal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title"><i class="glyphicon glyphicon-trash"></i> Eliminar Salida</h4>
+                <h4 class="modal-title"><i class="glyphicon glyphicon-trash"></i> Eliminar Heat</h4>
             </div>
             <div class="modal-body">
-                <p> ¿Realmente desea anular la  salida seleccionada ?</p>
+                <p> ¿Realmente desea eliminar el heat seleccionado  y todos sus datos relacionados?</p>
             </div>
             <div class="modal-footer removeBrandFooter">
                 <button type="button" class="btn btn-default" data-dismiss="modal"> <i class="glyphicon glyphicon-remove-sign"></i> Cerrar</button>
-                <button type="button" class="btn btn-primary" id="anularCertificacionBtn" data-loading-text="Loading..."> <i class="glyphicon glyphicon-ok-sign"></i> Guardar cambios</button>
+                <button type="button" class="btn btn-primary" id="eliminarBodegaModalBtn" data-loading-text="Loading..."> <i class="glyphicon glyphicon-ok-sign"></i> Guardar cambios</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

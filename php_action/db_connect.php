@@ -8,7 +8,7 @@
 $localhost = "localhost";
 $username = "root";
 $password = "1234";
-$dbname = "bd_guategas";
+$dbname = "bd_brt";
 
 //$localhost = "localhost";
 //$username = "id4751577_guategas";

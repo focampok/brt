@@ -6,7 +6,7 @@ $estado = $_SESSION['estado'];
 <html>
     <head>
 
-        <title>Inventario GuateGas</title>
+        <title>BRT</title>
 
         <!-- bootstrap -->
         <link rel="stylesheet" href="assests/bootstrap/css/bootstrap.min.css">
@@ -54,21 +54,22 @@ $estado = $_SESSION['estado'];
 
                     <ul class="nav navbar-nav navbar-right">        
 
-<!--                        <li id="navDashboard"><a href="dashboard.php"><i class="glyphicon glyphicon-home"></i> Inicio </a></li>        -->
+                        <li id="navDashboard"><a href="dashboard.php"><i class="glyphicon glyphicon-home"></i> Inicio </a></li>        
 
                         <li id="navDashboard"><a href="registro.php"><i class="glyphicon glyphicon-user"></i> Nuevo Usuario </a></li> 
 
-                        <li id="navBrand"><a href="bodegas.php"><i class="glyphicon glyphicon-compressed"></i> Bodegas </a></li>        
+                        <li id="navBrand"><a href="carreras.php"><i class="glyphicon glyphicon-compressed"></i> Fechas </a></li>        
+                        
+                        <li id="navCertificacion"><a href="categorias.php"> <i class="glyphicon glyphicon-briefcase"></i> Categorias </a></li>  
 
-                        <li id="navCategories"><a href="productos.php"> <i class="glyphicon glyphicon-pushpin"></i> Productos </a></li>        
+                        <li id="navHeat"><a href="heats.php"> <i class="glyphicon glyphicon-pushpin"></i> Heats </a></li>        
 
                         <li id="navIngreso"><a href="ingresos.php"> <i class="glyphicon glyphicon-import"></i> Ingreso a Bodega </a></li> 
 
-                        <li id="navCertificacion"><a href="proyectos.php"> <i class="glyphicon glyphicon-briefcase"></i> Proyectos/Ordenes </a></li>     
+                           
 
                         <?php
-                        if ($estado == 1) {
-                            echo '<li id="navBitacora"><a href="bitacora.php"> <i class="glyphicon glyphicon-bold"></i> Bitacora</a></li>';
+                        if ($estado == 1) {                            
                             echo '<li id="navUsuarios"><a href="usuarios.php"><i class="glyphicon glyphicon-user"></i> Usuarios </a></li> ';
                         }
                         ?>
