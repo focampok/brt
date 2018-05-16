@@ -1,8 +1,8 @@
 <?php require_once 'includes/header.php'; ?>
 
 <?php 
-$nit = $_SESSION['nit'];
-$sql = "SELECT * FROM USUARIO WHERE nit = '$nit'";
+$username = $_SESSION['username'];
+$sql = "SELECT * FROM USUARIO WHERE username = '$username'";
 $query = $connect->query($sql);
 $result = $query->fetch_assoc();
 $connect->close();
@@ -74,7 +74,7 @@ $connect->close();
 
 					  <div class="form-group">
 					    <div class="col-sm-offset-2 col-sm-10">
-					    	<input type="hidden" name="nit" id="nit" value="<?php echo $_SESSION['nit'] ?>" /> 
+					    	<input type="hidden" name="username" id="username" value="<?php echo $_SESSION['username'] ?>" /> 
 					      <button type="submit" class="btn btn-primary"> <i class="glyphicon glyphicon-ok-sign"></i> Guardar cambios </button>
 					      
 					    </div>

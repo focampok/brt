@@ -35,29 +35,19 @@ function obtenerMes($numeroMes) {
 
 if ($_POST) {
 
-    //obtengo el codigo la certificacion
-    $cc = $_POST['codigoBodega'];
+    $codigoPiloto = $_POST['codigoPiloto'];
+    $nombrePiloto = $_POST['nombrePiloto'];
+    $carro = $_POST['carro'];
+    $codCategoria = $_POST['codigoCategoria']; 
 
-    //apago llaves
-    $o = 'SET FOREIGN_KEY_CHECKS = 0';
-    $connect->query($o);
+    $sql = "INSERT INTO PILOTO(codigoPILOTO,nombre,carro,CATEGORIA_codCategoria) VALUES ('$codigoPiloto','$nombrePiloto','$carro','$codCategoria')";
 
-    //elimino todos los registros referentes al heat que esten en esa fecha
-    $r = "DELETE FROM CARRERA WHERE HEAT_codigoHEAT = '$cc'";
-    $connect->query($r);
-
-    //enciendo llaves
-    $e = 'SET FOREIGN_KEY_CHECKS= 1 ';
-    $connect->query($e);
-
-    //elimino la bodega
-    $sql = "DELETE FROM HEAT WHERE codigoHEAT = '$cc'";
     if ($connect->query($sql) === TRUE) {
         $valid['success'] = true;
-        $valid['messages'] = "Heat eliminado correctamente";
+        $valid['messages'] = "Piloto creado exitosamente.";
     } else {
         $valid['success'] = false;
-        $valid['messages'] = "Error no se ha podido eliminar el heat";
+        $valid['messages'] = "Error no se ha podido crear el piloto.";
     }
     $connect->close();
     echo json_encode($valid);

@@ -43,7 +43,7 @@ class DBMaster {
                 // convierto las fila en un objeto
                 $result_row = $result_of_login_check->fetch_object();
                 // guardo la info del USUARIO en variables de sesion
-                $_SESSION['username'] = $result_row->nit;
+                $_SESSION['username'] = $result_row->username;
                 $_SESSION['nombre'] = $result_row->nombre;
 
                 //verifico el tipo de USUARIO, si es admin o normal

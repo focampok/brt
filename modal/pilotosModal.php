@@ -13,31 +13,41 @@ $cadenaCategorias = $conexion->categorias;
     <div class="modal-dialog">
         <div class="modal-content">
 
-            <form class="form-horizontal" id="submitCertificacionForm" action="php_action/createHeat.php" method="POST">
+            <form class="form-horizontal" id="submitCertificacionForm" action="php_action/createPiloto.php" method="POST">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title"><i class="fa fa-plus"></i> Nuevo Heat</h4>
+                    <h4 class="modal-title"><i class="fa fa-plus"></i> Nuevo Piloto</h4>
                 </div>
                 <div class="modal-body">
 
                     <div id="add-certificaciones-messages"></div>
+                    
+                    
+                    <div class="form-group">
+                        <label for="codigoPiloto" class="col-sm-3 control-label"># de Carro </label>
+                        <label class="col-sm-1 control-label">: </label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="codigoPiloto" placeholder="Carro" name="codigoPiloto" required="">
+                        </div>
+                    </div> <!-- /form-group-->
+                    
                     	         	        
                     <div class="form-group">
-                        <label for="fechaCertificacion" class="col-sm-3 control-label">Nombre </label>
+                        <label for="nombrePiloto" class="col-sm-3 control-label">Nombre </label>
                         <label class="col-sm-1 control-label">: </label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="fechaCertificacion" placeholder="Nombre" name="fechaCertificacion" required="">
+                            <input type="text" class="form-control" id="nombrePiloto" placeholder="Nombre" name="nombrePiloto" required="">
                         </div>
                     </div> <!-- /form-group-->
                     <div class="form-group">
-                        <label for="fechaCertificacion" class="col-sm-3 control-label">Vueltas </label>
+                        <label for="carro" class="col-sm-3 control-label">Carro </label>
                         <label class="col-sm-1 control-label">: </label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="vueltas" placeholder="Vueltas" name="vueltas" required="">
+                            <input type="text" class="form-control" id="carro" placeholder="carro" name="carro" required="">
                         </div>
                     </div> <!-- /form-group-->
                     <div class="form-group">
-                        <label for="codigoAdicion" class="col-sm-4 control-label">Categoria * </label>
+                        <label for="codigoCategoria" class="col-sm-4 control-label">Categoria * </label>
                         <label class="col-sm-1 control-label">: </label>
                         <div class="col-sm-7">
                             <select class="form-control" id="codigoCategoria" name="codigoCategoria">
@@ -66,10 +76,10 @@ $cadenaCategorias = $conexion->categorias;
     <div class="modal-dialog">
         <div class="modal-content">
 
-            <form class="form-horizontal" id="editBrandForm" action="php_action/editHeat.php" method="POST">
+            <form class="form-horizontal" id="editBrandForm" action="php_action/editPiloto.php" method="POST">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title"><i class="fa fa-edit"></i> Editar Heat</h4>
+                    <h4 class="modal-title"><i class="fa fa-edit"></i> Editar Piloto</h4>
                 </div>
                 <div class="modal-body">
 
@@ -82,17 +92,24 @@ $cadenaCategorias = $conexion->categorias;
 
                     <div class="edit-brand-result">
                         <div class="form-group">
-                            <label for="editBrandName" class="col-sm-3 control-label">Nombre: </label>
+                            <label for="editBrandName" class="col-sm-3 control-label"># de Carro: </label>
                             <label class="col-sm-1 control-label">: </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="nombre" placeholder="Nombre" name="nombre">
+                                <input type="text" class="form-control" id="codx" placeholder="codigo" name="codx">
                             </div>
                         </div> <!-- /form-group-->
                         <div class="form-group">
-                            <label for="editBrandName" class="col-sm-3 control-label">Vueltas: </label>
+                            <label for="editBrandName" class="col-sm-3 control-label">Nombre: </label>
                             <label class="col-sm-1 control-label">: </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="vvv" placeholder="vueltas" name="vvv">
+                                <input type="text" class="form-control" id="nombrex" placeholder="nombre" name="nombrex">
+                            </div>
+                        </div> <!-- /form-group-->
+                        <div class="form-group">
+                            <label for="editBrandName" class="col-sm-3 control-label">Carro: </label>
+                            <label class="col-sm-1 control-label">: </label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="carrox" placeholder="carro" name="carrox">
                             </div>
                         </div> <!-- /form-group-->
                         
@@ -124,16 +141,16 @@ $cadenaCategorias = $conexion->categorias;
 </div>
 
 
-<!-- BORRAR CATEGORIA -->
+<!-- BORRAR PILOTO -->
 <div class="modal fade" tabindex="-1" role="dialog" id="eliminarHeatModal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title"><i class="glyphicon glyphicon-trash"></i> Eliminar Heat</h4>
+                <h4 class="modal-title"><i class="glyphicon glyphicon-trash"></i> Eliminar Piloto</h4>
             </div>
             <div class="modal-body">
-                <p> ¿Realmente desea eliminar el heat seleccionado  y todos sus datos relacionados?</p>
+                <p> ¿Realmente desea eliminar el piloto seleccionado  y todos sus datos relacionados?</p>
             </div>
             <div class="modal-footer removeBrandFooter">
                 <button type="button" class="btn btn-default" data-dismiss="modal"> <i class="glyphicon glyphicon-remove-sign"></i> Cerrar</button>

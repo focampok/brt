@@ -2,7 +2,7 @@
 
 require_once 'core.php';
 
-$sql = "SELECT nit,nombre,apellido,puesto,DEPARTAMENTO_codigo_departamento FROM USUARIO where tipo != 0";
+$sql = "SELECT nombre,apellido,username FROM USUARIO where tipo != 0";
 $result = $connect->query($sql);
 
 $output = array('data' => array());
@@ -10,7 +10,7 @@ $output = array('data' => array());
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_array()) {
         //obtengo el nit      
-        $nit = $row[0];
+        $nit = $row[2];
         //pintar el boton en base al estado
         // 0 anulada
         // 1 disponible
@@ -24,18 +24,10 @@ if ($result->num_rows > 0) {
         $button.= '<li><a type="button" data-toggle="modal" id="eliminarUsuarioBtn" data-target="#eliminarUsuarioModal" onclick="eliminarUsuario(\'' . $nit . '\')"> <i class="glyphicon glyphicon-ban-circle"></i> Eliminar Usuario </a></li>';
         $button .= '</ul></div>';
 
-
-        $s = "SELECT nombre FROM departamento WHERE codigo_departamento = '$row[4]'";
-        $rs = $connect->query($s);
-        $us = $rs->fetch_array();
-        $nombre = $us[0];
-
         $output['data'][] = array(
             $row[0],
             $row[1],
-            $row[2],
-            $row[3],
-            $nombre,
+            $row[2],            
             $button
         );
     } // /while 

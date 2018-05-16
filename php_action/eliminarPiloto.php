@@ -43,7 +43,7 @@ if ($_POST) {
     $connect->query($o);
 
     //elimino todos los registros referentes al heat que esten en esa fecha
-    $r = "DELETE FROM CARRERA WHERE HEAT_codigoHEAT = '$cc'";
+    $r = "DELETE FROM CARRERA WHERE PILOTO_codigoPILOTO = '$cc'";
     $connect->query($r);
 
     //enciendo llaves
@@ -51,13 +51,13 @@ if ($_POST) {
     $connect->query($e);
 
     //elimino la bodega
-    $sql = "DELETE FROM HEAT WHERE codigoHEAT = '$cc'";
+    $sql = "DELETE FROM PILOTO WHERE codigoPILOTO = '$cc'";
     if ($connect->query($sql) === TRUE) {
         $valid['success'] = true;
-        $valid['messages'] = "Heat eliminado correctamente";
+        $valid['messages'] = "Piloto eliminado correctamente";
     } else {
         $valid['success'] = false;
-        $valid['messages'] = "Error no se ha podido eliminar el heat";
+        $valid['messages'] = "Error no se ha podido eliminar el piloto";
     }
     $connect->close();
     echo json_encode($valid);

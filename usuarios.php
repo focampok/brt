@@ -20,11 +20,10 @@
 				<table class="table" id="manageUsuariosTable">
 					<thead>
 						<tr>							
-							<th>Nit</th>
+							
 							<th>Nombre</th>
                                                         <th>Apellido</th>
-                                                        <th>Puesto</th>
-                                                        <th>Departamento</th>
+                                                        <th>Username</th>
 							<th style="width:15%;">Opciones</th>
 						</tr>
 					</thead>

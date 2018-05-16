@@ -2,7 +2,7 @@ var manageUsuariosTable;
 
 $(document).ready(function () {
     // top bar active
-    $('#navCertificacion').addClass('active');
+    $('#navUsuarios').addClass('active');
 
     // manage brand table
     manageUsuariosTable = $("#manageUsuariosTable").DataTable({

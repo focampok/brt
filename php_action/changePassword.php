@@ -8,9 +8,9 @@ if($_POST) {
 	$currentPassword = $_POST['password'];
 	$newPassword = $_POST['npassword'];
 	$conformPassword = $_POST['cpassword'];
-	$nit = $_SESSION['nit'];
+	$username = $_SESSION['username'];
 
-	$sql ="SELECT * FROM USUARIO WHERE nit = $nit";
+	$sql ="SELECT * FROM USUARIO WHERE username = $username";
 	$query = $connect->query($sql);
 	$result = $query->fetch_assoc();
 
@@ -18,7 +18,7 @@ if($_POST) {
 
 		if($newPassword == $conformPassword) {
 
-			$updateSql = "UPDATE USUARIO SET password = '$newPassword' WHERE nit = '$nit'";
+			$updateSql = "UPDATE USUARIO SET password = '$newPassword' WHERE username = '$username'";
 			if($connect->query($updateSql) === TRUE) {
 				$valid['success'] = true;
 				$valid['messages'] = "Contraseña actualizada exitosamente";		

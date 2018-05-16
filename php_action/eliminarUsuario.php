@@ -14,7 +14,7 @@ if ($_POST) {
     $connect->query($o);
 
     //elimino el USUARIO
-    $d = 'DELETE FROM USUARIO WHERE nit =' . $comilla . $nit . $comilla;
+    $d = 'DELETE FROM USUARIO WHERE username =' . $comilla . $nit . $comilla;
     $connect->query($d);
 
     //enciendo llaves

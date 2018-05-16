@@ -63,10 +63,11 @@ $estado = $_SESSION['estado'];
                         <li id="navCertificacion"><a href="categorias.php"> <i class="glyphicon glyphicon-briefcase"></i> Categorias </a></li>  
 
                         <li id="navHeat"><a href="heats.php"> <i class="glyphicon glyphicon-pushpin"></i> Heats </a></li>        
+                        
+                        <li id="navPiloto"><a href="pilotos.php"> <i class="glyphicon glyphicon-import"></i> Pilotos </a></li>  
 
                         <li id="navIngreso"><a href="ingresos.php"> <i class="glyphicon glyphicon-import"></i> Ingreso a Bodega </a></li> 
-
-                           
+      
 
                         <?php
                         if ($estado == 1) {                            
