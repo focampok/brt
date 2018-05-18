@@ -1,12 +1,12 @@
-var manageBrandTable;
+var tiemposTable;
 
 $(document).ready(function () {
     // top bar active
     $('#navIngreso').addClass('active');
 
     // manage brand table
-    manageIngresoTable = $("#manageIngresoTable").DataTable({
-        'ajax': 'php_action/ordenarOrdenes.php',
+    tiemposTable = $("#tiemposTable").DataTable({
+        'ajax': 'php_action/ordenarTiempos.php',
         'order': []
 
     });
@@ -33,7 +33,7 @@ $(document).ready(function () {
 
                 if (response.success == true) {
                     // reload the manage member table 
-                    manageIngresoTable.ajax.reload(null, false);
+                    tiemposTable.ajax.reload(null, false);
 
                     // reset the form text
                     $("#submitBrandForm")[0].reset();
@@ -106,7 +106,7 @@ function generarOrdenPDF(codCertificacion)
                                 '</div>');
 
                         // reload the manage student table
-                        manageIngresoTable.ajax.reload(null, true);
+                        tiemposTable.ajax.reload(null, true);
                         // remove text-error 
                         $(".text-danger").remove();
                         // remove from-group error
@@ -147,7 +147,7 @@ function eliminarIngreso(id)
                         $('#eliminarIngresoModal').modal('hide');
 
                         // reload the brand table 
-                        manageIngresoTable.ajax.reload(null, false);
+                        tiemposTable.ajax.reload(null, false);
 
                         $('.remove-messages').html('<div class="alert alert-success">' +
                                 '<button type="button" class="close" data-dismiss="alert">&times;</button>' +

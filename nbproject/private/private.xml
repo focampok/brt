@@ -3,9 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/BRT/php_action/eliminarHeat.php</file>
-            <file>file:/C:/xampp/htdocs/BRT/custom/js/heat.js</file>
-            <file>file:/C:/xampp/htdocs/BRT/modal/heatsModal.php</file>
+            <file>file:/C:/xampp/htdocs/BRT/custom/js/tiempo.js</file>
+            <file>file:/C:/xampp/htdocs/BRT/php_action/ordenarTiempos.php</file>
+            <file>file:/C:/xampp/htdocs/BRT/php_action/createTiempo.php</file>
+            <file>file:/C:/xampp/htdocs/BRT/modal/tiemposModal.php</file>
         </group>
     </open-files>
 </project-private>

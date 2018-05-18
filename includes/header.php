@@ -66,7 +66,7 @@ $estado = $_SESSION['estado'];
                         
                         <li id="navPiloto"><a href="pilotos.php"> <i class="glyphicon glyphicon-import"></i> Pilotos </a></li>  
 
-                        <li id="navIngreso"><a href="ingresos.php"> <i class="glyphicon glyphicon-import"></i> Ingreso a Bodega </a></li> 
+                        <li id="navIngreso"><a href="tiempos.php"> <i class="glyphicon glyphicon-import"></i> Tiempos </a></li> 
       
 
                         <?php

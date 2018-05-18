@@ -11,7 +11,10 @@ class DBMaster {
     public $adiciones = "";
     public $USUARIOs = "";
     public $categorias = "";
-    public $actas = "";
+    public $catf = "";
+    public $heatsc = "";
+    public $pilotos = "";
+    public $contadorPilotos = "";
     public $productos = "";
 
     // el contructor de la clase... crea la conexion a la bd.
@@ -414,6 +417,92 @@ class DBMaster {
         $this->db_connection->close();
     } 
     
+    
+    public function obtenerCategorias($codigo) {
+        // verifico la codificacion
+        if (!$this->db_connection->set_charset("utf8")) {
+            $this->info = $this->db_connection->error;
+        }
+
+        // si la conexion no tiene errorres, hago la consulta
+        if (!$this->db_connection->connect_errno) {
+            // realizo la consulta para obtener codigo y nombre del producto.
+            $sql = "SELECT * FROM CATEGORIA WHERE FECHA_codigoFecha ='" . $codigo . "';";
+            $resultado = $this->db_connection->query($sql);
+            // si existen productos
+            if ($resultado->num_rows > 0) {
+                $lista = "0 - seleccionar;";
+                while ($subcuenta = $resultado->fetch_array()) {
+                    $lista .= $subcuenta['codCategoria'] . ' - ' . $subcuenta['nombreCategoria'] . ";";
+                }
+                $this->catf = $lista;
+            }
+        } else {
+            $this->info = "Problema de conexión de base de datos.";
+        }
+        //cierro la conexion.
+        $this->db_connection->close();
+    }
+    
+    
+    
+    
+    public function obtenerHeats($codigo) {
+        // verifico la codificacion
+        if (!$this->db_connection->set_charset("utf8")) {
+            $this->info = $this->db_connection->error;
+        }
+
+        // si la conexion no tiene errorres, hago la consulta
+        if (!$this->db_connection->connect_errno) {
+            // realizo la consulta para obtener codigo y nombre del producto.
+            $sql = "SELECT * FROM HEAT WHERE CATEGORIA_codCategoria ='" . $codigo . "';";
+            $resultado = $this->db_connection->query($sql);
+            // si existen productos
+            if ($resultado->num_rows > 0) {
+                $lista = "0 - seleccionar;";
+                while ($subcuenta = $resultado->fetch_array()) {
+                    $lista .= $subcuenta['codigoHEAT'] . ' - ' . $subcuenta['nombreHEAT'] . ";";
+                }
+                $this->heatsc = $lista;
+            }
+        } else {
+            $this->info = "Problema de conexión de base de datos.";
+        }
+        //cierro la conexion.
+        $this->db_connection->close();
+    }
+    
+    
+     public function obtenerPilotos($codigo) {
+        // verifico la codificacion
+        if (!$this->db_connection->set_charset("utf8")) {
+            $this->info = $this->db_connection->error;
+        }
+
+        // si la conexion no tiene errorres, hago la consulta
+        if (!$this->db_connection->connect_errno) {
+            // realizo la consulta para obtener codigo y nombre del producto.
+            $sql = "SELECT * FROM PILOTO WHERE CATEGORIA_codCategoria ='" . $codigo . "';";
+            $resultado = $this->db_connection->query($sql);
+            // si existen productos
+            if ($resultado->num_rows > 0) {
+                $lista = "";
+                $contador = 0;
+                while ($subcuenta = $resultado->fetch_array()) {
+                    $contador++;
+                    $lista .= $subcuenta['codigoPILOTO'] . ' - ' . $subcuenta['nombre'] . ";";                    
+                }
+                $this->pilotos = $lista;
+                $this->contadorPilotos = $contador;
+                
+            }
+        } else {
+            $this->info = "Problema de conexión de base de datos.";
+        }
+        //cierro la conexion.
+        $this->db_connection->close();
+    }
     
     
     

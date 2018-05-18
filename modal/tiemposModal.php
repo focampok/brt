@@ -5,197 +5,267 @@ require_once("config/db.php");
 require_once("classes/DBMaster.php");
 //instancio el objeto de la clase sql
 $conexion = new DBMaster();
-$conexion->llenarComboProductos();
-$cadenaProductos = $conexion->productos;
+$conexion->llenarComboFechas();
+$cadenaFechas = $conexion->fechas;
 ?>
 
 <div class="modal fade" id="addBrandModel" tabindex="-1" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
 
-            <form class="form-horizontal" id="submitBrandForm" action="php_action/createIngreso.php" method="POST">
+            <form class="form-horizontal" id="submitBrandForm" action="php_action/createTiempo.php" method="POST">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title"><i class="fa fa-plus"></i> Nuevo Ingreso</h4>
+                    <h4 class="modal-title"><i class="fa fa-plus"></i> Nuevo Registro</h4>
                 </div>
                 <div class="modal-body">
 
                     <div id="add-brand-messages"></div>
 
                     <div class="form-group">
-                        <label for="brandName" class="col-sm-3 control-label">Codigo  </label>
+                        <label for="fecha" class="col-sm-4 control-label">Fecha  </label>
                         <label class="col-sm-1 control-label">: </label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" id="codigo" placeholder="Código" name="codigo" autocomplete="off">
+                        <div class="col-sm-7">
+                            <select class="form-control" id="codigoFecha" name="codigoFecha" onchange="obtenerCategorias()">
+                                <option value="">-- Seleccionar --</option> 
+                                <?php echo $cadenaFechas ?>
+                            </select>
                         </div>
-                    </div> 
-                    <div class="form-group">
-                        <label for="fecha" class="col-sm-3 control-label">Fecha </label>
-                        <label class="col-sm-1 control-label">: </label>
-                        <div class="col-sm-8">
-                            <input type="date" class="form-control" id="fecha" placeholder="fecha" name="fecha" >
-                        </div>
-                    </div>                   
-                    
-                    
-                    <!-- /form-group-->	         	        
-                    <div class="form-group">
-                        <label for="brandStatus" class="col-sm-3 control-label">Factura  </label>
-                        <label class="col-sm-1 control-label">: </label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" id="factura" placeholder="Factura" name="factura" autocomplete="off">
-                        </div>
-                    </div> <!-- /form-group-->
+                    </div> <!-- /form-group--> 
 
                     <div class="form-group">
-                        <label for="brandStatus" class="col-sm-3 control-label">Proveedor  </label>
+                        <label for="categoria" class="col-sm-4 control-label">Categoria  </label>
                         <label class="col-sm-1 control-label">: </label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" id="proveedor" placeholder="Proveedor" name="proveedor" autocomplete="off">
+                        <div class="col-sm-7">
+                            <select class="form-control" id="codigoCategoria" name="codigoCategoria" onchange="obtenerHeats();
+                                    obtenerPilotos()" >
+
+                            </select>
                         </div>
-                    </div> <!-- /form-group-->
+                    </div> <!-- /form-group--> 
 
                     <div class="form-group">
-                        <label for="codigoAdicion" class="col-sm-4 control-label">Producto </label>
+                        <label for="heat" class="col-sm-4 control-label">HEAT  </label>
+                        <label class="col-sm-1 control-label">: </label>
+                        <div class="col-sm-7">
+                            <select class="form-control" id="codigoHeat" name="codigoHeat">
+
+                            </select>
+                        </div>
+                    </div> <!-- /form-group--> 
+
+                    <!-- llamada ajax -->
+                    <script>
+                        function obtenerCategorias() {
+                            //obtengo el formulario
+                            oFormObject = document.forms['submitBrandForm'];
+                            //obtengo el codigo del producto...    
+                            var cod = document.getElementById("codigoFecha").value;
+                            $.ajax({
+                                url: 'php_action/obtenerCategorias.php?codigoFecha=' + cod,
+                                complete: function (response) {
+                                    //obtengo el combo
+                                    var z = document.getElementById("codigoCategoria");
+
+                                    //limpio el combo antes de agregar las opciones
+                                    z.options.length = 0;
+
+                                    //obtengo las opciones
+                                    var info = response.responseText;
+                                    //hago un split por cada opcion
+                                    var arr = info.split(";");
+                                    for (x = 0; x < arr.length - 1; x++) {
+                                        //otro split para opcion y nombre
+                                        var arr2 = arr[x].split("-");
+                                        var option = document.createElement("option");
+                                        option.value = arr2[0];
+                                        option.text = arr2[0] + " - " + arr2[1];
+                                        //las agrego...
+                                        z.add(option);
+                                    }
+                                },
+                                error: function () {
+                                    $('#output').html('Imposible obtener datos');
+                                },
+                            });
+                        }
+
+                        function obtenerHeats() {
+                            //obtengo el formulario
+                            oFormObject = document.forms['submitBrandForm'];
+                            //obtengo el codigo del producto...    
+                            var cod = document.getElementById("codigoCategoria").value;
+                            $.ajax({
+                                url: 'php_action/obtenerHeats.php?codigoCategoria=' + cod,
+                                complete: function (response) {
+                                    //obtengo el combo
+                                    var z = document.getElementById("codigoHeat");
+
+                                    //limpio el combo antes de agregar las opciones
+                                    z.options.length = 0;
+
+                                    //obtengo las opciones
+                                    var info = response.responseText;
+                                    //hago un split por cada opcion
+                                    var arr = info.split(";");
+                                    for (x = 0; x < arr.length - 1; x++) {
+                                        //otro split para opcion y nombre
+                                        var arr2 = arr[x].split("-");
+                                        var option = document.createElement("option");
+                                        option.value = arr2[0];
+                                        option.text = arr2[0] + " - " + arr2[1];
+                                        //las agrego...
+                                        z.add(option);
+                                    }
+                                },
+                                error: function () {
+                                    $('#output').html('Imposible obtener datos');
+                                },
+                            });
+                        }
+                    </script>                    
+
+                    <div class="form-group">
+                        <label for="codigoAdicion" class="col-sm-4 control-label">Registro </label>
                         <label class="col-sm-1 control-label">: </label>
                         <div class="col-sm-7">
                             <table id="myTable" class=" table order-list">
                                 <thead>
                                     <tr>
-                                        <td>Codigo</td>
-                                        <td>Cantidad</td>
-                                        <td>Precio</td>
+                                        <td>Piloto</td>
+                                        <td>Vuelta</td>
+                                        <td>Tiempo</td>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td class="col-sm-4">
-                                            <select class="form-control" id="codProd1" name="codProd1">
+                                            <select class="form-control" id="codPiloto1" name="codPiloto1">
                                                 <?php echo $cadenaProductos ?>
                                             </select>
                                         </td>
                                         <td class="col-sm-4">
-                                            <input type="text" id ="cantidad1" name="cantidad1"  class="form-control" />
+                                            <input type="text" id ="vuelta1" name="vuelta1"  class="form-control" />
                                         </td>
                                         <td class="col-sm-3">
-                                            <input type="text" id="precio1" name="precio1"  class="form-control"  />
+                                            <input type="text" id ="tiempo1" name="tiempo1"  class="form-control" />
+                                        </td>                                          
+                                    </tr>
+                                    <tr>
+                                        <td class="col-sm-4">
+                                            <select class="form-control" id="codPiloto2" name="codPiloto2">
+                                                <?php echo $cadenaProductos ?>
+                                            </select>
+                                        </td>
+                                        <td class="col-sm-4">
+                                            <input type="text" id ="vuelta2" name="vuelta2"  class="form-control" />
+                                        </td>
+                                        <td class="col-sm-3">
+                                            <input type="text" id ="tiempo2" name="tiempo2"  class="form-control" />
                                         </td>                                         
                                     </tr>
                                     <tr>
                                         <td class="col-sm-4">
-                                            <select class="form-control" id="codProd2" name="codProd2">
+                                            <select class="form-control" id="codPiloto3" name="codPiloto3">
                                                 <?php echo $cadenaProductos ?>
                                             </select>
                                         </td>
                                         <td class="col-sm-4">
-                                            <input type="text" id ="cantidad2" name="cantidad2"  class="form-control" />
+                                            <input type="text" id ="vuelta3" name="vuelta3"  class="form-control" />
                                         </td>
                                         <td class="col-sm-3">
-                                            <input type="text" id ="precio2" name="precio2"  class="form-control" />
+                                            <input type="text" id ="tiempo3" name="tiempo3"  class="form-control" />
                                         </td>                                         
                                     </tr>
                                     <tr>
                                         <td class="col-sm-4">
-                                            <select class="form-control" id="codProd3" name="codProd3">
+                                            <select class="form-control" id="codPiloto4" name="codPiloto4">
                                                 <?php echo $cadenaProductos ?>
                                             </select>
                                         </td>
                                         <td class="col-sm-4">
-                                            <input type="text" id ="cantidad3" name="cantidad3"  class="form-control" />
+                                            <input type="text" id ="vuelta4" name="vuelta4"  class="form-control" />
                                         </td>
                                         <td class="col-sm-3">
-                                            <input type="text" id ="precio3" name="precio3"  class="form-control" />
+                                            <input type="text" id ="tiempo4" name="tiempo4"  class="form-control" />
                                         </td>                                         
                                     </tr>
                                     <tr>
                                         <td class="col-sm-4">
-                                            <select class="form-control" id="codProd4" name="codProd4">
+                                            <select class="form-control" id="codPiloto5" name="codPiloto5">
                                                 <?php echo $cadenaProductos ?>
                                             </select>
                                         </td>
                                         <td class="col-sm-4">
-                                            <input type="text" id ="cantidad4" name="cantidad4"  class="form-control" />
+                                            <input type="text" id ="vuelta5" name="vuelta5"  class="form-control" />
                                         </td>
                                         <td class="col-sm-3">
-                                            <input type="text" id ="precio4" name="precio4"  class="form-control" />
+                                            <input type="text" id ="tiempo5" name="tiempo5"  class="form-control" />
                                         </td>                                         
                                     </tr>
                                     <tr>
                                         <td class="col-sm-4">
-                                            <select class="form-control" id="codProd5" name="codProd5">
+                                            <select class="form-control" id="codPiloto6" name="codPiloto6">
                                                 <?php echo $cadenaProductos ?>
                                             </select>
                                         </td>
                                         <td class="col-sm-4">
-                                            <input type="text" id ="cantidad5" name="cantidad5"  class="form-control" />
+                                            <input type="text" id ="vuelta6" name="vuelta6"  class="form-control" />
                                         </td>
                                         <td class="col-sm-3">
-                                            <input type="text" id ="precio5" name="precio5"  class="form-control" />
+                                            <input type="text" id ="tiempo6" name="tiempo6"  class="form-control" />
                                         </td>                                         
                                     </tr>
                                     <tr>
                                         <td class="col-sm-4">
-                                            <select class="form-control" id="codProd6" name="codProd6">
+                                            <select class="form-control" id="codPiloto7" name="codPiloto7">
                                                 <?php echo $cadenaProductos ?>
                                             </select>
                                         </td>
                                         <td class="col-sm-4">
-                                            <input type="text" id ="cantidad6" name="cantidad6"  class="form-control" />
+                                            <input type="text" id ="vuelta7" name="vuelta7"  class="form-control" />
                                         </td>
                                         <td class="col-sm-3">
-                                            <input type="text" id ="precio6" name="precio6"  class="form-control" />
+                                            <input type="text" id ="tiempo7" name="tiempo7"  class="form-control" />
                                         </td>                                         
                                     </tr>
                                     <tr>
                                         <td class="col-sm-4">
-                                            <select class="form-control" id="codProd7" name="codProd7">
+                                            <select class="form-control" id="codPiloto8" name="codPiloto8">
                                                 <?php echo $cadenaProductos ?>
                                             </select>
                                         </td>
                                         <td class="col-sm-4">
-                                            <input type="text" id ="cantidad7" name="cantidad7"  class="form-control" />
+                                            <input type="text" id ="vuelta8" name="vuelta8"  class="form-control" />
                                         </td>
                                         <td class="col-sm-3">
-                                            <input type="text" id ="precio7" name="precio7"  class="form-control" />
+                                            <input type="text" id ="tiempo8" name="tiempo8"  class="form-control"  />
                                         </td>                                         
                                     </tr>
                                     <tr>
                                         <td class="col-sm-4">
-                                            <select class="form-control" id="codProd8" name="codProd8">
+                                            <select class="form-control" id="codPiloto9" name="codPiloto9">
                                                 <?php echo $cadenaProductos ?>
                                             </select>
                                         </td>
                                         <td class="col-sm-4">
-                                            <input type="text" id ="cantidad8" name="cantidad8"  class="form-control" />
+                                            <input type="text" id ="vuelta9" name="vuelta9"  class="form-control" />
                                         </td>
                                         <td class="col-sm-3">
-                                            <input type="text" id ="precio8" name="precio8"  class="form-control"  />
+                                            <input type="text" id ="tiempo9" name="tiempo9"  class="form-control" />
                                         </td>                                         
                                     </tr>
                                     <tr>
                                         <td class="col-sm-4">
-                                            <select class="form-control" id="codProd9" name="codProd9">
+                                            <select class="form-control" id="codPiloto10" name="codPiloto10">
                                                 <?php echo $cadenaProductos ?>
                                             </select>
                                         </td>
                                         <td class="col-sm-4">
-                                            <input type="text" id ="cantidad9" name="cantidad9"  class="form-control" />
+                                            <input type="text" id ="vuelta10" name="vuelta10"  class="form-control" />
                                         </td>
                                         <td class="col-sm-3">
-                                            <input type="text" id ="precio9" name="precio9"  class="form-control" />
-                                        </td>                                         
-                                    </tr>
-                                    <tr>
-                                        <td class="col-sm-4">
-                                            <select class="form-control" id="codProd10" name="codProd10">
-                                                <?php echo $cadenaProductos ?>
-                                            </select>
-                                        </td>
-                                        <td class="col-sm-4">
-                                            <input type="text" id ="cantidad10" name="cantidad10"  class="form-control" />
-                                        </td>
-                                        <td class="col-sm-3">
-                                            <input type="text" id ="precio10" name="precio10"  class="form-control" />
+                                            <input type="text" id ="tiempo10" name="tiempo10"  class="form-control" />
                                         </td>                                         
                                     </tr>
                                 </tbody>
@@ -208,9 +278,44 @@ $cadenaProductos = $conexion->productos;
                     </div> <!-- /form-group--> 
 
 
+                    <script>
+                        function obtenerPilotos() {
+                            //obtengo el formulario
+                            oFormObject = document.forms['submitBrandForm'];
+                            //obtengo el codigo del producto...    
+                            var cod = document.getElementById("codigoCategoria").value;
+                            $.ajax({
+                                url: 'php_action/obtenerPilotos.php?codigoCategoria=' + cod,
+                                complete: function (response) {
 
+                                    for (c = 1; c <= 10; c++)
+                                    {
+                                        //obtengo el combo
+                                        var z = document.getElementById("codPiloto" + c);
+                                        //limpio el combo antes de agregar las opciones
+                                        z.options.length = 0;
+                                        //obtengo las opciones
+                                        var info = response.responseText;
+                                        //hago un split por cada opcion
+                                        var arr = info.split(";");
+                                        for (x = 0; x < arr.length - 1; x++) {
+                                            //otro split para opcion y nombre
+                                            var arr2 = arr[x].split("-");
+                                            var option = document.createElement("option");
+                                            option.value = arr2[0];
+                                            option.text = arr2[0] + " - " + arr2[1];
+                                            //las agrego...
+                                            z.add(option);
+                                        }
+                                    }
+                                },
+                                error: function () {
+                                    $('#output').html('Imposible obtener datos');
+                                },
+                            });
+                        }
+                    </script>
                 </div> <!-- /modal-body -->
-
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                     <button type="submit" class="btn btn-primary" id="createBrandBtn" data-loading-text="Loading..." autocomplete="off">Guardar cambios</button>
